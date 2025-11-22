@@ -1,0 +1,101 @@
+﻿rack1,,,,,,Cable Lengths,,,,,,,,,,
+,Front Mounted,Rear Mounted,Order Number,PS 1 ,PS 2,Card Installs,IB Route,IB Length,CAT6 Route,CAT6 Length,25GbE SFP28 Route,25GbE SFP28 Length,100GbE MPO Route,100GbE MPO Length,QSFP112 Route,QSFP112 Length
+OU52,,,,,,,,,,,,,,,,
+OU51,,,,,,,,,,,,,,,,
+OU50,blank,,,,,,,,,,,,,,,
+OU49,blank,,,,,,,,,,,,,,,
+OU48,XE8712 COMPUTE,,,,,,"(1) NDR 2:1 to OU26
+(1) NDR 2:1 to OU25",(2) 2.5M,,,(1) SFP28 to OU03,(1) 3M,,,,
+OU47,XE8712 COMPUTE,,,,,,,,,,(1) SFP28 to OU03,(1) 3M,,,,
+OU46,XE8712 COMPUTE,,,,,,"(1) NDR 2:1 to OU26
+(1) NDR 2:1 to OU25",(2) 2M,,,(1) SFP28 to OU03,(1) 3M,,,,
+OU45,XE8712 COMPUTE,,,,,,,,,,(1) SFP28 to OU03,(1) 3M,,,,
+OU44,XE8712 COMPUTE,,,,,,"(1) NDR 2:1 to OU26
+(1) NDR 2:1 to OU25",(2) 2M,,,(1) SFP28 to OU03,(1) 3M,,,,
+OU43,XE8712 COMPUTE,,,,,,,,,,(1) SFP28 to OU03,(1) 3M,,,,
+OU42,XE8712 + BF3 DPU,,1026350504,,,,"(1) NDR 2:1 to OU26
+(1) NDR 2:1 to OU25",(2) 2M,(1) DPU CAT6 to R2 U24,(1) 20ft,(1) SFP28 to OU03,(1) 3M,,,"(1) DPU to R2 U39, (1) R3 U39",(2) 7M
+OU41,XE8712 + BF3 DPU,,1026350504,,,,,,(1) DPU CAT6 to R2 U24,(1) 20ft,(1) SFP28 to OU03,(1) 3M,,,"(1) DPU to R2 U39, (1) R3 U39",(2) 7M
+OU40,Power Shelf 8,,,,,,,,(1) CAT6 to OU39,(1) 1ft,,,,,,
+OU39,Power Shelf 7,,,,,,,,(1) CAT6 to OU38,(1) 1ft,,,,,,
+OU38,Power Shelf 6,,,,,,,,(1) CAT6 to OU23,(1) 3ft,,,,,,
+OU37,XE8712 COMPUTE,,,,,,"(1) NDR 2:1 to OU26
+(1) NDR 2:1 to OU25",(2) 1.5M,,,(1) SFP28 to OU03,(1) 2.5M,,,,
+OU36,XE8712 COMPUTE,,,,,,,,,,(1) SFP28 to OU03,(1) 2.5M,,,,
+OU35,XE8712 COMPUTE,,,,,,"(1) NDR 2:1 to OU26
+(1) NDR 2:1 to OU25",(2) 1.5M,,,(1) SFP28 to OU03,(1) 2.5M,,,,
+OU34,XE8712 COMPUTE,,,,,,,,,,(1) SFP28 to OU03,(1) 2.5M,,,,
+OU33,XE8712 COMPUTE,,,,,,"(1) NDR 2:1 to OU26
+(1) NDR 2:1 to OU25",(2) 1.5M,,,(1) SFP28 to OU03,(1) 2.5M,,,,
+OU32,XE8712 COMPUTE,,,,,,,,,,(1) SFP28 to OU03,(1) 2.5M,,,,
+OU31,XE8712 COMPUTE,,,,,,"(1) NDR 2:1 to OU26
+(1) NDR 2:1 to OU25",(2) 1.5M,,,(1) SFP28 to OU03,(1) 2.5M,,,,
+OU30,XE8712 COMPUTE,,,,,,,,,,(1) SFP28 to OU03,(1) 2.5M,,,,
+OU29,XE8712 COMPUTE,,,,,,"(1) NDR 2:1 to OU26
+(1) NDR 2:1 to OU25",(2) 1M,,,(1) SFP28 to OU03,(1) 2.5M,,,,
+OU28,XE8712 COMPUTE,,,,,,,,,,(1) SFP28 to OU03,(1) 2.5M,,,,
+OU27,XE8712 COMPUTE,,,,,,"(1) NDR to OU26, (1) NDR to OU25",(1) 1M,,,(1) SFP28 to OU03,(1) 2.5M,,,,
+OU26,QM9700 leaf,,,C15 - to R3 B5,C15 - to R3 B6,(10) MMA4Z00-NS,"(10) NDR to R2 U43, (10) to R3 U43","(10) 7M, (10) 7M",(1) CAT6 to R2 U24,(1) 25ft,,,,,,
+OU25,QM9700 leaf,,,C15 - to R2 B5,C15 - to R2 B5,(10) MMA4Z00-NS,"(10) NDR to R2 U43, (10) to R3 U43","(10) 7M, (10) 7M",(1) CAT6 to R2 U24,(1) 25ft,,,,,,
+OU24,Cross Brace,,,,,407-BBOS - transceiver,,,(1) IRC - CAT6 to OU03,(1) 7ft,,,,,,
+OU23,Power Shelf 5,,,,,,,,(1) CAT6 to OU22,(1) 1ft,,,,,,
+OU22,Power Shelf 4,,,,,,,,(1) CAT6 to OU10,(1) 3ft,,,,,,
+OU21,XE8712 COMPUTE,,,,,,"(1) NDR to OU26, (1) NDR to OU25",(1) 1.5M,,,(1) SFP28 to OU03,(1) 2M,,,,
+OU20,XE8712 COMPUTE,,,,,,"(1) NDR 2:1 to OU26
+(1) NDR 2:1 to OU25",(2) 1.5M,,,(1) SFP28 to OU03,(1) 2M,,,,
+OU19,XE8712 COMPUTE,,,,,,,,,,(1) SFP28 to OU03,(1) 2M,,,,
+OU18,XE8712 COMPUTE,,,,,,"(1) NDR 2:1 to OU26
+(1) NDR 2:1 to OU25",(2) 1.5M,,,(1) SFP28 to OU03,(1) 2M,,,,
+OU17,XE8712 COMPUTE,,,,,,,,,,(1) SFP28 to OU03,(1) 2M,,,,
+OU16,XE8712 COMPUTE,,,,,,"(1) NDR 2:1 to OU26
+(1) NDR 2:1 to OU25",(2) 1.5M,,,(1) SFP28 to OU03,(1) 2M,,,,
+OU15,XE8712 COMPUTE,,,,,,,,,,(1) SFP28 to OU03,(1) 2M,,,,
+OU14,XE8712 COMPUTE,,,,,,"(1) NDR 2:1 to OU26
+(1) NDR 2:1 to OU25",(2) 1.5M,,,(1) SFP28 to OU03,(1) 2M,,,,
+OU13,XE8712 COMPUTE,,,,,,,,,,(1) SFP28 to OU03,(1) 2M,,,,
+OU12,XE8712 COMPUTE,,,,,,"(1) NDR 2:1 to OU26
+(1) NDR 2:1 to OU25",(2) 2M,,,(1) SFP28 to OU03,(1) 2M,,,,
+OU11,XE8712 COMPUTE,,,,,,,,,,(1) SFP28 to OU03,(1) 1M,,,,
+OU10,Power Shelf 3,,,,,,,,(1) CAT6 to OU09,(1) 1ft,,,,,,
+OU9,Power Shelf 2,,,,,,,,(1) CAT6 to OU08,(1) 1ft,,,,,,
+OU8,Power Shelf 1,,,,,407-BBOS - transceiver,,,(1) CAT6 to OU03,(1) 4ft,,,,,,
+OU7,XE8712 COMPUTE,,,,,,"(1) NDR 2:1 to OU26
+(1) NDR 2:1 to OU25",(2) 2M,,,(1) SFP28 to OU03,(1) 1M,,,,
+OU6,XE8712 COMPUTE,,,,,,,,,,(1) SFP28 to OU03,(1) 1M,,,,
+OU5,XE8712 COMPUTE,,,,,,"(1) NDR 2:1 to OU26
+(1) NDR 2:1 to OU25",(2) 2M,,,(1) SFP28 to OU03,(1) 1M,,,,
+OU4,XE8712 COMPUTE,,,,,,,,,,(1) SFP28 to OU03,(1) 1M,,,,
+OU3,S5248F 25GbE,,,C13 - to R2 B5,C13 - to R2 B5,(2) 407-BBWV transceiver,,,(1) CAT6 to R2 U24,(1) 25ft,,,"(1) R2 U42, (1) R3 U42",(2) 10M,,
+OU2,XE8712 COMPUTE,,,,,,"(1) NDR 2:1 to OU26
+(1) NDR 2:1 to OU25",(2) 2.5M,,,(1) SFP28 to OU03,(1) 1M,,,,
+OU1,XE8712 COMPUTE,,,,,,,,,,(1) SFP28 to OU03,(1) 1M,,,,
+Rack Model,,,,,,,,,,,,,,,,
+0,,,,,,,,,,,,,,,,
+Zero OU Space in Rear,,,,,,,,,,,,,,,,
+PDOU Type and Location Looking from Rear,,,,,Whip Location,Connector,Notes,,MGMT Cable Route,MGMT Cable Length,,,,,,
+R1,,,,,,,,,,,R1 and L1 are the vertical mount closest to the equipment.,,,,,
+R2,,,,,,,,,,,,,,,,
+R3,,,,,,,,,,,,,,,,
+R4,,,,,,,,,,,,,,,,
+L1,,,,,,,,,,,,,,,,
+L2,,,,,,,,,,,,,,,,
+L3,,,,,,,,,,,,,,,,
+L4,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,
+,Color Codes,,,,Inter-Rack Cables will go out the TOP of the Rack,,,"Ship rack with IB rack-to-rack cables bundled in top of rack. 
+See IB label tab - ISLs should be bundled following the color coding on the cable labels. Insure that all cable ends are at the same length. Coil any excess half way through the bundle or inside the rack if needed.",,,,,,,,
+,Head Node,,1G Ethernet Switch,,,,,,,,,,,,,
+,Login Node,,10G Ethernet Switch,,,,,,,,,,,,,
+,Compute Node,,Infiniband Switch,,,,,,,,,,,,,
+,GPU Node,,,,,,,,,,,,,,,
+,Big Mem Node,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,
+,PDU 1,,,,,,,,,,,,,,,
+,PDU 2,,,,,,,,,,,,,,,
+,PDU 3,,,,,,,,,,,,,,,
+,PDU 4,,,,,1,,,,,,,,,,
+,,,,,,2,,,,,,,,,,
+,,,,,,3,,,,,,,,,,
+,,,,,,4,,,,,,,,,,

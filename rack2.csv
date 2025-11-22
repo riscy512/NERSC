@@ -1,0 +1,150 @@
+﻿rack2,,,,,,Cable Lengths,,,,,,,,,,
+,Front Mounted,Rear Mounted,Order Number,PS 1 ,PS 2,Card Installs/notes,IB Route,IB Length,CAT6 Route,CAT6 Length,25GbE SFP28 Route,25GbE SFP28 Length,100GbE MPO Route,100GbE MPO Length,QSFP112 Route,QSFP112 Length
+U52,,,,,,,,,,,,,,,,
+U51,,,,,,,,,,,,,,,,
+U50,,,,,,,,,,,,,,,,
+U49,,,,,,,,,,,,,,,,
+U48,blank,,,,,,,,,,,,,,,
+U47,blank,,,,,,,,,,,,,,,
+U46,blank,,,,,,,,,,,,,,,
+U45,,S5232F BRDR leaf,NERSC provided,C13 - Bank 4,C13 - Bank 6,,,,,,,,,,,
+U44,blank,,,,,,,,,,,,,,,
+U43,,QM9700 spine,,C15 - Bank 6,C15 - Bank 6,(20) MMA4Z00-NS,,,(1) CAT6 to U24,(1) 5ft,,,,,,
+U42,Geist SwitchAir duct,S5232F - spine,,C13 - Bank 6,C13 - Bank 6,(7) 407-BBWV transceiver,,,(1) CAT6 to U24,(1) 10ft,,,,,,
+U41,blank,,,,,,,,,,,,,,,
+U40,SN5600 GW Switch,,,C19 - Bank 6,C19 - Bank 6,ports face forward,,,(1) CAT6 to U24,(1) 8ft,(1) SFP28 to U22,(1) 3M,,,,
+U39,,,,,,,,,,,,,,,,
+U38,blank,,,,,,,,,,,,,,,
+U37,HDR Skyway GW,,NERSC provided,C13 - Bank 6,C13 - Bank 6,407-BBOS - use transceiver in U22,"(4) to R2 U26 NDR/EDR PCC
+(4) to R3 U26 NDR/EDR PCC","(4) 3M
+(4) 5M","(1) CAT6 to U24 - LAN1
+(1) CAT6 to U22 - LAN4","(1) 5ft
+(1) 6ft",,,"(4) to R2 U39 200GbE
+(4) to R3 U39 200GbE","(4) 1.5M
+(4) 5M",,
+U36,,,,,,,,,,,,,,,,
+U35,R7715 WEN DPU,,1025639378,C13 - Bank 6,C13 - Bank 6,,(1) NDR 2:1 to U26,(1) 1.5M,(1) DPU CAT6 to U24,(1) 4ft,(1) SFP28 to U22,(1) 2M,,,"(1) DPU to R2 U39
+(1) DPU to R3 U39","(1) 5M
+(1) 5M"
+U34,,,,,,,,,,,,,,,,
+U33,R6715 OMNIA SFM,,1024553476,C13 - Bank 5,C13 - Bank 5,,(1) NDR 2:1 to U26,(1) 1.5M,,,(1) SFP28 to U22,(1) 2M,,,,
+U32,R6715 OMNIA UFM,,1024553476,C13 - Bank 5,C13 - Bank 5,,,,,,(1) SFP28 to U22,(1) 2M,,,,
+U31,R6715 OMNIA OME,,1024553477,C13 - Bank 5,C13 - Bank 5,,(1) NDR 2:1 to U26,(1) 1.5M,,,(1) SFP28 to U22,(1) 2M,,,,
+U30,R6715 OMNIA Scheduler,,1024553569,C13 - Bank 5,C13 - Bank 5,,,,,,(1) SFP28 to U22,(1) 2M,,,,
+U29,R6715 OMNIA SS,,1024553476,C13 - Bank 4,C13 - Bank 4,,(1) NDR 2:1 to U26,(1) 1.5M,,,(1) SFP28 to U22,(1) 2M,,,,
+U28,R6715 OMNIA IM,,1024553476,C13 - Bank 4,C13 - Bank 4,,,,,,(1) SFP28 to U22,(1) 2M,,,,
+U27,blank,,,,,,,,,,,,,,,
+U26,,QM9700 leaf,,C15 - Bank 4,C15 - Bank 4,(10) MMA4Z00-NS,"(10) NDR to R2 U43, (10) to R3 U43","(10) 3M, (10) 5M",(1) CAT6 to U24,(1) 2ft,,,,,,
+U25,blank,,,,,,,,,,,,,,,
+U24,Geist SwitchAir duct,S3248T OOB SW,,C13 - Bank 4,C13 - Bank 4,,,,,,,,,,,
+U23,blank,,,,,,,,,,,,,,,
+U22,Geist SwitchAir duct,S5248F 25G admin,,C13 - Bank 4,C13 - Bank 4,(2) 407-BBWV transceiver,,,(1) CAT6 to U24,(1) 7ft,,,"(1) R2 U42, (1) R3 U42","(1) 3M, (1) 5M",,
+U21,"ME5224
+block storage",,,C13 - Bank 3,C13 - Bank 3,(2) 407-BBOS - use transceiver in U22,,,(2) CAT6 to U22,(2) 3ft,"(4) SFP28 to R2 U22
+(4) SFP28 to R3 U22","(4) 1M
+(4) 7M",,,,
+U20,,,,,,,,,,,,,,,,
+U19,blank,,,,,,,,,,,,,,,
+U18,Geist SwitchAir duct,S5232F - PS backend,,C13 - Bank 3,C13 - Bank 3,(8) 407-BBWV transceiver,,,(1) CAT6 to U24,(1) 7ft,,,,,,
+U17,Geist SwitchAir duct,S5232F - PS backend,,C13 - Bank 3,C13 - Bank 3,(8) 407-BBWV transceiver,,,(1) CAT6 to U24,(1) 7ft,,,,,,
+U16,"PowerScale
+4x H710",,,C13 - PS1 - Bank 3,C13 - PS3 - Bank 3,"(4) 407-BBOS - use transceiver in U22
+(16) 407-BBWV - transceivers for MPO",,,(4) CAT6 to U22,"(2) 4ft
+(2) 5ft",,,"(4) to U17
+(4) to U18
+(4) to U42
+(4) to R3 U42","(4) 1M
+(4) 1M
+(4) 3M
+(4) 5M,",,
+U15,,,,,,,,,,,,,,,,
+U14,,,,C13 - PS2 - Bank 3,C13 - PS4 - Bank 3,,,,,,,,,,,
+U13,,,,,,,,,,,,,,,,
+U12,blank,,,,,,,,,,,,,,,
+U11,Geist SwitchAir duct,S3248T PSS Admin,,C13 - Bank 2,C13 - Bank 2,,,,(1) CAT6 to U24,(1) 4ft,,,,,,
+U10,IBM EMS 5149-23E,,,C13 - Bank 2,C13 - Bank 2,,"(1) NDR200 2:1 to U26
+(1) NDR200 2:1 to R3 U26","(1) 3M, (1) 7M",(3) to U11,(3) 3ft,,,,,,
+U9,,,,,,,,,,,,,,,,
+U8,"IBM ESS6000
+SSC 5149-F48",U07,,C13 - PS1 - Bank 2,C13 - PS3 - Bank 2,,"(1) NDR200 2:1 to U26
+(1) NDR200 2:1 to R3 U26","(1) 3M, (1) 7M",(2) to U11,(2) 3ft,,,,,,
+U7,,,,,,,,,,,,,,,,
+U6,,U05,,C13 - PS2 - Bank 2,C13 - PS4 - Bank 2,,"(1) NDR200 2:1 to U26
+(1) NDR200 2:1 to R3 U26","(1) 3M, (1) 7M",(2) to U11,(2) 4ft,,,,,,
+U5,,,,,,,,,,,,,,,,
+U4,"IBM ESS6000
+SSC 5149-F48",U03,,C13 - PS1 - Bank 1,C13 - PS3 - Bank 1,,"(1) NDR200 2:1 to U26
+(1) NDR200 2:1 to R3 U26","(1) 3M, (1) 7M",(2) to U11,(2) 4ft,,,,,,
+U3,,,,,,,,,,,,,,,,
+U2,,U01,,C13 - PS2 - Bank 1,C13 - PS4 - Bank 1,,"(1) NDR200 2:1 to U26
+(1) NDR200 2:1 to R3 U26","(1) 3M, (1) 7M",(2) to U11,(2) 5ft,,,,,,
+U1,,,,,,,,,,,,,,,,
+Rack Model,,,,,,,,,,,,,,,,
+0,,,,,,,,,,,,,,,,
+Zero U Space in Rear,,,,,,,,,,,,,,,,
+PDU Type and Location Looking from Rear,,,,,Whip Location,Connector,Notes,,MGMT Cable Route,MGMT Cable Length,,,,,,
+R1,,,,,,,,,,,R1 and L1 are the vertical mount closest to the equipment.,,,,,
+R2,,,,,,,,,,,,,,,,
+R3,C3WG36RLDQJE2MT2 PDU - R2,,,,Down,IEC 60309 208V 3Ø 60A,(18) C13 + (18) Cx,,(1) CAT6 from PDU R4,(1) 1ft,,,,,,
+R4,C3WG36RLDQJE2MT2 PDU - R1,,,,Down,IEC 60309 208V 3Ø 60A,(18) C13 + (18) Cx,,(1) CAT6 from PDU L4,(1) 4ft,,,,,,
+L1,,,,,,,,,,,,,,,,
+L2,,,,,,,(18) C13 + (18) Cx,,,,,,,,,
+L3,C3WG36RLDQJE2MT2 PDU - L2,,,,Down,IEC 60309 208V 3Ø 60A,(18) C13 + (18) Cx         407-BBOS - use transceiver in U22,,(1) CAT6 to U22,(1) 3ft,,,,,,
+L4,C3WG36RLDQJE2MT2 PDU - L1,,,,Down,IEC 60309 208V 3Ø 60A,(18) C13 + (18) Cx,,(1) CAT6 from PDU L3,(1) 1ft,,,,,,
+,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,
+,Color Codes,,,,Inter-Rack Cables will go out the TOP of the Rack,,,"Ship rack with IB rack-to-rack cables bundled in top of rack. 
+See IB label tab - ISLs should be bundled following the color coding on the cable labels. Insure that all cable ends are at the same length. Coil any excess half way through the bundle or inside the rack if needed.",,,,,,,,
+,Head Node,,1G Ethernet Switch,,,,,,,,,,,,,
+,Login Node,,10G Ethernet Switch,,,,,,,,,,,,,
+,Compute Node,,Infiniband Switch,,,,,,,,,,,,,
+,GPU Node,,,,,,,,,,,,,,,
+,Big Mem Node,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,
+,PDU 1,,,,,,,,,,,,,,,
+,PDU 2,,,,,,,,,,,,,,,
+,PDU 3,,,,,,,,,,,,,,,
+,PDU 4,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,

@@ -1,0 +1,5 @@
+S3248T:Dell EMC PowerSwitch S3248T-ON:Top-of-Rack (ToR) fixed-form factor 1GbE/10GbE copper switch:48 × 1GBASE-T (RJ-45) ports - 6 × 10GbE SFP+ uplinks
+S5232F:Dell EMC PowerSwitch S5232F-ON:High-performance 32-port 100GbE ToR/Spine switch:32 × QSFP28 ports (40/100GbE capable; some breakouts supported):
+S5248F:Dell EMC PowerSwitch S5248F-ON:Flexible and high-density 48-port 25GbE ToR leaf switch:48 × 25GbE SFP28 ports - 4 or 6 × 100GbE QSFP28 uplinks
+QM9700:NVIDIA Quantum-2 NDR IB switch:Quantum-2 NDR InfiniBand director-class switch:64 × NDR (400 Gb/s) InfiniBand ports:
+SN3700:NVIDIA Spectrum SN3700:Spectrum 200GbE Data-Center Switch - Spectrum3-ASIC:32 × QSFP56 ports:
