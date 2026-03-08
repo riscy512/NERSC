@@ -1,370 +1,73 @@
 #!/usr/bin/env python3
 """
-Generate an /etc/hosts-compliant file from eas/ips.csv.
-
-Each row is a host; columns are interfaces/networks. Each IP gets a
-per-interface hostname (e.g. node-eth1, node-ib0, node-idrac). The first
-Cluster Admin column is the node's primary hostname (NodeName) with xName
-and Notes as aliases. InfiniBand is split into Public and Private sections.
-See NETWORKS for (section, header, interface_suffix) mapping.
+Backward-compatible wrapper: parses -H -o -g and calls omniaHosts module.
+Prefer: omniactl hosts, omniactl genders.
 """
 
-import csv
-import re
 import sys
 from pathlib import Path
 
-from xname import get_node_xname, parse_xname
-
-class autoDict(dict):
-    """Hash-of-hashes helper (Perl nostalgia)."""
-
-    def __missing__(self, key):
-        value = self[key] = type(self)()
-        return value
-    
-# Cluster index for hosts and future query lookups.
-# All dictionary keys and stored node_name/hostname values are WITHOUT the domain
-# (nodeName only); use nodeNameWithDomain / hostnameWithDomain for FQDN output.
-#   hosts.byNode[node_name]     -> networks, IPs, names, xname_parsed, nodeNameWithDomain
-#   hosts.by_xname[node_xname]  -> node_name (canonical xName -> display name)
-#   hosts.byHostname[hostname]  -> node_name, hostname, hostnameWithDomain, network, ip, names
-#   hosts.byIP[ip]              -> node_name, hostname, network, suffix, names
-#   racks[rack_id][node_name]   -> True (nodes in that rack; keys = node names)
-# Expand with by_component_type, etc., as needed.
-cluster = autoDict()
-
-# Domain for FQDN-style host entries (nodeName.domain, xName.domain lead each line)
-DOMAIN = "cech.nersc.gov"
-
-# IPv4 pattern (simple: four octets)
-IPv4_RE = re.compile(r"^\s*(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})\s*$")
-
-# Columns we never treat as IPs
-NON_IP_COLUMNS = {
-    "NodeName",
-    "NodePurpose",
-    "Node Instance",
-    "xName",
-    "Rack Number",
-    "uPos",
-    "Notes",
-}
-
-# Network definitions: (section_label, [(CSV column header, interface_suffix), ...]).
-# interface_suffix: None = node's primary hostname (Cluster Admin first only); else e.g. "eth1", "ib0".
-# Per-IP hostname = node_name if suffix is None else f"{node_name}-{suffix}".
-# Order of (header, suffix) defines section order and #1, #2, etc. within a network.
-NETWORKS = [
-    # Cluster Admin: first = node hostname; #2→eth1, #3→eth2, #4→eth3
-    ("Cluster Admin", [
-        ("Cluster Admin Network", None),
-        ("Cluster Admin Network #2", "eth1"),
-        ("Cluster Admin Network #3", "eth2"),
-        ("Cluster Admin Network #4", "eth3"),
-    ]),
-    # iDrac: first = idrac
-    ("iDrac", [
-        ("iDrac Network (iDrac)", "idrac"),
-        ("iDrac Network (Local)", "idrac2"),
-    ]),
-    # InfiniBand: Public and Private sections; Private #1→ib0, #2→ib1, #3→ib2, #4→ib3
-    ("InfiniBand Public", [
-        ("InfiniBand (Public)", "ibpub"),
-    ]),
-    ("InfiniBand Private", [
-        ("InfiniBand ib0 (Private)", "ib0"),
-        ("InfiniBand ib0 #2(Private)", "ib1"),
-        ("InfiniBand ib1 (Private)", "ib2"),
-        ("InfiniBand ib1 #2(Private)", "ib3"),
-    ]),
-    # Switch Management: first = swmgt, second = swmgt1
-    ("Switch Management", [
-        ("Switch Management Network", "swmgt"),
-        ("Switch Management Network #2", "swmgt1"),
-    ]),
-    # PowerScale Admin: first = psadm, #2→psadm2, #3→psadm3, #4→psadm4
-    ("PowerScale Admin", [
-        ("PowerScale Admin Network #1", "psadm"),
-        ("PowerScale Admin Network #2", "psadm2"),
-        ("PowerScale Admin Network #3", "psadm3"),
-        ("PowerScale Admin Network #4", "psadm4"),
-    ]),
-    # PowerScale Storage: first = psstg, #2→psstg2, #3→psstg3, #4→psstg4
-    ("PowerScale Storage", [
-        ("PowerScale Storage Network #1", "psstg"),
-        ("PowerScale Storage Network #2", "psstg2"),
-        ("PowerScale Storage Network #3", "psstg3"),
-        ("PowerScale Storage Network #4", "psstg4"),
-    ]),
-    # Side Door: first = sdr
-    ("Side Door", [
-        ("Side Door Network", "sdr"),
-    ]),
-]
-
-
-def _header_to_info_map():
-    """Map CSV column header -> (section_label, interface_suffix). Unlisted columns -> ('Other', None)."""
-    out = {}
-    for label, pairs in NETWORKS:
-        for h, suffix in pairs:
-            out[h] = (label, suffix)
-    return out
-
-
-def is_valid_ip(val):
-    if not val or not isinstance(val, str):
-        return None
-    val = val.strip()
-    if not val:
-        return None
-    m = IPv4_RE.match(val)
-    if not m:
-        return None
-    # basic octet check
-    try:
-        parts = [int(x) for x in m.group(1).split(".")]
-        if all(0 <= p <= 255 for p in parts):
-            return m.group(1).strip()
-    except ValueError:
-        pass
-    return None
-
-
-def write_genders(cluster, filepath=None):
-    """
-    Write a pdsh genders file from the cluster index.
-
-    Genders entries use ONLY node names without domain names (same as cluster
-    lookup keys). One line per node: node_name NodePurpose x{rack_id}
-    (e.g. nid0001 compute x7000). Uses NodePurpose from ips.csv and rack_id
-    from parsed xName. Nodes without a rack_id get only node_name and NodePurpose.
-    """
-    lines = []
-    for node_name in sorted(cluster.get("hosts", {}).get("byNode", {})):
-        node_data = cluster["hosts"]["byNode"][node_name]
-        purpose = node_data.get("NodePurpose") or "unknown"
-        attrs = [purpose]
-        xname_parsed = node_data.get("xname_parsed")
-        if xname_parsed and xname_parsed.get("rack_id") is not None:
-            attrs.append(f"x{xname_parsed['rack_id']}")
-        line = f"{node_name} {' '.join(attrs)}\n"
-        lines.append(line)
-    out = "".join(lines)
-    if filepath is None:
-        return out
-    Path(filepath).write_text(out, encoding="utf-8")
-    return out
-
+# Add script dir for imports
+SCRIPT_DIR = Path(__file__).resolve().parent
+if str(SCRIPT_DIR) not in sys.path:
+    sys.path.insert(0, str(SCRIPT_DIR))
 
 def main():
-    script_dir = Path(__file__).resolve().parent
-    csv_path = script_dir / "ips.csv"
-    if not csv_path.exists():
-        print("ips.csv not found", file=sys.stderr)
+    from omniaHosts import load_cluster, write_hosts, write_genders, IPReuseError
+
+    csv_path = SCRIPT_DIR / "ips.csv"
+    getOpts = {"hosts": False, "hosts_path": None, "genders": False, "genders_path": None}
+    argv = sys.argv[1:]
+    i = 0
+    while i < len(argv):
+        arg = argv[i]
+        if arg == "-H":
+            getOpts["hosts"] = True
+        elif arg == "-o":
+            getOpts["hosts"] = True
+            if i + 1 < len(argv) and not argv[i + 1].startswith("-"):
+                getOpts["hosts_path"] = Path(argv[i + 1])
+                i += 1
+            else:
+                getOpts["hosts_path"] = SCRIPT_DIR / "hosts"
+        elif arg == "-g":
+            getOpts["genders"] = True
+            if i + 1 < len(argv) and not argv[i + 1].startswith("-"):
+                getOpts["genders_path"] = Path(argv[i + 1])
+                i += 1
+            else:
+                getOpts["genders_path"] = SCRIPT_DIR / "genders"
+        i += 1
+
+    try:
+        cluster, ip_to_data = load_cluster(csv_path)
+    except FileNotFoundError as e:
+        print(f"{e}", file=sys.stderr)
         sys.exit(1)
-
-    # IP -> {node_name, names, network, suffix}; one host per IP (first row wins)
-    ip_to_data = {}
-    header_to_info = _header_to_info_map()
-    ip_reuse_errors = []  # same IP seen for different host/interface
-
-    with open(csv_path, newline="", encoding="utf-8") as f:
-        reader = csv.reader(f)
-        header = next(reader)
-        # map header name -> index (handle duplicates by taking first)
-        col_index = {h.strip(): i for i, h in enumerate(header)}
-        # strip trailing comma from last header if present
-        for k in list(col_index):
-            if k.endswith(","):
-                col_index[k.rstrip(",")] = col_index.pop(k)
-
-        idx_node = col_index.get("NodeName")
-        idx_xname = col_index.get("xName")
-        idx_notes = col_index.get("Notes")
-        idx_node_purpose = col_index.get("NodePurpose")
-        if idx_node is None:
-            print("NodeName column not found", file=sys.stderr)
-            sys.exit(1)
-
-        # IP columns: (index, header_name) for network lookup
-        ip_cols = []
-        for i, h in enumerate(header):
-            name = h.strip().rstrip(",")
-            if name not in NON_IP_COLUMNS and i not in (idx_node, idx_xname, idx_notes):
-                if idx_notes is not None and i == idx_notes:
-                    continue
-                ip_cols.append((i, name))
-
-        for row in reader:
-            if len(row) <= idx_node:
-                continue
-            node_name = (row[idx_node] or "").strip()
-            if not node_name:
-                continue
-
-            names = [node_name]
-            if idx_xname is not None and idx_xname < len(row):
-                xname = (row[idx_xname] or "").strip()
-                if xname and xname not in names:
-                    names.append(xname)
-
-            # Parse xName for future lookups by rack, node xname, component type
-            primary_xname = (row[idx_xname] or "").strip() if idx_xname is not None and idx_xname < len(row) else ""
-            if not primary_xname:
-                primary_xname = node_name
-            node_purpose = ""
-            if idx_node_purpose is not None and idx_node_purpose < len(row):
-                node_purpose = (row[idx_node_purpose] or "").strip()
-            cluster["hosts"]["byNode"][node_name]["NodePurpose"] = node_purpose or "unknown"
-            cluster["hosts"]["byNode"][node_name]["nodeNameWithDomain"] = f"{node_name}.{DOMAIN}"
-
-            xname_parsed = parse_xname(primary_xname)
-            if xname_parsed:
-                cluster["hosts"]["byNode"][node_name]["xname_parsed"] = xname_parsed
-                node_xname = xname_parsed.get("node_xname")
-                rack_id = xname_parsed.get("rack_id")
-                if node_xname:
-                    cluster["hosts"]["by_xname"][node_xname] = node_name
-                if rack_id is not None:
-                    cluster["racks"][rack_id][node_name] = True
-            # Notes: header may be "Notes" with data in same or next (trailing-comma) column
-            note = ""
-            if idx_notes is not None and idx_notes < len(row):
-                note = (row[idx_notes] or "").strip().rstrip(",")
-            if not note and len(row) > 0:
-                last = (row[-1] or "").strip().rstrip(",")
-                if last and not is_valid_ip(last):
-                    note = last
-            if note and note not in names:
-                names.append(note)
-
-            for i, col_name in ip_cols:
-                if i >= len(row):
-                    continue
-                ip = is_valid_ip(row[i])
-                if not ip:
-                    continue
-                network, suffix = header_to_info.get(col_name, ("Other", None))
-                if ip not in ip_to_data:
-                    ip_to_data[ip] = {
-                        "node_name": node_name,
-                        "names": list(names),
-                        "network": network,
-                        "suffix": suffix,
-                    }
-                    hostname = node_name if (suffix is None or suffix == "") else f"{node_name}-{suffix}"
-                    cluster["hosts"]["byNode"][node_name]["network"][network]["hostname"] = hostname
-                    cluster["hosts"]["byNode"][node_name]["network"][network]["hostnameWithDomain"] = f"{hostname}.{DOMAIN}"
-                    cluster["hosts"]["byNode"][node_name]["network"][network]["ip"]=ip
-                    cluster["hosts"]["byNode"][node_name]["network"][network]["suffix"]=suffix
-                    cluster["hosts"]["byNode"][node_name]["network"][network]["names"]=names
-                    cluster["hosts"]["byHostname"][hostname]["node_name"]=node_name
-                    cluster["hosts"]["byHostname"][hostname]["hostname"]=hostname
-                    cluster["hosts"]["byHostname"][hostname]["hostnameWithDomain"]=f"{hostname}.{DOMAIN}"
-                    cluster["hosts"]["byHostname"][hostname]["network"]=network
-                    cluster["hosts"]["byHostname"][hostname]["ip"]=ip
-                    cluster["hosts"]["byHostname"][hostname]["names"]=names
-                    cluster["hosts"]["byIP"][ip]["node_name"]=node_name
-                    cluster["hosts"]["byIP"][ip]["hostname"]=hostname
-                    cluster["hosts"]["byIP"][ip]["network"]=network
-                    cluster["hosts"]["byIP"][ip]["suffix"]=suffix
-                    cluster["hosts"]["byIP"][ip]["names"]=names
-#                    print ("A", cluster["hosts"]["byNode"][node_name])
-#                    print ("B", cluster["hosts"]["byHostname"][hostname])
-                else:
-                    # Check for IP reuse: same IP assigned to a different host or interface
-                    existing = ip_to_data[ip]
-                    if (existing["node_name"] != node_name or
-                            existing["network"] != network or
-                            existing["suffix"] != suffix):
-                        host_cur = node_name if (suffix is None or suffix == "") else f"{node_name}-{suffix}"
-                        host_ex = existing["node_name"] if (existing["suffix"] is None or existing["suffix"] == "") else f"{existing['node_name']}-{existing['suffix']}"
-                        ip_reuse_errors.append({
-                            "ip": ip,
-                            "first_host": host_ex,
-                            "first_names": existing["names"],
-                            "first_network": existing["network"],
-                            "also_host": host_cur,
-                            "also_names": names,
-                            "also_network": network,
-                        })
-
-    if ip_reuse_errors:
+    except ValueError as e:
+        print(f"{e}", file=sys.stderr)
+        sys.exit(1)
+    except IPReuseError as e:
         print("WARNING: IP address re-use detected (same IP, different host/interface).", file=sys.stderr)
-        for err in ip_reuse_errors:
+        for err in e.errors:
             print(f"  Conflicting IP: {err['ip']}", file=sys.stderr)
             print(f"    first: {err['first_host']} ({err['first_network']})  names: {', '.join(err['first_names'])}", file=sys.stderr)
             print(f"    also:  {err['also_host']} ({err['also_network']})  names: {', '.join(err['also_names'])}", file=sys.stderr)
-        print(f"Total: {len(ip_reuse_errors)} re-use(s).", file=sys.stderr)
+        print(f"Total: {len(e.errors)} re-use(s).", file=sys.stderr)
         sys.exit(5)
 
-    # Emit /etc/hosts format: sections by network; each IP gets interface-specific hostname
-    network_order = [label for label, _ in NETWORKS] + ["Other"]
-    ip_sort_key = lambda x: tuple(map(int, x.split(".")))
-
-    lines = [
-        "# Generated from ips.csv - per-interface hostnames",
-        f"# Domain: {DOMAIN}",
-        "# Primary line order: nodeName.domain, xName.domain, nodeName, xName, Notes.",
-        "# Other lines: hostname.domain, hostname (e.g. node-eth1, node-ib0).",
-        "#",
-    ]
-    for net_label in network_order:
-        ips_in_net = [ip for ip, data in ip_to_data.items() if data["network"] == net_label]
-        if not ips_in_net:
-            continue
-        lines.append(f"# --- {net_label} ---")
-        lines.append("")
-        for ip in sorted(ips_in_net, key=ip_sort_key):
-            data = ip_to_data[ip]
-            node_name = data["node_name"]
-            names = data["names"]
-            suffix = data["suffix"]
-            if suffix is None or suffix == "":
-                hostname = node_name
-                # Primary IP: lead with nodeName.domain, xName.domain, nodeName, xName; then Notes
-                node_xname = None
-                node_data = cluster.get("hosts", {}).get("byNode", {}).get(node_name, {})
-                xp = node_data.get("xname_parsed")
-                if xp:
-                    node_xname = xp.get("node_xname")
-                parts = [ip, f"{hostname}.{DOMAIN}"]
-                if node_xname:
-                    parts.append(f"{node_xname}.{DOMAIN}")
-                parts.append(hostname)
-                if node_xname:
-                    parts.append(node_xname)
-                for n in names:
-                    if n and n != node_name and n != (node_xname or ""):
-                        parts.append(n)
-                parts = [str(p) for p in parts]
-            else:
-                hostname = f"{node_name}-{suffix}"
-                parts = [ip, f"{hostname}.{DOMAIN}", hostname]
-            lines.append("\t".join(parts))
-        lines.append("")
-
-    out = "\n".join(lines).rstrip() + "\n"
-
-    if len(sys.argv) > 1 and sys.argv[1] == "-o":
-        out_path = Path(sys.argv[2]) if len(sys.argv) > 2 else script_dir / "hosts"
-        out_path.write_text(out, encoding="utf-8")
-        print(f"Wrote {len(ip_to_data)} entries to {out_path}", file=sys.stderr)
-    else:
-        print(out, end="")
-
-    # Optional: write pdsh genders file (NodePurpose + rack_id per node)
-    if "-g" in sys.argv:
-        gidx = sys.argv.index("-g")
-        gpath = None
-        if gidx + 1 < len(sys.argv) and not sys.argv[gidx + 1].startswith("-"):
-            gpath = Path(sys.argv[gidx + 1])
+    if getOpts["hosts"]:
+        out = write_hosts(cluster, ip_to_data, path=getOpts["hosts_path"])
+        if getOpts["hosts_path"] is not None:
+            print(f"Wrote {len(ip_to_data)} entries to {getOpts['hosts_path']}", file=sys.stderr)
         else:
-            gpath = script_dir / "genders"
-        write_genders(cluster, gpath)
-        print(f"Wrote genders ({len(cluster.get('hosts', {}).get('byNode', {}))} nodes) to {gpath}", file=sys.stderr)
+            print(out, end="")
+
+    if getOpts["genders"]:
+        gpath = getOpts["genders_path"] if getOpts["genders_path"] is not None else SCRIPT_DIR / "genders"
+        write_genders(cluster, filepath=gpath)
+        n = len(cluster.get("hosts", {}).get("byNode", {}))
+        print(f"Wrote genders ({n} nodes) to {gpath}", file=sys.stderr)
 
 
 if __name__ == "__main__":

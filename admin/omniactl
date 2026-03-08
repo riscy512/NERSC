@@ -1,0 +1,216 @@
+#!/usr/bin/env python3
+"""
+omniactl — cluster control CLI (wwctl-style).
+
+Subcommands: hosts, genders, node, power, boot.
+Loads cluster from ips.csv (--config); dispatches to omniaHosts, redfish_power, redfish_boot.
+"""
+
+from __future__ import annotations
+
+import argparse
+import sys
+from pathlib import Path
+
+# Default config path relative to this script
+SCRIPT_DIR = Path(__file__).resolve().parent
+DEFAULT_CONFIG = SCRIPT_DIR / "ips.csv"
+
+
+def _get_config_path(args: argparse.Namespace) -> Path:
+    return Path(args.config) if getattr(args, "config", None) else DEFAULT_CONFIG
+
+
+def _load_cluster(args: argparse.Namespace):
+    """Load cluster; exit on error."""
+    from omniaHosts import load_cluster, IPReuseError
+    path = _get_config_path(args)
+    try:
+        return load_cluster(path)
+    except FileNotFoundError as e:
+        print(f"Error: {e}", file=sys.stderr)
+        sys.exit(1)
+    except ValueError as e:
+        print(f"Error: {e}", file=sys.stderr)
+        sys.exit(1)
+    except IPReuseError as e:
+        for err in e.errors:
+            print(f"  Conflicting IP: {err['ip']}", file=sys.stderr)
+            print(f"    first: {err['first_host']} ({err['first_network']})", file=sys.stderr)
+            print(f"    also:  {err['also_host']} ({err['also_network']})", file=sys.stderr)
+        print(f"Total: {len(e.errors)} re-use(s).", file=sys.stderr)
+        sys.exit(5)
+
+
+def cmd_help(args: argparse.Namespace) -> None:
+    from omniactl_help import print_help
+    print_help()
+
+
+def cmd_hosts(args: argparse.Namespace) -> None:
+    cluster, ip_to_data = _load_cluster(args)
+    from omniaHosts import write_hosts
+    out = write_hosts(cluster, ip_to_data, path=args.output)
+    if args.output:
+        print(f"Wrote {len(ip_to_data)} entries to {args.output}", file=sys.stderr)
+    else:
+        print(out, end="")
+
+
+def cmd_genders(args: argparse.Namespace) -> None:
+    cluster, _ = _load_cluster(args)
+    from omniaHosts import write_genders
+    out = write_genders(cluster, filepath=args.output)
+    if args.output:
+        n = len(cluster.get("hosts", {}).get("byNode", {}))
+        print(f"Wrote genders ({n} nodes) to {args.output}", file=sys.stderr)
+    else:
+        print(out, end="")
+
+
+def cmd_node_list(args: argparse.Namespace) -> None:
+    cluster, _ = _load_cluster(args)
+    nodes = sorted(cluster.get("hosts", {}).get("byNode", {}))
+    pattern = (args.pattern or "").strip().lower()
+    if pattern:
+        nodes = [n for n in nodes if pattern in n.lower()]
+    for n in nodes:
+        print(n)
+
+
+def cmd_node_show(args: argparse.Namespace) -> None:
+    cluster, _ = _load_cluster(args)
+    node_name = args.node
+    by_node = cluster.get("hosts", {}).get("byNode", {})
+    if node_name not in by_node:
+        print(f"Error: node not found: {node_name}", file=sys.stderr)
+        sys.exit(1)
+    data = by_node[node_name]
+    print(f"NodeName: {node_name}")
+    print(f"NodePurpose: {data.get('NodePurpose', '')}")
+    xp = data.get("xname_parsed")
+    if xp:
+        print(f"xName/rack/slot: {xp.get('node_xname')} rack={xp.get('rack_id')} uPos={xp.get('uPos')}")
+    nets = data.get("network", {})
+    for net, nd in nets.items():
+        print(f"  {net}: {nd.get('hostname')} -> {nd.get('ip')}")
+
+
+def cmd_power(args: argparse.Namespace) -> None:
+    cluster, _ = _load_cluster(args)
+    from redfish_power import run_for_node
+    action = args.power_action  # on, off, status, reset, cycle, ...
+    nodes = args.nodes or []
+    if not nodes:
+        print("Error: power subcommand requires at least one node", file=sys.stderr)
+        sys.exit(1)
+    verify_ssl = getattr(args, "verify_ssl", False)
+    # Output format "nodeName: <single line>" on stdout so dshbak can parse and roll up
+    for node in nodes:
+        ok, err, result = run_for_node(cluster, node, action, verify_ssl=verify_ssl)
+        if action == "status":
+            info = (result if ok else err) or "unknown"
+            print(f"{node}: {info}")
+        else:
+            info = "ok" if ok else f"failed: {err}"
+            print(f"{node}: {info}")
+
+
+def cmd_boot(args: argparse.Namespace) -> None:
+    cluster, _ = _load_cluster(args)
+    from redfish_boot import run_for_node, BOOT_OVERRIDE_ONCE
+    action = args.boot_action  # show_next, set_next, show_permanent, clear_next, show_options
+    nodes = getattr(args, "nodes", None) or []
+    verify_ssl = getattr(args, "verify_ssl", False)
+    target = getattr(args, "target", None)
+    if action == "set_next" and not target:
+        print("Error: boot set-next requires --target (e.g. Pxe, Hdd, None)", file=sys.stderr)
+        sys.exit(1)
+    if not nodes:
+        nodes = sorted(cluster.get("hosts", {}).get("byNode", {}))
+    for node in nodes:
+        ok, err, result = run_for_node(
+            cluster, node, action,
+            target=target,
+            enabled=BOOT_OVERRIDE_ONCE,
+            verify_ssl=verify_ssl,
+        )
+        if action in ("show_next", "show_permanent", "show_options") and result is not None:
+            print(f"{node}: {result}")
+        elif not ok:
+            print(f"{node}: {err}", file=sys.stderr)
+        else:
+            print(f"{node}: ok")
+
+
+def main() -> int:
+    parser = argparse.ArgumentParser(
+        prog="omniactl",
+        description="Cluster control: hosts, genders, node list/show, power, boot (Redfish).",
+    )
+    parser.add_argument("-c", "--config", default=None, help=f"Path to ips.csv (default: {DEFAULT_CONFIG})")
+    parser.add_argument("-v", "--verbose", action="store_true", help="Verbose")
+    parser.add_argument("-d", "--debug", action="store_true", help="Debug")
+    parser.add_argument("--no-verify-ssl", action="store_true", dest="no_verify_ssl", help="Disable SSL verify for Redfish")
+    sub = parser.add_subparsers(dest="command", required=True)
+
+    # help
+    p_help = sub.add_parser("help", help="Show detailed capabilities and usage")
+    p_help.set_defaults(run=cmd_help)
+
+    # hosts
+    p_hosts = sub.add_parser("hosts", help="Emit /etc/hosts output")
+    p_hosts.add_argument("-o", "--output", type=Path, default=None, help="Write to file (default: stdout)")
+    p_hosts.set_defaults(run=cmd_hosts)
+
+    # genders
+    p_genders = sub.add_parser("genders", help="Emit pdsh genders file")
+    p_genders.add_argument("-o", "--output", type=Path, default=None, help="Write to file (default: stdout)")
+    p_genders.set_defaults(run=cmd_genders)
+
+    # node
+    p_node = sub.add_parser("node", help="Node info")
+    p_node_sub = p_node.add_subparsers(dest="node_command", required=True)
+    p_node_list = p_node_sub.add_parser("list", help="List node names")
+    p_node_list.add_argument("pattern", nargs="?", default=None, help="Filter by pattern")
+    p_node_list.set_defaults(run=cmd_node_list)
+    p_node_show = p_node_sub.add_parser("show", help="Show one node")
+    p_node_show.add_argument("node", help="Node name")
+    p_node_show.set_defaults(run=cmd_node_show)
+
+    # power
+    p_power = sub.add_parser("power", help="Power control (Redfish/iDrac)")
+    p_power.add_argument("power_action", choices=["on", "off", "status", "reset", "cycle", "graceful_shutdown", "graceful_restart", "force_off", "nmi"], help="Action")
+    p_power.add_argument("nodes", nargs="*", help="Node name(s)")
+    p_power.set_defaults(run=cmd_power, verify_ssl=False)
+
+    # boot
+    p_boot = sub.add_parser("boot", help="Boot config (Redfish/iDrac)")
+    p_boot_sub = p_boot.add_subparsers(dest="boot_sub", required=True)
+    for name, help_ in [
+        ("show-next", "Show next boot override"),
+        ("show-permanent", "Show permanent boot order"),
+        ("clear-next", "Clear next boot override"),
+        ("show-options", "Show boot options (if supported)"),
+    ]:
+        p = p_boot_sub.add_parser(name, help=help_)
+        p.add_argument("nodes", nargs="*", help="Node name(s); default all")
+        p.set_defaults(run=cmd_boot, boot_action=name.replace("-", "_"), verify_ssl=False)
+    p_set_next = p_boot_sub.add_parser("set-next", help="Set next boot device")
+    p_set_next.add_argument("--target", "-t", required=True, help="e.g. Pxe, Hdd, None")
+    p_set_next.add_argument("nodes", nargs="*", help="Node name(s)")
+    p_set_next.set_defaults(run=cmd_boot, boot_action="set_next", verify_ssl=False)
+
+    args = parser.parse_args()
+    if getattr(args, "no_verify_ssl", False):
+        args.verify_ssl = False
+    run = getattr(args, "run", None)
+    if run is None:
+        parser.print_help()
+        return 0
+    run(args)
+    return 0
+
+
+if __name__ == "__main__":
+    sys.exit(main() or 0)

@@ -3,7 +3,7 @@ Parse and validate NERSC-10 xNames (Cray CSM–style naming for Dell hardware).
 
 Component types and patterns (see naming standard doc):
   - rack:        x<rack_id>
-  - node:        x<rack>c<chassis>s<slot>b<blade>n<node>
+  - node:        x<rack>c<chassis>s<slot>b<blade>n<node>  (slot = uPosition in rack, exposed as uPos)
   - dc_power:    x<rack>c<chassis>t<shelf_id>
   - pdu:         x<rack>m<pdu_id>
   - eth_switch:  x<rack>c<chassis>w<switch_id>
@@ -63,6 +63,8 @@ def parse_xname(xname: str) -> dict[str, Any] | None:
     Returns a dict with:
       - component_type: one of the COMPONENT_* constants
       - rack_id, chassis_id, slot_id, blade_id, node_id: int | None (as applicable)
+      - uPos: int | None — slot position = uPosition of the node in the rack (nodes and node
+        subcomponents only; None for rack/PDU/switch/etc.)
       - sub_type: for node subcomponents, one of 'a'|'p'|'d'|'i'|'h'
       - sub_id: int | None for subcomponent index
       - node_xname: for subcomponents, the parent node xName (e.g. x1102c0s27b0n0)
@@ -80,14 +82,16 @@ def parse_xname(xname: str) -> dict[str, Any] | None:
     m = _NODE_FULL.match(s)
     if m:
         r, c, slot, b, n, sub_letter, sub_id = m.groups()
+        slot_int = int(slot)
         node_xname = f"x{r}c{c}s{slot}b{b}n{n}"
         return {
             "component_type": SUB_SUFFIX_TO_TYPE.get(sub_letter.lower(), "subcomponent"),
             "rack_id": int(r),
             "chassis_id": int(c),
-            "slot_id": int(slot),
+            "slot_id": slot_int,
             "blade_id": int(b),
             "node_id": int(n),
+            "uPos": slot_int,
             "sub_type": sub_letter.lower(),
             "sub_id": int(sub_id),
             "node_xname": node_xname,
@@ -98,13 +102,15 @@ def parse_xname(xname: str) -> dict[str, Any] | None:
     m = _NODE_ONLY.match(s)
     if m:
         r, c, slot, b, n = m.groups()
+        slot_int = int(slot)
         return {
             "component_type": COMPONENT_NODE,
             "rack_id": int(r),
             "chassis_id": int(c),
-            "slot_id": int(slot),
+            "slot_id": slot_int,
             "blade_id": int(b),
             "node_id": int(n),
+            "uPos": slot_int,
             "sub_type": None,
             "sub_id": None,
             "node_xname": s,
@@ -122,6 +128,7 @@ def parse_xname(xname: str) -> dict[str, Any] | None:
             "slot_id": None,
             "blade_id": None,
             "node_id": None,
+            "uPos": None,
             "sub_type": None,
             "sub_id": int(pdu_id),
             "node_xname": None,
@@ -139,6 +146,7 @@ def parse_xname(xname: str) -> dict[str, Any] | None:
             "slot_id": None,
             "blade_id": None,
             "node_id": None,
+            "uPos": None,
             "sub_type": "w",
             "sub_id": int(w),
             "node_xname": None,
@@ -156,6 +164,7 @@ def parse_xname(xname: str) -> dict[str, Any] | None:
             "slot_id": None,
             "blade_id": None,
             "node_id": None,
+            "uPos": None,
             "sub_type": "t",
             "sub_id": int(t_id),
             "node_xname": None,
@@ -173,6 +182,7 @@ def parse_xname(xname: str) -> dict[str, Any] | None:
             "slot_id": int(spine_id),
             "blade_id": None,
             "node_id": None,
+            "uPos": None,
             "sub_type": "s",
             "sub_id": int(spine_id),
             "node_xname": None,
@@ -190,6 +200,7 @@ def parse_xname(xname: str) -> dict[str, Any] | None:
             "slot_id": None,
             "blade_id": None,
             "node_id": None,
+            "uPos": None,
             "sub_type": None,
             "sub_id": None,
             "node_xname": None,
@@ -214,3 +225,15 @@ def get_node_xname(xname: str) -> str | None:
     if not parsed:
         return None
     return parsed.get("node_xname")
+
+
+def get_uPos(xname: str) -> int | None:
+    """
+    Return the uPosition (slot in rack) for the given xName.
+    For nodes and node subcomponents, returns the slot value (int).
+    For rack/PDU/switch/etc., returns None. Invalid xNames also return None.
+    """
+    parsed = parse_xname(xname)
+    if not parsed:
+        return None
+    return parsed.get("uPos")

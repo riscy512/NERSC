@@ -1,60 +1,157 @@
-# omniaHosts
+# eas/admin — Cluster inventory and control
 
-Generates an **`/etc/hosts`-compliant** file from a CSV inventory of node IPs. Each row is a host; columns are interfaces/networks. The script enumerates the different networks each node has and emits one line per IP with the correct hostname (and aliases where applicable).
+This directory contains **omniactl** (the main CLI), the **omniaHosts** module and legacy script, and supporting modules for xName parsing, Redfish power, and Redfish boot. Cluster data is read from **ips.csv** (one row per node; columns = networks/interfaces).
 
-## What it does
+---
 
-- **Reads** `ips.csv` from the script directory (one row per node, columns = networks/interfaces).
-- **Maps** each IP to a network section and an interface suffix (e.g. `eth1`, `ib0`, `idrac`).
-- **Builds** per-interface hostnames: primary hostname from the first Cluster Admin column; others as `node-<suffix>` (e.g. `node-eth1`, `node-ib0`, `node-idrac`).
-- **Outputs** lines in standard `/etc/hosts` format: `IP<TAB>hostname [alias1 alias2 ...]`, grouped by network with comment headers.
+## omniactl
 
-## Networks (sections)
+**omniactl** is the primary entry point for cluster control (wwctl-style). It loads node data from ips.csv and provides subcommands for hosts output, genders output, node queries, and Redfish power/boot control.
 
-The script recognizes these networks (defined in `NETWORKS`):
+### Quick start
+
+```bash
+# Show detailed capabilities and usage
+omniactl help
+
+# Emit /etc/hosts to stdout
+omniactl hosts
+
+# Emit hosts to a file
+omniactl hosts -o /path/to/hosts
+
+# Emit pdsh genders file
+omniactl genders
+omniactl genders -o /path/to/genders
+
+# List node names (optional filter)
+omniactl node list
+omniactl node list vast
+
+# Show one node (NodePurpose, xName, rack, uPos, networks)
+omniactl node show cech-mgt2
+
+# Power control (requires iDrac in ips.csv; REDFISH_USER / REDFISH_PASSWORD)
+omniactl power status cech-mgt2
+omniactl power on cech-mgt2
+omniactl power off cech-mgt2 nid0001
+
+# Boot config: show/set next boot, show permanent order
+omniactl boot show-next cech-mgt2
+omniactl boot set-next --target Pxe cech-mgt2
+omniactl boot clear-next cech-mgt2
+```
+
+### Global options
+
+| Option | Description |
+|--------|-------------|
+| `-c`, `--config PATH` | Path to ips.csv (default: script directory) |
+| `-v`, `--verbose` | Verbose output |
+| `-d`, `--debug` | Debug output |
+| `--no-verify-ssl` | Disable SSL verification for Redfish (typical for iDRAC) |
+| `-h`, `--help` | Show help at any level (e.g. `omniactl power -h`) |
+
+### Subcommands
+
+| Subcommand | Description |
+|------------|-------------|
+| **help** | Show detailed capabilities and usage (from omniactl_help module) |
+| **hosts** | Emit /etc/hosts output. `-o PATH` to write to file. |
+| **genders** | Emit pdsh genders file (node names only, no domain). `-o PATH` to write. |
+| **node list [PATTERN]** | List node names; optional substring filter. |
+| **node show NODE** | Show one node: NodePurpose, xName, rack, uPos, network table. |
+| **power ACTION [NODE ...]** | Power on/off/status/reset/cycle via Redfish. Output is `nodeName: <result>` on stdout; pipe to **dshbak** so it can roll up by common state (e.g. one block for nodes On, another for Off). Actions: `on`, `off`, `status`, `reset`, `cycle`, `graceful_shutdown`, `graceful_restart`, `force_off`, `nmi`. |
+| **boot show-next [NODE ...]** | Show next boot override per node. |
+| **boot show-permanent [NODE ...]** | Show persistent boot order per node. |
+| **boot set-next -t TARGET [NODE ...]** | Set next boot device (e.g. Pxe, Hdd, None). |
+| **boot clear-next [NODE ...]** | Clear next boot override. |
+| **boot show-options [NODE ...]** | Show BootOptions (vendor-specific). |
+
+### Configuration
+
+- **Cluster data:** ips.csv (see CSV requirements below). Use `--config` to point to another path.
+- **Redfish:** Set `REDFISH_USER` and `REDFISH_PASSWORD` in the environment. Power and boot subcommands apply only to nodes that have an **iDrac** network defined in ips.csv.
+
+---
+
+## omniaHosts (legacy)
+
+The **omniaHosts** script and **omniaHosts** module provide hosts and genders output. The script is kept for backward compatibility.
+
+### Legacy script usage
+
+```bash
+# Print /etc/hosts to stdout
+python3 omniaHosts -H
+
+# Write hosts to file (default: ./hosts)
+python3 omniaHosts -H -o
+python3 omniaHosts -H -o /path/to/hosts
+
+# Write genders (default: ./genders)
+python3 omniaHosts -g
+python3 omniaHosts -g /path/to/genders
+```
+
+Prefer **omniactl hosts** and **omniactl genders** for new use.
+
+### What the module does
+
+- **Reads** ips.csv (one row per node; columns = networks/interfaces).
+- **Maps** each IP to a network section and interface suffix (e.g. eth1, ib0, idrac).
+- **Builds** per-interface hostnames: primary from first Cluster Admin column; others as `node-<suffix>`.
+- **Outputs** /etc/hosts format: `IP<TAB>hostname [alias1 alias2 ...]`, grouped by network. Primary line order: nodeName.domain, xName.domain, nodeName, xName, Notes.
+
+### Networks (sections)
 
 | Section | Examples |
 |--------|----------|
-| Cluster Admin | Primary hostname; #2→`eth1`, #3→`eth2`, #4→`eth3` |
-| iDracrac`, `idrac2` |
-| InfiniBand Public | `ibpub` |
-| InfiniBand Private | `ib0`, `ib1`, `ib2`, `ib3` |
-| Switch Management | `swmgt`, `swmgt1` |
-| PowerScale Admin | `psadm`, `psadm2`, … `psadm4` |
-| PowerScale Storage | `psstg`, `psstg2`, … `psstg4` |
-| Side Door | `sdr` |
+| Cluster Admin | Primary hostname; #2→eth1, #3→eth2, #4→eth3 |
+| iDrac | idrac, idrac2 |
+| InfiniBand Public | ibpub |
+| InfiniBand Private | ib0, ib1, ib2, ib3 |
+| Switch Management | swmgt, swmgt1 |
+| PowerScale Admin | psadm … psadm4 |
+| PowerScale Storage | psstg … psstg4 |
+| Side Door | sdr |
 
-The **primary** hostname (from the first Cluster Admin column) also gets **xName** and **Notes** as aliases on that line so the node name and alternate names resolve to the same IP.
-
-## CSV requirements
+### CSV requirements
 
 - **NodeName** column is required.
-- Optional: **xName**, **Notes** (used as aliases for the primary hostname).
-- Other columns are treated as IP columns unless listed in `NON_IP_COLUMNS` (e.g. NodePurpose, Rack Number, uPos). Column headers must match the names in `NETWORKS` for correct section/suffix mapping.
+- Optional: **xName**, **Notes** (aliases for primary hostname), **NodePurpose** (used in genders).
+- Other columns are treated as IP columns unless listed in NON_IP_COLUMNS. Column headers should match NETWORKS for correct section mapping.
 
-## Usage
+### Behavior
+
+- **IPv4 only:** Only four-octet IPv4 values are used.
+- **IP reuse check:** Same IP for different host/interface causes warnings and exit code 5.
+- **First row wins:** First occurrence of an IP determines hostname and section.
+
+---
+
+## Help module
+
+**omniactl_help** provides the detailed capability text used by `omniactl help`:
 
 ```bash
-# Print /etc/hosts output to stdout
-python3 omniaHosts.py
-
-# Write to a file (default: hosts in script directory)
-python3 omniaHosts.py -o
-
-# Write to a specific path
-python3 omniaHosts.py -o /path/to/h
+omniactl help
 ```
 
-## Behavior
+Or from Python:
 
-- **IPv4 only**: Only values matching a simple four-octet IPv4 pattern are used; others are skipped.
-- **IP reuse check**: If the same IP appears for a different host or interface, the script prints warnings and exits with code 5.
-- **First row wins**: If an IP appears multiple times (e.g. same IP in different columns), the first occurrence determines the hostname and section.
+```python
+from omniactl_help import get_help, print_help
+print(get_help())
+print_help()
+```
 
-## Output format
+---
 
-- Comment lines describe the file and each section (e.g. `# --- InfiniBand Private ---`).
-- Each data line: `IP<TAB>hostname` or `IP<TAB>hostname<TAB>alias1<TAB>alias2` for the primary hostname.
-- Lines are sorted by IP within each section.
+## Other modules
 
-The result can be appended or merged into `/etc/hosts` (or used as a standalone hosts file) for name resolution of cluster nodes on all enumerated networks.
+| Module | Purpose |
+|--------|---------|
+| **xname** | Parse/validate NERSC-10 xNames; uPos, rack_id, node_xname. See xname.md. |
+| **redfish_power** | Redfish power on/off/status/reset/cycle via iDrac. See redfish_power.md. |
+| **redfish_boot** | Redfish boot: show/set permanent and next boot order. See redfish_boot.md. |
