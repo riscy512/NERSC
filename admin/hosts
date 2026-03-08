@@ -1,0 +1,431 @@
+# Generated from ips.csv - per-interface hostnames
+# Domain: cech.nersc.gov
+# Primary line order: nodeName.domain, xName.domain, nodeName, xName, Notes.
+# Other lines: hostname.domain, hostname (e.g. node-eth1, node-ib0).
+#
+# --- Cluster Admin ---
+
+10.40.0.17	nid7001.cech.nersc.gov	x7000c0s1b0n0.cech.nersc.gov	nid7001	x7000c0s1b0n0	nid1
+10.40.0.18	nid7002.cech.nersc.gov	x7000c0s2b0n0.cech.nersc.gov	nid7002	x7000c0s2b0n0
+10.40.0.19	nid7003.cech.nersc.gov	x7000c0s4b0n0.cech.nersc.gov	nid7003	x7000c0s4b0n0
+10.40.0.20	nid7004.cech.nersc.gov	x7000c0s5b0n0.cech.nersc.gov	nid7004	x7000c0s5b0n0
+10.40.0.21	nid7005.cech.nersc.gov	x7000c0s6b0n0.cech.nersc.gov	nid7005	x7000c0s6b0n0
+10.40.0.22	nid7006.cech.nersc.gov	x7000c0s7b0n0.cech.nersc.gov	nid7006	x7000c0s7b0n0
+10.40.0.23	nid7007.cech.nersc.gov	x7000c0s11b0n0.cech.nersc.gov	nid7007	x7000c0s11b0n0
+10.40.0.24	nid7008.cech.nersc.gov	x7000c0s12b0n0.cech.nersc.gov	nid7008	x7000c0s12b0n0
+10.40.0.25	nid7009.cech.nersc.gov	x7000c0s13b0n0.cech.nersc.gov	nid7009	x7000c0s13b0n0
+10.40.0.26	nid7010.cech.nersc.gov	x7000c0s14b0n0.cech.nersc.gov	nid7010	x7000c0s14b0n0
+10.40.0.27	nid7011.cech.nersc.gov	x7000c0s15b0n0.cech.nersc.gov	nid7011	x7000c0s15b0n0
+10.40.0.28	nid7012.cech.nersc.gov	x7000c0s16b0n0.cech.nersc.gov	nid7012	x7000c0s16b0n0
+10.40.0.29	nid7013.cech.nersc.gov	x7000c0s17b0n0.cech.nersc.gov	nid7013	x7000c0s17b0n0
+10.40.0.30	nid7014.cech.nersc.gov	x7000c0s18b0n0.cech.nersc.gov	nid7014	x7000c0s18b0n0
+10.40.0.31	nid7015.cech.nersc.gov	x7000c0s19b0n0.cech.nersc.gov	nid7015	x7000c0s19b0n0
+10.40.0.32	nid7016.cech.nersc.gov	x7000c0s20b0n0.cech.nersc.gov	nid7016	x7000c0s20b0n0
+10.40.0.33	nid7017.cech.nersc.gov	x7000c0s21b0n0.cech.nersc.gov	nid7017	x7000c0s21b0n0
+10.40.0.34	nid7018.cech.nersc.gov	x7000c0s27b0n0.cech.nersc.gov	nid7018	x7000c0s27b0n0
+10.40.0.35	nid7019.cech.nersc.gov	x7000c0s28b0n0.cech.nersc.gov	nid7019	x7000c0s28b0n0
+10.40.0.36	nid7020.cech.nersc.gov	x7000c0s29b0n0.cech.nersc.gov	nid7020	x7000c0s29b0n0
+10.40.0.37	nid7021.cech.nersc.gov	x7000c0s30b0n0.cech.nersc.gov	nid7021	x7000c0s30b0n0
+10.40.0.38	nid7022.cech.nersc.gov	x7000c0s31b0n0.cech.nersc.gov	nid7022	x7000c0s31b0n0
+10.40.0.39	nid7023.cech.nersc.gov	x7000c0s32b0n0.cech.nersc.gov	nid7023	x7000c0s32b0n0
+10.40.0.40	nid7024.cech.nersc.gov	x7000c0s33b0n0.cech.nersc.gov	nid7024	x7000c0s33b0n0
+10.40.0.41	nid7025.cech.nersc.gov	x7000c0s34b0n0.cech.nersc.gov	nid7025	x7000c0s34b0n0
+10.40.0.42	nid7026.cech.nersc.gov	x7000c0s35b0n0.cech.nersc.gov	nid7026	x7000c0s35b0n0
+10.40.0.43	nid7027.cech.nersc.gov	x7000c0s36b0n0.cech.nersc.gov	nid7027	x7000c0s36b0n0
+10.40.0.44	nid7028.cech.nersc.gov	x7000c0s37b0n0.cech.nersc.gov	nid7028	x7000c0s37b0n0
+10.40.0.45	nid7029.cech.nersc.gov	x7000c0s43b0n0.cech.nersc.gov	nid7029	x7000c0s43b0n0
+10.40.0.46	nid7030.cech.nersc.gov	x7000c0s44b0n0.cech.nersc.gov	nid7030	x7000c0s44b0n0
+10.40.0.47	nid7031.cech.nersc.gov	x7000c0s45b0n0.cech.nersc.gov	nid7031	x7000c0s45b0n0
+10.40.0.48	nid7032.cech.nersc.gov	x7000c0s46b0n0.cech.nersc.gov	nid7032	x7000c0s46b0n0
+10.40.0.49	nid7033.cech.nersc.gov	x7000c0s47b0n0.cech.nersc.gov	nid7033	x7000c0s47b0n0
+10.40.0.50	nid7034.cech.nersc.gov	x7000c0s48b0n0.cech.nersc.gov	nid7034	x7000c0s48b0n0
+10.40.0.51	nid7035.cech.nersc.gov	x7000c0s48b0n0.cech.nersc.gov	nid7035	x7000c0s48b0n0
+10.40.0.52	nid7036.cech.nersc.gov	x7000c0s48b0n0.cech.nersc.gov	nid7036	x7000c0s48b0n0
+10.40.1.16	cech-mgt1.cech.nersc.gov	x7001c0s28b0n0.cech.nersc.gov	cech-mgt1	x7001c0s28b0n0
+10.40.1.17	cech-svc1.cech.nersc.gov	x7001c0s29b0n0.cech.nersc.gov	cech-svc1	x7001c0s29b0n0
+10.40.1.18	cech-slurm1.cech.nersc.gov	x7001c0s30b0n0.cech.nersc.gov	cech-slurm1	x7001c0s30b0n0
+10.40.1.19	cech-ome1.cech.nersc.gov	x7001c0s31b0n0.cech.nersc.gov	cech-ome1	x7001c0s31b0n0
+10.40.1.20	cech-ufm1.cech.nersc.gov	x7001c0s32b0n0.cech.nersc.gov	cech-ufm1	x7001c0s32b0n0
+10.40.1.21	cech-sfm1.cech.nersc.gov	x7001c0s33b0n0.cech.nersc.gov	cech-sfm1	x7001c0s33b0n0
+10.40.1.22	cech-wen1.cech.nersc.gov	x7001c0s34b0n0.cech.nersc.gov	cech-wen1	x7001c0s34b0n0
+10.40.1.23	cech-pscale1.cech.nersc.gov	x7001c0s34b0n0.cech.nersc.gov	cech-pscale1	x7001c0s34b0n0
+10.40.1.27	cech-pvault1a.cech.nersc.gov	x7001c0s34b0n0.cech.nersc.gov	cech-pvault1a	x7001c0s34b0n0
+10.40.1.28	cech-pvault1b.cech.nersc.gov	x7001c0s34b0n0.cech.nersc.gov	cech-pvault1b	x7001c0s34b0n0
+10.40.1.73	cech-pscale1-eth1.cech.nersc.gov	cech-pscale1-eth1
+10.40.1.77	cech-pvault1a-eth1.cech.nersc.gov	cech-pvault1a-eth1
+10.40.1.78	cech-pvault1b-eth1.cech.nersc.gov	cech-pvault1b-eth1
+10.40.1.138	cech-pscale1-eth2.cech.nersc.gov	cech-pscale1-eth2
+10.40.1.142	cech-pvault1a-eth2.cech.nersc.gov	cech-pvault1a-eth2
+10.40.1.143	cech-pvault1b-eth2.cech.nersc.gov	cech-pvault1b-eth2
+10.40.1.203	cech-pscale1-eth3.cech.nersc.gov	cech-pscale1-eth3
+10.40.1.207	cech-pvault1a-eth3.cech.nersc.gov	cech-pvault1a-eth3
+10.40.1.208	cech-pvault1b-eth3.cech.nersc.gov	cech-pvault1b-eth3
+10.40.2.16	cech-mgt2.cech.nersc.gov	x7002c0s28b0n0.cech.nersc.gov	cech-mgt2	x7002c0s28b0n0
+10.40.2.17	cech-svc2.cech.nersc.gov	x7002c0s29b0n0.cech.nersc.gov	cech-svc2	x7002c0s29b0n0
+10.40.2.18	cech-slurm2.cech.nersc.gov	x7002c0s30b0n0.cech.nersc.gov	cech-slurm2	x7002c0s30b0n0
+10.40.2.19	cech-ome2.cech.nersc.gov	x7002c0s31b0n0.cech.nersc.gov	cech-ome2	x7002c0s31b0n0
+10.40.2.20	cech-ufm2.cech.nersc.gov	x7002c0s32b0n0.cech.nersc.gov	cech-ufm2	x7002c0s32b0n0
+10.40.2.21	cech-sfm2.cech.nersc.gov	x7002c0s33b0n0.cech.nersc.gov	cech-sfm2	x7002c0s33b0n0
+10.40.2.22	cech-wen2.cech.nersc.gov	x7002c0s34b0n0.cech.nersc.gov	cech-wen2	x7002c0s34b0n0
+10.40.2.25	cech-vast1.cech.nersc.gov	x7002c0s3b0n0.cech.nersc.gov	cech-vast1	x7002c0s3b0n0
+10.40.2.26	cech-vast2.cech.nersc.gov	x7002c0s4b0n0.cech.nersc.gov	cech-vast2	x7002c0s4b0n0
+10.40.2.27	cech-vast3.cech.nersc.gov	x7002c0s5b0n0.cech.nersc.gov	cech-vast3	x7002c0s5b0n0
+10.40.2.28	cech-vast4.cech.nersc.gov	x7002c0s6b0n0.cech.nersc.gov	cech-vast4	x7002c0s6b0n0
+10.40.2.29	cech-vast5.cech.nersc.gov	x7002c0s7b0n0.cech.nersc.gov	cech-vast5	x7002c0s7b0n0
+10.40.2.30	cech-vast6.cech.nersc.gov	x7002c0s8b0n0.cech.nersc.gov	cech-vast6	x7002c0s8b0n0
+10.40.2.31	cech-vast7.cech.nersc.gov	x7002c0s9b0n0.cech.nersc.gov	cech-vast7	x7002c0s9b0n0
+10.40.2.32	cech-vast8.cech.nersc.gov	x7002c0s10b0n0.cech.nersc.gov	cech-vast8	x7002c0s10b0n0
+10.40.2.33	cech-vast9.cech.nersc.gov	x7002c0s11b0n0.cech.nersc.gov	cech-vast9	x7002c0s11b0n0
+10.40.2.34	cech-vast10.cech.nersc.gov	x7002c0s12b0n0.cech.nersc.gov	cech-vast10	x7002c0s12b0n0
+10.40.2.35	cech-vast11.cech.nersc.gov	x7002c0s13b0n0.cech.nersc.gov	cech-vast11	x7002c0s13b0n0
+10.40.2.36	cech-vastSw1.cech.nersc.gov	cech-vastSw1	x7002c0s15w0
+10.40.2.37	cech-vastSw2.cech.nersc.gov	cech-vastSw2	x7002c0s16w0
+10.40.2.38	cech-vastMgt1.cech.nersc.gov	cech-vastMgt1
+10.40.2.39	cech-vastDns1.cech.nersc.gov	cech-vastDns1
+
+# --- iDrac ---
+
+10.41.1.116	cech-mgt1-idrac2.cech.nersc.gov	cech-mgt1-idrac2
+10.41.1.117	cech-svc1-idrac2.cech.nersc.gov	cech-svc1-idrac2
+10.41.1.119	cech-ome1-idrac2.cech.nersc.gov	cech-ome1-idrac2
+10.41.2.116	cech-mgt2-idrac2.cech.nersc.gov	cech-mgt2-idrac2
+10.41.2.117	cech-svc2-idrac2.cech.nersc.gov	cech-svc2-idrac2
+10.41.2.119	cech-ome2-idrac2.cech.nersc.gov	cech-ome2-idrac2
+
+# --- InfiniBand Public ---
+
+128.55.134.16	cech-mgt2-ibpub.cech.nersc.gov	cech-mgt2-ibpub
+128.55.134.17	cech-svc2-ibpub.cech.nersc.gov	cech-svc2-ibpub
+128.55.134.18	cech-slurm2-ibpub.cech.nersc.gov	cech-slurm2-ibpub
+128.55.134.19	cech-ome2-ibpub.cech.nersc.gov	cech-ome2-ibpub
+128.55.134.20	cech-ufm2-ibpub.cech.nersc.gov	cech-ufm2-ibpub
+128.55.134.21	cech-sfm2-ibpub.cech.nersc.gov	cech-sfm2-ibpub
+128.55.134.22	cech-wen2-ibpub.cech.nersc.gov	cech-wen2-ibpub
+128.55.134.25	cech-vast1-ibpub.cech.nersc.gov	cech-vast1-ibpub
+128.55.134.26	cech-vast2-ibpub.cech.nersc.gov	cech-vast2-ibpub
+128.55.134.27	cech-vast3-ibpub.cech.nersc.gov	cech-vast3-ibpub
+128.55.134.28	cech-vast4-ibpub.cech.nersc.gov	cech-vast4-ibpub
+128.55.134.29	cech-vast5-ibpub.cech.nersc.gov	cech-vast5-ibpub
+128.55.134.30	cech-vast6-ibpub.cech.nersc.gov	cech-vast6-ibpub
+128.55.134.31	cech-vast7-ibpub.cech.nersc.gov	cech-vast7-ibpub
+128.55.134.32	cech-vast8-ibpub.cech.nersc.gov	cech-vast8-ibpub
+128.55.134.33	cech-vast9-ibpub.cech.nersc.gov	cech-vast9-ibpub
+128.55.134.34	cech-vast10-ibpub.cech.nersc.gov	cech-vast10-ibpub
+128.55.134.35	cech-vast11-ibpub.cech.nersc.gov	cech-vast11-ibpub
+128.55.134.43	cech-mgt1-ibpub.cech.nersc.gov	cech-mgt1-ibpub
+128.55.134.44	cech-svc1-ibpub.cech.nersc.gov	cech-svc1-ibpub
+128.55.134.45	cech-slurm1-ibpub.cech.nersc.gov	cech-slurm1-ibpub
+128.55.134.46	cech-ome1-ibpub.cech.nersc.gov	cech-ome1-ibpub
+128.55.134.47	cech-ufm1-ibpub.cech.nersc.gov	cech-ufm1-ibpub
+128.55.134.48	cech-sfm1-ibpub.cech.nersc.gov	cech-sfm1-ibpub
+128.55.134.49	cech-wen1-ibpub.cech.nersc.gov	cech-wen1-ibpub
+128.55.134.59	nid7001-ibpub.cech.nersc.gov	nid7001-ibpub
+128.55.134.60	nid7002-ibpub.cech.nersc.gov	nid7002-ibpub
+128.55.134.61	nid7003-ibpub.cech.nersc.gov	nid7003-ibpub
+128.55.134.62	nid7004-ibpub.cech.nersc.gov	nid7004-ibpub
+128.55.134.63	nid7005-ibpub.cech.nersc.gov	nid7005-ibpub
+128.55.134.64	nid7006-ibpub.cech.nersc.gov	nid7006-ibpub
+128.55.134.65	nid7007-ibpub.cech.nersc.gov	nid7007-ibpub
+128.55.134.66	nid7008-ibpub.cech.nersc.gov	nid7008-ibpub
+128.55.134.67	nid7009-ibpub.cech.nersc.gov	nid7009-ibpub
+128.55.134.68	nid7010-ibpub.cech.nersc.gov	nid7010-ibpub
+128.55.134.69	nid7011-ibpub.cech.nersc.gov	nid7011-ibpub
+128.55.134.70	nid7012-ibpub.cech.nersc.gov	nid7012-ibpub
+128.55.134.71	nid7013-ibpub.cech.nersc.gov	nid7013-ibpub
+128.55.134.72	nid7014-ibpub.cech.nersc.gov	nid7014-ibpub
+128.55.134.73	nid7015-ibpub.cech.nersc.gov	nid7015-ibpub
+128.55.134.74	nid7016-ibpub.cech.nersc.gov	nid7016-ibpub
+128.55.134.75	nid7017-ibpub.cech.nersc.gov	nid7017-ibpub
+128.55.134.76	nid7018-ibpub.cech.nersc.gov	nid7018-ibpub
+128.55.134.77	nid7019-ibpub.cech.nersc.gov	nid7019-ibpub
+128.55.134.78	nid7020-ibpub.cech.nersc.gov	nid7020-ibpub
+128.55.134.79	nid7021-ibpub.cech.nersc.gov	nid7021-ibpub
+128.55.134.80	nid7022-ibpub.cech.nersc.gov	nid7022-ibpub
+128.55.134.81	nid7023-ibpub.cech.nersc.gov	nid7023-ibpub
+128.55.134.82	nid7024-ibpub.cech.nersc.gov	nid7024-ibpub
+128.55.134.83	nid7025-ibpub.cech.nersc.gov	nid7025-ibpub
+128.55.134.84	nid7026-ibpub.cech.nersc.gov	nid7026-ibpub
+128.55.134.85	nid7027-ibpub.cech.nersc.gov	nid7027-ibpub
+128.55.134.86	nid7028-ibpub.cech.nersc.gov	nid7028-ibpub
+128.55.134.87	nid7029-ibpub.cech.nersc.gov	nid7029-ibpub
+128.55.134.88	nid7030-ibpub.cech.nersc.gov	nid7030-ibpub
+128.55.134.89	nid7031-ibpub.cech.nersc.gov	nid7031-ibpub
+128.55.134.90	nid7032-ibpub.cech.nersc.gov	nid7032-ibpub
+128.55.134.91	nid7033-ibpub.cech.nersc.gov	nid7033-ibpub
+128.55.134.92	nid7034-ibpub.cech.nersc.gov	nid7034-ibpub
+128.55.134.93	nid7035-ibpub.cech.nersc.gov	nid7035-ibpub
+128.55.134.94	nid7036-ibpub.cech.nersc.gov	nid7036-ibpub
+
+# --- InfiniBand Private ---
+
+10.45.0.17	nid7001-ib0.cech.nersc.gov	nid7001-ib0
+10.45.0.18	nid7002-ib0.cech.nersc.gov	nid7002-ib0
+10.45.0.19	nid7003-ib0.cech.nersc.gov	nid7003-ib0
+10.45.0.20	nid7004-ib0.cech.nersc.gov	nid7004-ib0
+10.45.0.21	nid7005-ib0.cech.nersc.gov	nid7005-ib0
+10.45.0.22	nid7006-ib0.cech.nersc.gov	nid7006-ib0
+10.45.0.23	nid7007-ib0.cech.nersc.gov	nid7007-ib0
+10.45.0.24	nid7008-ib0.cech.nersc.gov	nid7008-ib0
+10.45.0.25	nid7009-ib0.cech.nersc.gov	nid7009-ib0
+10.45.0.26	nid7010-ib0.cech.nersc.gov	nid7010-ib0
+10.45.0.27	nid7011-ib0.cech.nersc.gov	nid7011-ib0
+10.45.0.28	nid7012-ib0.cech.nersc.gov	nid7012-ib0
+10.45.0.29	nid7013-ib0.cech.nersc.gov	nid7013-ib0
+10.45.0.30	nid7014-ib0.cech.nersc.gov	nid7014-ib0
+10.45.0.31	nid7015-ib0.cech.nersc.gov	nid7015-ib0
+10.45.0.32	nid7016-ib0.cech.nersc.gov	nid7016-ib0
+10.45.0.33	nid7017-ib0.cech.nersc.gov	nid7017-ib0
+10.45.0.34	nid7018-ib0.cech.nersc.gov	nid7018-ib0
+10.45.0.35	nid7019-ib0.cech.nersc.gov	nid7019-ib0
+10.45.0.36	nid7020-ib0.cech.nersc.gov	nid7020-ib0
+10.45.0.37	nid7021-ib0.cech.nersc.gov	nid7021-ib0
+10.45.0.38	nid7022-ib0.cech.nersc.gov	nid7022-ib0
+10.45.0.39	nid7023-ib0.cech.nersc.gov	nid7023-ib0
+10.45.0.40	nid7024-ib0.cech.nersc.gov	nid7024-ib0
+10.45.0.41	nid7025-ib0.cech.nersc.gov	nid7025-ib0
+10.45.0.42	nid7026-ib0.cech.nersc.gov	nid7026-ib0
+10.45.0.43	nid7027-ib0.cech.nersc.gov	nid7027-ib0
+10.45.0.44	nid7028-ib0.cech.nersc.gov	nid7028-ib0
+10.45.0.45	nid7029-ib0.cech.nersc.gov	nid7029-ib0
+10.45.0.46	nid7030-ib0.cech.nersc.gov	nid7030-ib0
+10.45.0.47	nid7031-ib0.cech.nersc.gov	nid7031-ib0
+10.45.0.48	nid7032-ib0.cech.nersc.gov	nid7032-ib0
+10.45.0.49	nid7033-ib0.cech.nersc.gov	nid7033-ib0
+10.45.0.50	nid7034-ib0.cech.nersc.gov	nid7034-ib0
+10.45.0.51	nid7035-ib0.cech.nersc.gov	nid7035-ib0
+10.45.0.52	nid7036-ib0.cech.nersc.gov	nid7036-ib0
+10.45.0.117	nid7001-ib2.cech.nersc.gov	nid7001-ib2
+10.45.0.118	nid7002-ib2.cech.nersc.gov	nid7002-ib2
+10.45.0.119	nid7003-ib2.cech.nersc.gov	nid7003-ib2
+10.45.0.120	nid7004-ib2.cech.nersc.gov	nid7004-ib2
+10.45.0.121	nid7005-ib2.cech.nersc.gov	nid7005-ib2
+10.45.0.122	nid7006-ib2.cech.nersc.gov	nid7006-ib2
+10.45.0.123	nid7007-ib2.cech.nersc.gov	nid7007-ib2
+10.45.0.124	nid7008-ib2.cech.nersc.gov	nid7008-ib2
+10.45.0.125	nid7009-ib2.cech.nersc.gov	nid7009-ib2
+10.45.0.126	nid7010-ib2.cech.nersc.gov	nid7010-ib2
+10.45.0.127	nid7011-ib2.cech.nersc.gov	nid7011-ib2
+10.45.0.128	nid7012-ib2.cech.nersc.gov	nid7012-ib2
+10.45.0.129	nid7013-ib2.cech.nersc.gov	nid7013-ib2
+10.45.0.130	nid7014-ib2.cech.nersc.gov	nid7014-ib2
+10.45.0.131	nid7015-ib2.cech.nersc.gov	nid7015-ib2
+10.45.0.132	nid7016-ib2.cech.nersc.gov	nid7016-ib2
+10.45.0.133	nid7017-ib2.cech.nersc.gov	nid7017-ib2
+10.45.0.134	nid7018-ib2.cech.nersc.gov	nid7018-ib2
+10.45.0.135	nid7019-ib2.cech.nersc.gov	nid7019-ib2
+10.45.0.136	nid7020-ib2.cech.nersc.gov	nid7020-ib2
+10.45.0.137	nid7021-ib2.cech.nersc.gov	nid7021-ib2
+10.45.0.138	nid7022-ib2.cech.nersc.gov	nid7022-ib2
+10.45.0.139	nid7023-ib2.cech.nersc.gov	nid7023-ib2
+10.45.0.140	nid7024-ib2.cech.nersc.gov	nid7024-ib2
+10.45.0.141	nid7025-ib2.cech.nersc.gov	nid7025-ib2
+10.45.0.142	nid7026-ib2.cech.nersc.gov	nid7026-ib2
+10.45.0.143	nid7027-ib2.cech.nersc.gov	nid7027-ib2
+10.45.0.144	nid7028-ib2.cech.nersc.gov	nid7028-ib2
+10.45.0.145	nid7029-ib2.cech.nersc.gov	nid7029-ib2
+10.45.0.146	nid7030-ib2.cech.nersc.gov	nid7030-ib2
+10.45.0.147	nid7031-ib2.cech.nersc.gov	nid7031-ib2
+10.45.0.148	nid7032-ib2.cech.nersc.gov	nid7032-ib2
+10.45.0.149	nid7033-ib2.cech.nersc.gov	nid7033-ib2
+10.45.0.150	nid7034-ib2.cech.nersc.gov	nid7034-ib2
+10.45.0.151	nid7035-ib2.cech.nersc.gov	nid7035-ib2
+10.45.0.152	nid7036-ib2.cech.nersc.gov	nid7036-ib2
+10.45.1.16	cech-mgt1-ib0.cech.nersc.gov	cech-mgt1-ib0
+10.45.1.17	cech-svc1-ib0.cech.nersc.gov	cech-svc1-ib0
+10.45.1.18	cech-slurm1-ib0.cech.nersc.gov	cech-slurm1-ib0
+10.45.1.19	cech-ome1-ib0.cech.nersc.gov	cech-ome1-ib0
+10.45.1.20	cech-ufm1-ib0.cech.nersc.gov	cech-ufm1-ib0
+10.45.1.21	cech-sfm1-ib0.cech.nersc.gov	cech-sfm1-ib0
+10.45.1.22	cech-wen1-ib0.cech.nersc.gov	cech-wen1-ib0
+10.45.1.116	cech-mgt1-ib2.cech.nersc.gov	cech-mgt1-ib2
+10.45.1.117	cech-svc1-ib2.cech.nersc.gov	cech-svc1-ib2
+10.45.1.118	cech-slurm1-ib2.cech.nersc.gov	cech-slurm1-ib2
+10.45.1.119	cech-ome1-ib2.cech.nersc.gov	cech-ome1-ib2
+10.45.1.120	cech-ufm1-ib2.cech.nersc.gov	cech-ufm1-ib2
+10.45.1.121	cech-sfm1-ib2.cech.nersc.gov	cech-sfm1-ib2
+10.45.1.122	cech-wen1-ib2.cech.nersc.gov	cech-wen1-ib2
+10.45.2.16	cech-mgt2-ib0.cech.nersc.gov	cech-mgt2-ib0
+10.45.2.17	cech-svc2-ib0.cech.nersc.gov	cech-svc2-ib0
+10.45.2.18	cech-slurm2-ib0.cech.nersc.gov	cech-slurm2-ib0
+10.45.2.19	cech-ome2-ib0.cech.nersc.gov	cech-ome2-ib0
+10.45.2.20	cech-ufm2-ib0.cech.nersc.gov	cech-ufm2-ib0
+10.45.2.21	cech-sfm2-ib0.cech.nersc.gov	cech-sfm2-ib0
+10.45.2.22	cech-wen2-ib0.cech.nersc.gov	cech-wen2-ib0
+10.45.2.25	cech-vast1-ib0.cech.nersc.gov	cech-vast1-ib0
+10.45.2.26	cech-vast2-ib0.cech.nersc.gov	cech-vast2-ib0
+10.45.2.27	cech-vast3-ib0.cech.nersc.gov	cech-vast3-ib0
+10.45.2.28	cech-vast4-ib0.cech.nersc.gov	cech-vast4-ib0
+10.45.2.29	cech-vast5-ib0.cech.nersc.gov	cech-vast5-ib0
+10.45.2.30	cech-vast6-ib0.cech.nersc.gov	cech-vast6-ib0
+10.45.2.31	cech-vast7-ib0.cech.nersc.gov	cech-vast7-ib0
+10.45.2.32	cech-vast8-ib0.cech.nersc.gov	cech-vast8-ib0
+10.45.2.33	cech-vast9-ib0.cech.nersc.gov	cech-vast9-ib0
+10.45.2.34	cech-vast10-ib0.cech.nersc.gov	cech-vast10-ib0
+10.45.2.35	cech-vast11-ib0.cech.nersc.gov	cech-vast11-ib0
+10.45.2.75	cech-vast1-ib1.cech.nersc.gov	cech-vast1-ib1
+10.45.2.76	cech-vast2-ib1.cech.nersc.gov	cech-vast2-ib1
+10.45.2.77	cech-vast3-ib1.cech.nersc.gov	cech-vast3-ib1
+10.45.2.78	cech-vast4-ib1.cech.nersc.gov	cech-vast4-ib1
+10.45.2.79	cech-vast5-ib1.cech.nersc.gov	cech-vast5-ib1
+10.45.2.80	cech-vast6-ib1.cech.nersc.gov	cech-vast6-ib1
+10.45.2.81	cech-vast7-ib1.cech.nersc.gov	cech-vast7-ib1
+10.45.2.82	cech-vast8-ib1.cech.nersc.gov	cech-vast8-ib1
+10.45.2.83	cech-vast9-ib1.cech.nersc.gov	cech-vast9-ib1
+10.45.2.84	cech-vast10-ib1.cech.nersc.gov	cech-vast10-ib1
+10.45.2.85	cech-vast11-ib1.cech.nersc.gov	cech-vast11-ib1
+10.45.2.116	cech-mgt2-ib2.cech.nersc.gov	cech-mgt2-ib2
+10.45.2.117	cech-svc2-ib2.cech.nersc.gov	cech-svc2-ib2
+10.45.2.118	cech-slurm2-ib2.cech.nersc.gov	cech-slurm2-ib2
+10.45.2.119	cech-ome2-ib2.cech.nersc.gov	cech-ome2-ib2
+10.45.2.120	cech-ufm2-ib2.cech.nersc.gov	cech-ufm2-ib2
+10.45.2.121	cech-sfm2-ib2.cech.nersc.gov	cech-sfm2-ib2
+10.45.2.122	cech-wen2-ib2.cech.nersc.gov	cech-wen2-ib2
+10.45.2.125	cech-vast1-ib2.cech.nersc.gov	cech-vast1-ib2
+10.45.2.126	cech-vast2-ib2.cech.nersc.gov	cech-vast2-ib2
+10.45.2.127	cech-vast3-ib2.cech.nersc.gov	cech-vast3-ib2
+10.45.2.128	cech-vast4-ib2.cech.nersc.gov	cech-vast4-ib2
+10.45.2.129	cech-vast5-ib2.cech.nersc.gov	cech-vast5-ib2
+10.45.2.130	cech-vast6-ib2.cech.nersc.gov	cech-vast6-ib2
+10.45.2.131	cech-vast7-ib2.cech.nersc.gov	cech-vast7-ib2
+10.45.2.132	cech-vast8-ib2.cech.nersc.gov	cech-vast8-ib2
+10.45.2.133	cech-vast9-ib2.cech.nersc.gov	cech-vast9-ib2
+10.45.2.134	cech-vast10-ib2.cech.nersc.gov	cech-vast10-ib2
+10.45.2.135	cech-vast11-ib2.cech.nersc.gov	cech-vast11-ib2
+10.45.2.190	cech-vast1-ib3.cech.nersc.gov	cech-vast1-ib3
+10.45.2.191	cech-vast2-ib3.cech.nersc.gov	cech-vast2-ib3
+10.45.2.192	cech-vast3-ib3.cech.nersc.gov	cech-vast3-ib3
+10.45.2.193	cech-vast4-ib3.cech.nersc.gov	cech-vast4-ib3
+10.45.2.194	cech-vast5-ib3.cech.nersc.gov	cech-vast5-ib3
+10.45.2.195	cech-vast6-ib3.cech.nersc.gov	cech-vast6-ib3
+10.45.2.196	cech-vast7-ib3.cech.nersc.gov	cech-vast7-ib3
+10.45.2.197	cech-vast8-ib3.cech.nersc.gov	cech-vast8-ib3
+10.45.2.198	cech-vast9-ib3.cech.nersc.gov	cech-vast9-ib3
+10.45.2.199	cech-vast10-ib3.cech.nersc.gov	cech-vast10-ib3
+10.45.2.200	cech-vast11-ib3.cech.nersc.gov	cech-vast11-ib3
+
+# --- Switch Management ---
+
+10.43.0.16	cech-ethLeaf1-swmgt.cech.nersc.gov	cech-ethLeaf1-swmgt
+10.43.0.53	cech-ethLeaf2-swmgt.cech.nersc.gov	cech-ethLeaf2-swmgt
+10.43.0.54	cech-ircRack1-swmgt.cech.nersc.gov	cech-ircRack1-swmgt
+10.43.0.55	cech-r1ibleaf1-swmgt.cech.nersc.gov	cech-r1ibleaf1-swmgt
+10.43.0.56	cech-r1ibleaf2-swmgt.cech.nersc.gov	cech-r1ibleaf2-swmgt
+10.43.1.21	cech-sfm1-swmgt.cech.nersc.gov	cech-sfm1-swmgt
+10.43.1.24	cech-ethMgmt1-swmgt.cech.nersc.gov	cech-ethMgmt1-swmgt
+10.43.1.25	cech-ethLeaf2-swmgt.cech.nersc.gov	cech-ethLeaf2-swmgt
+10.43.1.26	cech-ethSpine1-swmgt.cech.nersc.gov	cech-ethSpine1-swmgt
+10.43.1.29	cech-r2ibleaf1-swmgt.cech.nersc.gov	cech-r2ibleaf1-swmgt
+10.43.1.30	cech-r2ibspine1-swmgt.cech.nersc.gov	cech-r2ibspine1-swmgt
+10.43.1.71	cech-sfm1-swmgt1.cech.nersc.gov	cech-sfm1-swmgt1
+10.43.1.73	cech-ethLeaf3-swmgt1.cech.nersc.gov	cech-ethLeaf3-swmgt1
+10.43.2.16	cech-mgt2-swmgt.cech.nersc.gov	cech-mgt2-swmgt
+10.43.2.21	cech-sfm2-swmgt.cech.nersc.gov	cech-sfm2-swmgt
+10.43.2.23	cech-ethLeaf3-swmgt.cech.nersc.gov	cech-ethLeaf3-swmgt
+10.43.2.24	cech-ethSpine2-swmgt.cech.nersc.gov	cech-ethSpine2-swmgt
+10.43.2.40	cech-border2-swmgt.cech.nersc.gov	cech-border2-swmgt
+10.43.2.41	cech-r3ibleaf1-swmgt.cech.nersc.gov	cech-r3ibleaf1-swmgt
+10.43.2.42	cech-r3spine1-swmgt.cech.nersc.gov	cech-r3spine1-swmgt
+
+# --- PowerScale Admin ---
+
+10.46.1.16	cech-mgt1-psadm.cech.nersc.gov	cech-mgt1-psadm
+10.46.1.23	cech-pscale1-psadm.cech.nersc.gov	cech-pscale1-psadm
+10.46.1.27	cech-pvault1a-psadm.cech.nersc.gov	cech-pvault1a-psadm
+10.46.1.28	cech-pvault1b-psadm.cech.nersc.gov	cech-pvault1b-psadm
+10.46.1.73	cech-pscale1-psadm2.cech.nersc.gov	cech-pscale1-psadm2
+10.46.1.77	cech-pvault1a-psadm2.cech.nersc.gov	cech-pvault1a-psadm2
+10.46.1.78	cech-pvault1b-psadm2.cech.nersc.gov	cech-pvault1b-psadm2
+10.46.1.138	cech-pscale1-psadm3.cech.nersc.gov	cech-pscale1-psadm3
+10.46.1.142	cech-pvault1a-psadm3.cech.nersc.gov	cech-pvault1a-psadm3
+10.46.1.143	cech-pvault1b-psadm3.cech.nersc.gov	cech-pvault1b-psadm3
+10.46.1.203	cech-pscale1-psadm4.cech.nersc.gov	cech-pscale1-psadm4
+10.46.1.207	cech-pvault1a-psadm4.cech.nersc.gov	cech-pvault1a-psadm4
+10.46.1.208	cech-pvault1b-psadm4.cech.nersc.gov	cech-pvault1b-psadm4
+10.46.2.16	cech-mgt2-psadm.cech.nersc.gov	cech-mgt2-psadm
+
+# --- PowerScale Storage ---
+
+10.44.1.23	cech-pscale1-psstg.cech.nersc.gov	cech-pscale1-psstg
+10.44.1.27	cech-pvault1a-psstg.cech.nersc.gov	cech-pvault1a-psstg
+10.44.1.28	cech-pvault1b-psstg.cech.nersc.gov	cech-pvault1b-psstg
+10.44.1.73	cech-pscale1-psstg2.cech.nersc.gov	cech-pscale1-psstg2
+10.44.1.77	cech-pvault1a-psstg2.cech.nersc.gov	cech-pvault1a-psstg2
+10.44.1.78	cech-pvault1b-psstg2.cech.nersc.gov	cech-pvault1b-psstg2
+10.44.1.138	cech-pscale1-psstg3.cech.nersc.gov	cech-pscale1-psstg3
+10.44.1.142	cech-pvault1a-psstg3.cech.nersc.gov	cech-pvault1a-psstg3
+10.44.1.143	cech-pvault1b-psstg3.cech.nersc.gov	cech-pvault1b-psstg3
+10.44.1.203	cech-pscale1-psstg4.cech.nersc.gov	cech-pscale1-psstg4
+10.44.1.207	cech-pvault1a-psstg4.cech.nersc.gov	cech-pvault1a-psstg4
+10.44.1.208	cech-pvault1b-psstg4.cech.nersc.gov	cech-pvault1b-psstg4
+
+# --- Other ---
+
+10.41.0.17	nid7001.cech.nersc.gov	x7000c0s1b0n0.cech.nersc.gov	nid7001	x7000c0s1b0n0	nid1
+10.41.0.18	nid7002.cech.nersc.gov	x7000c0s2b0n0.cech.nersc.gov	nid7002	x7000c0s2b0n0
+10.41.0.19	nid7003.cech.nersc.gov	x7000c0s4b0n0.cech.nersc.gov	nid7003	x7000c0s4b0n0
+10.41.0.20	nid7004.cech.nersc.gov	x7000c0s5b0n0.cech.nersc.gov	nid7004	x7000c0s5b0n0
+10.41.0.21	nid7005.cech.nersc.gov	x7000c0s6b0n0.cech.nersc.gov	nid7005	x7000c0s6b0n0
+10.41.0.22	nid7006.cech.nersc.gov	x7000c0s7b0n0.cech.nersc.gov	nid7006	x7000c0s7b0n0
+10.41.0.23	nid7007.cech.nersc.gov	x7000c0s11b0n0.cech.nersc.gov	nid7007	x7000c0s11b0n0
+10.41.0.24	nid7008.cech.nersc.gov	x7000c0s12b0n0.cech.nersc.gov	nid7008	x7000c0s12b0n0
+10.41.0.25	nid7009.cech.nersc.gov	x7000c0s13b0n0.cech.nersc.gov	nid7009	x7000c0s13b0n0
+10.41.0.26	nid7010.cech.nersc.gov	x7000c0s14b0n0.cech.nersc.gov	nid7010	x7000c0s14b0n0
+10.41.0.27	nid7011.cech.nersc.gov	x7000c0s15b0n0.cech.nersc.gov	nid7011	x7000c0s15b0n0
+10.41.0.28	nid7012.cech.nersc.gov	x7000c0s16b0n0.cech.nersc.gov	nid7012	x7000c0s16b0n0
+10.41.0.29	nid7013.cech.nersc.gov	x7000c0s17b0n0.cech.nersc.gov	nid7013	x7000c0s17b0n0
+10.41.0.30	nid7014.cech.nersc.gov	x7000c0s18b0n0.cech.nersc.gov	nid7014	x7000c0s18b0n0
+10.41.0.31	nid7015.cech.nersc.gov	x7000c0s19b0n0.cech.nersc.gov	nid7015	x7000c0s19b0n0
+10.41.0.32	nid7016.cech.nersc.gov	x7000c0s20b0n0.cech.nersc.gov	nid7016	x7000c0s20b0n0
+10.41.0.33	nid7017.cech.nersc.gov	x7000c0s21b0n0.cech.nersc.gov	nid7017	x7000c0s21b0n0
+10.41.0.34	nid7018.cech.nersc.gov	x7000c0s27b0n0.cech.nersc.gov	nid7018	x7000c0s27b0n0
+10.41.0.35	nid7019.cech.nersc.gov	x7000c0s28b0n0.cech.nersc.gov	nid7019	x7000c0s28b0n0
+10.41.0.36	nid7020.cech.nersc.gov	x7000c0s29b0n0.cech.nersc.gov	nid7020	x7000c0s29b0n0
+10.41.0.37	nid7021.cech.nersc.gov	x7000c0s30b0n0.cech.nersc.gov	nid7021	x7000c0s30b0n0
+10.41.0.38	nid7022.cech.nersc.gov	x7000c0s31b0n0.cech.nersc.gov	nid7022	x7000c0s31b0n0
+10.41.0.39	nid7023.cech.nersc.gov	x7000c0s32b0n0.cech.nersc.gov	nid7023	x7000c0s32b0n0
+10.41.0.40	nid7024.cech.nersc.gov	x7000c0s33b0n0.cech.nersc.gov	nid7024	x7000c0s33b0n0
+10.41.0.41	nid7025.cech.nersc.gov	x7000c0s34b0n0.cech.nersc.gov	nid7025	x7000c0s34b0n0
+10.41.0.42	nid7026.cech.nersc.gov	x7000c0s35b0n0.cech.nersc.gov	nid7026	x7000c0s35b0n0
+10.41.0.43	nid7027.cech.nersc.gov	x7000c0s36b0n0.cech.nersc.gov	nid7027	x7000c0s36b0n0
+10.41.0.44	nid7028.cech.nersc.gov	x7000c0s37b0n0.cech.nersc.gov	nid7028	x7000c0s37b0n0
+10.41.0.45	nid7029.cech.nersc.gov	x7000c0s43b0n0.cech.nersc.gov	nid7029	x7000c0s43b0n0
+10.41.0.46	nid7030.cech.nersc.gov	x7000c0s44b0n0.cech.nersc.gov	nid7030	x7000c0s44b0n0
+10.41.0.47	nid7031.cech.nersc.gov	x7000c0s45b0n0.cech.nersc.gov	nid7031	x7000c0s45b0n0
+10.41.0.48	nid7032.cech.nersc.gov	x7000c0s46b0n0.cech.nersc.gov	nid7032	x7000c0s46b0n0
+10.41.0.49	nid7033.cech.nersc.gov	x7000c0s47b0n0.cech.nersc.gov	nid7033	x7000c0s47b0n0
+10.41.0.50	nid7034.cech.nersc.gov	x7000c0s48b0n0.cech.nersc.gov	nid7034	x7000c0s48b0n0
+10.41.0.51	nid7035.cech.nersc.gov	x7000c0s48b0n0.cech.nersc.gov	nid7035	x7000c0s48b0n0
+10.41.0.52	nid7036.cech.nersc.gov	x7000c0s48b0n0.cech.nersc.gov	nid7036	x7000c0s48b0n0
+10.41.0.61	cech-r1ibleaf1.cech.nersc.gov	cech-r1ibleaf1	x7000c0s26w0
+10.41.0.62	cech-r1ibleaf2.cech.nersc.gov	cech-r1ibleaf2	x7000c0s43w0
+10.41.0.100	cech-ircRack1.cech.nersc.gov	cech-ircRack1	x7000c0s22w0
+10.41.1.16	cech-mgt1.cech.nersc.gov	x7001c0s28b0n0.cech.nersc.gov	cech-mgt1	x7001c0s28b0n0
+10.41.1.17	cech-svc1.cech.nersc.gov	x7001c0s29b0n0.cech.nersc.gov	cech-svc1	x7001c0s29b0n0
+10.41.1.18	cech-slurm1.cech.nersc.gov	x7001c0s30b0n0.cech.nersc.gov	cech-slurm1	x7001c0s30b0n0
+10.41.1.19	cech-ome1.cech.nersc.gov	x7001c0s31b0n0.cech.nersc.gov	cech-ome1	x7001c0s31b0n0
+10.41.1.20	cech-ufm1.cech.nersc.gov	x7001c0s32b0n0.cech.nersc.gov	cech-ufm1	x7001c0s32b0n0
+10.41.1.21	cech-sfm1.cech.nersc.gov	x7001c0s33b0n0.cech.nersc.gov	cech-sfm1	x7001c0s33b0n0
+10.41.1.22	cech-wen1.cech.nersc.gov	x7001c0s34b0n0.cech.nersc.gov	cech-wen1	x7001c0s34b0n0
+10.41.1.29	cech-r2ibleaf1.cech.nersc.gov	cech-r2ibleaf1	x7001c0s26w0
+10.41.1.30	cech-r2ibspine1.cech.nersc.gov	cech-r2ibspine1	x7001c0s43w0
+10.41.2.16	cech-mgt2.cech.nersc.gov	x7002c0s28b0n0.cech.nersc.gov	cech-mgt2	x7002c0s28b0n0
+10.41.2.17	cech-svc2.cech.nersc.gov	x7002c0s29b0n0.cech.nersc.gov	cech-svc2	x7002c0s29b0n0
+10.41.2.18	cech-slurm2.cech.nersc.gov	x7002c0s30b0n0.cech.nersc.gov	cech-slurm2	x7002c0s30b0n0
+10.41.2.19	cech-ome2.cech.nersc.gov	x7002c0s31b0n0.cech.nersc.gov	cech-ome2	x7002c0s31b0n0
+10.41.2.20	cech-ufm2.cech.nersc.gov	x7002c0s32b0n0.cech.nersc.gov	cech-ufm2	x7002c0s32b0n0
+10.41.2.21	cech-sfm2.cech.nersc.gov	x7002c0s33b0n0.cech.nersc.gov	cech-sfm2	x7002c0s33b0n0
+10.41.2.22	cech-wen2.cech.nersc.gov	x7002c0s34b0n0.cech.nersc.gov	cech-wen2	x7002c0s34b0n0
+10.41.2.25	cech-vast1.cech.nersc.gov	x7002c0s3b0n0.cech.nersc.gov	cech-vast1	x7002c0s3b0n0
+10.41.2.26	cech-vast2.cech.nersc.gov	x7002c0s4b0n0.cech.nersc.gov	cech-vast2	x7002c0s4b0n0
+10.41.2.27	cech-vast3.cech.nersc.gov	x7002c0s5b0n0.cech.nersc.gov	cech-vast3	x7002c0s5b0n0
+10.41.2.28	cech-vast4.cech.nersc.gov	x7002c0s6b0n0.cech.nersc.gov	cech-vast4	x7002c0s6b0n0
+10.41.2.29	cech-vast5.cech.nersc.gov	x7002c0s7b0n0.cech.nersc.gov	cech-vast5	x7002c0s7b0n0
+10.41.2.30	cech-vast6.cech.nersc.gov	x7002c0s8b0n0.cech.nersc.gov	cech-vast6	x7002c0s8b0n0
+10.41.2.31	cech-vast7.cech.nersc.gov	x7002c0s9b0n0.cech.nersc.gov	cech-vast7	x7002c0s9b0n0
+10.41.2.32	cech-vast8.cech.nersc.gov	x7002c0s10b0n0.cech.nersc.gov	cech-vast8	x7002c0s10b0n0
+10.41.2.33	cech-vast9.cech.nersc.gov	x7002c0s11b0n0.cech.nersc.gov	cech-vast9	x7002c0s11b0n0
+10.41.2.34	cech-vast10.cech.nersc.gov	x7002c0s12b0n0.cech.nersc.gov	cech-vast10	x7002c0s12b0n0
+10.41.2.35	cech-vast11.cech.nersc.gov	x7002c0s13b0n0.cech.nersc.gov	cech-vast11	x7002c0s13b0n0
+10.41.2.41	cech-r3ibleaf1.cech.nersc.gov	cech-r3ibleaf1	x7002c0s26w0
+10.41.2.42	cech-r3spine1.cech.nersc.gov	cech-r3spine1	x7002c0s43w0
+10.41.3.16	cech-cdu0.cech.nersc.gov	x7003c0s1b0n0.cech.nersc.gov	cech-cdu0	x7003c0s1b0n0
