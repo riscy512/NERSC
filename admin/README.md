@@ -68,6 +68,10 @@ omniactl boot clear-next cech-mgt2
 | **boot clear-next [NODE ...]** | Clear next boot override. |
 | **boot show-options [NODE ...]** | Show BootOptions (vendor-specific). |
 
+### Node name / xName alias
+
+For **power**, **boot**, and **node show**, you can pass either a **nodeName** (e.g. `nid0001`, `cech-mgt2`) or an **xName** (e.g. `x7000c0s1b0n0`). xName is resolved to the canonical nodeName before the command runs, so both forms are equivalent.
+
 ### Configuration
 
 - **Cluster data:** ips.csv (see CSV requirements below). Use `--config` to point to another path.

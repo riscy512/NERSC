@@ -21,6 +21,28 @@ def _get_config_path(args: argparse.Namespace) -> Path:
     return Path(args.config) if getattr(args, "config", None) else DEFAULT_CONFIG
 
 
+def _resolve_node(cluster: dict, name: str) -> str:
+    """
+    Resolve a name to the canonical nodeName. If name is an xName (in by_xname),
+    return the corresponding nodeName; otherwise return name unchanged.
+    Allows power/boot/node show to accept either nodeName or xName.
+    """
+    by_xname = cluster.get("hosts", {}).get("by_xname", {})
+    return by_xname.get(name, name)
+
+
+def _resolve_nodes(cluster: dict, names: list[str]) -> list[str]:
+    """Resolve a list of names to nodeNames (xName -> nodeName); dedupe preserving order."""
+    seen = set()
+    out = []
+    for n in names:
+        node = _resolve_node(cluster, n)
+        if node not in seen:
+            seen.add(node)
+            out.append(node)
+    return out
+
+
 def _load_cluster(args: argparse.Namespace):
     """Load cluster; exit on error."""
     from omniaHosts import load_cluster, IPReuseError
@@ -80,10 +102,10 @@ def cmd_node_list(args: argparse.Namespace) -> None:
 
 def cmd_node_show(args: argparse.Namespace) -> None:
     cluster, _ = _load_cluster(args)
-    node_name = args.node
+    node_name = _resolve_node(cluster, args.node)
     by_node = cluster.get("hosts", {}).get("byNode", {})
     if node_name not in by_node:
-        print(f"Error: node not found: {node_name}", file=sys.stderr)
+        print(f"Error: node not found: {args.node}", file=sys.stderr)
         sys.exit(1)
     data = by_node[node_name]
     print(f"NodeName: {node_name}")
@@ -100,7 +122,7 @@ def cmd_power(args: argparse.Namespace) -> None:
     cluster, _ = _load_cluster(args)
     from redfish_power import run_for_node
     action = args.power_action  # on, off, status, reset, cycle, ...
-    nodes = args.nodes or []
+    nodes = _resolve_nodes(cluster, args.nodes or [])
     if not nodes:
         print("Error: power subcommand requires at least one node", file=sys.stderr)
         sys.exit(1)
@@ -120,7 +142,8 @@ def cmd_boot(args: argparse.Namespace) -> None:
     cluster, _ = _load_cluster(args)
     from redfish_boot import run_for_node, BOOT_OVERRIDE_ONCE
     action = args.boot_action  # show_next, set_next, show_permanent, clear_next, show_options
-    nodes = getattr(args, "nodes", None) or []
+    raw_nodes = getattr(args, "nodes", None) or []
+    nodes = _resolve_nodes(cluster, raw_nodes) if raw_nodes else []
     verify_ssl = getattr(args, "verify_ssl", False)
     target = getattr(args, "target", None)
     if action == "set_next" and not target:
@@ -175,13 +198,13 @@ def main() -> int:
     p_node_list.add_argument("pattern", nargs="?", default=None, help="Filter by pattern")
     p_node_list.set_defaults(run=cmd_node_list)
     p_node_show = p_node_sub.add_parser("show", help="Show one node")
-    p_node_show.add_argument("node", help="Node name")
+    p_node_show.add_argument("node", help="Node name or xName (alias)")
     p_node_show.set_defaults(run=cmd_node_show)
 
     # power
     p_power = sub.add_parser("power", help="Power control (Redfish/iDrac)")
     p_power.add_argument("power_action", choices=["on", "off", "status", "reset", "cycle", "graceful_shutdown", "graceful_restart", "force_off", "nmi"], help="Action")
-    p_power.add_argument("nodes", nargs="*", help="Node name(s)")
+    p_power.add_argument("nodes", nargs="*", help="Node name(s) or xName(s) (alias)")
     p_power.set_defaults(run=cmd_power, verify_ssl=False)
 
     # boot
@@ -194,11 +217,11 @@ def main() -> int:
         ("show-options", "Show boot options (if supported)"),
     ]:
         p = p_boot_sub.add_parser(name, help=help_)
-        p.add_argument("nodes", nargs="*", help="Node name(s); default all")
+        p.add_argument("nodes", nargs="*", help="Node name(s) or xName(s); default all")
         p.set_defaults(run=cmd_boot, boot_action=name.replace("-", "_"), verify_ssl=False)
     p_set_next = p_boot_sub.add_parser("set-next", help="Set next boot device")
     p_set_next.add_argument("--target", "-t", required=True, help="e.g. Pxe, Hdd, None")
-    p_set_next.add_argument("nodes", nargs="*", help="Node name(s)")
+    p_set_next.add_argument("nodes", nargs="*", help="Node name(s) or xName(s)")
     p_set_next.set_defaults(run=cmd_boot, boot_action="set_next", verify_ssl=False)
 
     args = parser.parse_args()

@@ -16,6 +16,10 @@ genders files, querying nodes, and controlling power and boot via Redfish (iDrac
 All node names and cluster lookups use short names only (no domain). Nodes must
 have the iDrac network defined in ips.csv for power and boot subcommands to work.
 
+Node name / xName alias: you can pass either nodeName (e.g. nid0001) or xName
+(e.g. x7000c0s1b0n0) for power, boot, and node show; xName is resolved to the
+canonical nodeName before the command runs.
+
 GLOBAL OPTIONS
   -c, --config PATH    Path to ips.csv (default: script_dir/ips.csv)
   -v, --verbose        Verbose output
@@ -38,11 +42,11 @@ SUBCOMMANDS
   node list [PATTERN]
     List all node names from the cluster. Optional PATTERN filters by substring.
   node show NODE
-    Show one node: NodeName, NodePurpose, xName, rack, uPos, and network table
-    (hostname -> IP per network).
+    Show one node (NODE may be nodeName or xName). NodeName, NodePurpose, xName,
+    rack, uPos, and network table (hostname -> IP per network).
 
   power ACTION [NODE ...]
-    Power control via Redfish (iDrac). Requires at least one NODE name.
+    Power control via Redfish (iDrac). NODE(s) may be nodeName or xName. Requires at least one.
     Output is one line per node in the form "nodeName: <status or result>" on
     stdout. Pipe to dshbak (e.g. omniactl power status n1 n2 ... | dshbak);
     dshbak reads stdin and rolls up nodes by common output (e.g. one block for
@@ -52,6 +56,7 @@ SUBCOMMANDS
 
   boot show-next [NODE ...]
     Show next boot override (BootSourceOverrideTarget, Enabled, Mode) per node.
+    NODE(s) may be nodeName or xName.
   boot show-permanent [NODE ...]
     Show persistent (BIOS) boot order per node.
   boot set-next --target TARGET [NODE ...]
