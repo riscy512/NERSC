@@ -259,5 +259,95 @@ for rack in rackList:
 #                print(f"  IB Route: {ib_route[:60]}...")
     else:
         print(f"Warning: {rack_file} not found")
+
+# Parse links.csv - Windows newlines are record separators, Unix newlines within records need rejoining
+links_file = Path("links.csv")
+if links_file.exists():
+    with links_file.open('rb') as f:  # Read in binary to preserve line endings
+        content = f.read().decode('utf-8')
+    
+    # Split on Windows newlines (\r\n) to get actual records
+    records = content.split('\r\n')
+    
+    # First line is the header
+    if not records:
+        print(f"Warning: {links_file} is empty")
+    else:
+        # Parse header - remove Unix newlines and split by comma
+        header_line = records[0].replace('\n', '')
+        headers = [h.strip() for h in header_line.split(',')]
+        
+        # Find column indices
+        # Source: first Row, Rack, Node, and Card (if exists, might be "Sled" or "Interface")
+        src_row_idx = headers.index('Row') if 'Row' in headers else None
+        src_rack_idx = None
+        src_node_idx = None
+        card_idx = None
+        
+        # Find first occurrence of each (source columns)
+        for idx, h in enumerate(headers):
+            if h == 'Rack' and src_rack_idx is None:
+                src_rack_idx = idx
+            elif h == 'Node' and src_node_idx is None:
+                src_node_idx = idx
+            elif h in ['Card', 'Sled'] and card_idx is None:
+                card_idx = idx
+        
+        # Destination: second Row, Rack, Switch, Port
+        dest_row_idx = None
+        dest_rack_idx = None
+        switch_idx = None
+        port_idx = None
+        
+        # Find second occurrence (destination columns)
+        found_first_rack = False
+        for idx, h in enumerate(headers):
+            if h == 'Row' and idx != src_row_idx:
+                dest_row_idx = idx
+            elif h == 'Rack' and idx != src_rack_idx:
+                dest_rack_idx = idx
+            elif h == 'Switch':
+                switch_idx = idx
+            elif h == 'Port':
+                port_idx = idx
+        
+        # Process data records (skip header)
+        for record in records[1:]:
+            # Remove Unix newlines within the record
+            record = record.replace('\n', '').strip()
+            if not record:
+                continue
+            
+            # Parse CSV record
+            reader = csv.reader([record])
+            try:
+                row = next(reader)
+                
+                # Extract source endpoint
+                src_row = row[src_row_idx] if src_row_idx is not None and src_row_idx < len(row) else ''
+                src_rack = row[src_rack_idx] if src_rack_idx is not None and src_rack_idx < len(row) else ''
+                src_node = row[src_node_idx] if src_node_idx is not None and src_node_idx < len(row) else ''
+                card = row[card_idx] if card_idx is not None and card_idx < len(row) else ''
+                
+                # Extract destination endpoint
+                dest_row = row[dest_row_idx] if dest_row_idx is not None and dest_row_idx < len(row) else ''
+                dest_rack = row[dest_rack_idx] if dest_rack_idx is not None and dest_rack_idx < len(row) else ''
+                switch = row[switch_idx] if switch_idx is not None and switch_idx < len(row) else ''
+                port = row[port_idx] if port_idx is not None and port_idx < len(row) else ''
+                
+                # Store in cluster structure
+                if src_row and src_rack and src_node:
+                    cluster["ethConnections"]["byRow"][src_row]["rack"][src_rack]["node"][src_node]["destRow"] = dest_row
+                    cluster["ethConnections"]["byRow"][src_row]["rack"][src_rack]["node"][src_node]["switch"] = switch
+                    cluster["ethConnections"]["byRow"][src_row]["rack"][src_rack]["node"][src_node]["port"] = port
+                    # Store card if populated
+                    if card:
+                        cluster["ethConnections"]["byRow"][src_row]["rack"][src_rack]["node"][src_node]["card"] = card
+                
+            except Exception as e:
+                print(f"Error parsing record: {e}")
+                continue
+else:
+    print(f"Warning: {links_file} not found")
      
-print ("\n\n\n\n\n",cluster["switches"],"\n\n\n\n\n")
+print ("\n\n\n\n\n",cluster["ethConnections"],"\n\n\n\n\n")

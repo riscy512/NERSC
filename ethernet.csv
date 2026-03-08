@@ -1,0 +1,830 @@
+﻿vlookup server,vlookup sw,Index,Facility,Card,Cable Length,Dell P/N,Cable Type,Cable Color,Server Transceiver,Switch Transceiver,Row,Rack,Node,Sled,Interface,Row,Rack,Switch,Port,Label,TSS Top,TSS Bottom,,,U Height,Device Position,Sled number,CMSH Switchport config commands - server hostname column must be populated,"CMSH rackview config commands - Server Hostname, U height and Device Position columns must be populated"
+1OU01,1OU03,1,Franklin,Slot 3 OCP - port 1,1M,470-ACEX,SFP28 TwinAx,Black,N/A,N/A,B5,1,OU01,,25Gb1,B5,1,OU03,1,"B5 R1 OU01 Slot 3 OCP - port 1
+B5 R1 SW OU03 P1",B5 R1 OU01 Slot 3 OCP - port 1,B5 R1 SW OU03 P1,,,2,#REF!,#REF!,#REF!,#REF!
+1OU02,1OU03,2,Franklin,Slot 3 OCP - port 1,1M,470-ACEX,SFP28 TwinAx,Black,N/A,N/A,B5,1,OU02,,25Gb1,B5,1,OU03,2,"B5 R1 OU02 Slot 3 OCP - port 1
+B5 R1 SW OU03 P2",B5 R1 OU02 Slot 3 OCP - port 1,B5 R1 SW OU03 P2,,,,,,,
+1OU04,1OU03,3,Franklin,Slot 3 OCP - port 1,1M,470-ACEX,SFP28 TwinAx,Black,N/A,N/A,B5,1,OU04,,25Gb1,B5,1,OU03,3,"B5 R1 OU04 Slot 3 OCP - port 1
+B5 R1 SW OU03 P3",B5 R1 OU04 Slot 3 OCP - port 1,B5 R1 SW OU03 P3,,,,,,,
+1OU05,1OU03,4,Franklin,Slot 3 OCP - port 1,1M,470-ACEX,SFP28 TwinAx,Black,N/A,N/A,B5,1,OU05,,25Gb1,B5,1,OU03,4,"B5 R1 OU05 Slot 3 OCP - port 1
+B5 R1 SW OU03 P4",B5 R1 OU05 Slot 3 OCP - port 1,B5 R1 SW OU03 P4,,,,,,,
+1OU06,1OU03,5,Franklin,Slot 3 OCP - port 1,1M,470-ACEX,SFP28 TwinAx,Black,N/A,N/A,B5,1,OU06,,25Gb1,B5,1,OU03,5,"B5 R1 OU06 Slot 3 OCP - port 1
+B5 R1 SW OU03 P5",B5 R1 OU06 Slot 3 OCP - port 1,B5 R1 SW OU03 P5,,,,,,,
+1OU07,1OU03,6,Franklin,Slot 3 OCP - port 1,2M,470-ACFB,SFP28 TwinAx,Black,N/A,N/A,B5,1,OU07,,25Gb1,B5,1,OU03,6,"B5 R1 OU07 Slot 3 OCP - port 1
+B5 R1 SW OU03 P6",B5 R1 OU07 Slot 3 OCP - port 1,B5 R1 SW OU03 P6,,,,,,,
+1OU11,1OU03,7,Franklin,Slot 3 OCP - port 1,2M,470-ACFB,SFP28 TwinAx,Black,N/A,N/A,B5,1,OU11,,25Gb1,B5,1,OU03,7,"B5 R1 OU11 Slot 3 OCP - port 1
+B5 R1 SW OU03 P7",B5 R1 OU11 Slot 3 OCP - port 1,B5 R1 SW OU03 P7,,,,,,,
+1OU12,1OU03,8,Franklin,Slot 3 OCP - port 1,2M,470-ACFB,SFP28 TwinAx,Black,N/A,N/A,B5,1,OU12,,25Gb1,B5,1,OU03,8,"B5 R1 OU12 Slot 3 OCP - port 1
+B5 R1 SW OU03 P8",B5 R1 OU12 Slot 3 OCP - port 1,B5 R1 SW OU03 P8,,,,,,,
+1OU13,1OU03,9,Franklin,Slot 3 OCP - port 1,2M,470-ACFB,SFP28 TwinAx,Black,N/A,N/A,B5,1,OU13,,25Gb1,B5,1,OU03,9,"B5 R1 OU13 Slot 3 OCP - port 1
+B5 R1 SW OU03 P9",B5 R1 OU13 Slot 3 OCP - port 1,B5 R1 SW OU03 P9,,,,,,,
+1OU14,1OU03,10,Franklin,Slot 3 OCP - port 1,2M,470-ACFB,SFP28 TwinAx,Black,N/A,N/A,B5,1,OU14,,25Gb1,B5,1,OU03,10,"B5 R1 OU14 Slot 3 OCP - port 1
+B5 R1 SW OU03 P10",B5 R1 OU14 Slot 3 OCP - port 1,B5 R1 SW OU03 P10,,,,,,,
+1OU15,1OU03,11,Franklin,Slot 3 OCP - port 1,2M,470-ACFB,SFP28 TwinAx,Black,N/A,N/A,B5,1,OU15,,25Gb1,B5,1,OU03,11,"B5 R1 OU15 Slot 3 OCP - port 1
+B5 R1 SW OU03 P11",B5 R1 OU15 Slot 3 OCP - port 1,B5 R1 SW OU03 P11,,,,,,,
+1OU16,1OU03,12,Franklin,Slot 3 OCP - port 1,2M,470-ACFB,SFP28 TwinAx,Black,N/A,N/A,B5,1,OU16,,25Gb1,B5,1,OU03,12,"B5 R1 OU16 Slot 3 OCP - port 1
+B5 R1 SW OU03 P12",B5 R1 OU16 Slot 3 OCP - port 1,B5 R1 SW OU03 P12,,,,,,,
+1OU17,1OU03,13,Franklin,Slot 3 OCP - port 1,2M,470-ACFB,SFP28 TwinAx,Black,N/A,N/A,B5,1,OU17,,25Gb1,B5,1,OU03,13,"B5 R1 OU17 Slot 3 OCP - port 1
+B5 R1 SW OU03 P13",B5 R1 OU17 Slot 3 OCP - port 1,B5 R1 SW OU03 P13,,,,,,,
+1OU18,1OU03,14,Franklin,Slot 3 OCP - port 1,2M,470-ACFB,SFP28 TwinAx,Black,N/A,N/A,B5,1,OU18,,25Gb1,B5,1,OU03,14,"B5 R1 OU18 Slot 3 OCP - port 1
+B5 R1 SW OU03 P14",B5 R1 OU18 Slot 3 OCP - port 1,B5 R1 SW OU03 P14,,,,,,,
+1OU19,1OU03,15,Franklin,Slot 3 OCP - port 1,2M,470-ACFB,SFP28 TwinAx,Black,N/A,N/A,B5,1,OU19,,25Gb1,B5,1,OU03,15,"B5 R1 OU19 Slot 3 OCP - port 1
+B5 R1 SW OU03 P15",B5 R1 OU19 Slot 3 OCP - port 1,B5 R1 SW OU03 P15,,,,,,,
+1OU20,1OU03,16,Franklin,Slot 3 OCP - port 1,2M,470-ACFB,SFP28 TwinAx,Black,N/A,N/A,B5,1,OU20,,25Gb1,B5,1,OU03,16,"B5 R1 OU20 Slot 3 OCP - port 1
+B5 R1 SW OU03 P16",B5 R1 OU20 Slot 3 OCP - port 1,B5 R1 SW OU03 P16,,,,,,,
+1OU21,1OU03,17,Franklin,Slot 3 OCP - port 1,2M,470-ACFB,SFP28 TwinAx,Black,N/A,N/A,B5,1,OU21,,25Gb1,B5,1,OU03,17,"B5 R1 OU21 Slot 3 OCP - port 1
+B5 R1 SW OU03 P17",B5 R1 OU21 Slot 3 OCP - port 1,B5 R1 SW OU03 P17,,,,,,,
+1OU27,1OU03,18,Franklin,Slot 3 OCP - port 1,2.5M,470-AENF,SFP28 TwinAx,Black,N/A,N/A,B5,1,OU27,,25Gb1,B5,1,OU03,18,"B5 R1 OU27 Slot 3 OCP - port 1
+B5 R1 SW OU03 P18",B5 R1 OU27 Slot 3 OCP - port 1,B5 R1 SW OU03 P18,,,,,,,
+1OU28,1OU03,19,Franklin,Slot 3 OCP - port 1,2.5M,470-AENF,SFP28 TwinAx,Black,N/A,N/A,B5,1,OU28,,25Gb1,B5,1,OU03,19,"B5 R1 OU28 Slot 3 OCP - port 1
+B5 R1 SW OU03 P19",B5 R1 OU28 Slot 3 OCP - port 1,B5 R1 SW OU03 P19,,,,,,,
+1OU29,1OU03,20,Franklin,Slot 3 OCP - port 1,2.5M,470-AENF,SFP28 TwinAx,Black,N/A,N/A,B5,1,OU29,,25Gb1,B5,1,OU03,20,"B5 R1 OU29 Slot 3 OCP - port 1
+B5 R1 SW OU03 P20",B5 R1 OU29 Slot 3 OCP - port 1,B5 R1 SW OU03 P20,,,,,,,
+1OU30,1OU03,21,Franklin,Slot 3 OCP - port 1,2.5M,470-AENF,SFP28 TwinAx,Black,N/A,N/A,B5,1,OU30,,25Gb1,B5,1,OU03,21,"B5 R1 OU30 Slot 3 OCP - port 1
+B5 R1 SW OU03 P21",B5 R1 OU30 Slot 3 OCP - port 1,B5 R1 SW OU03 P21,,,,,,,
+1OU31,1OU03,22,Franklin,Slot 3 OCP - port 1,2.5M,470-AENF,SFP28 TwinAx,Black,N/A,N/A,B5,1,OU31,,25Gb1,B5,1,OU03,22,"B5 R1 OU31 Slot 3 OCP - port 1
+B5 R1 SW OU03 P22",B5 R1 OU31 Slot 3 OCP - port 1,B5 R1 SW OU03 P22,,,,,,,
+1OU32,1OU03,23,Franklin,Slot 3 OCP - port 1,2.5M,470-AENF,SFP28 TwinAx,Black,N/A,N/A,B5,1,OU32,,25Gb1,B5,1,OU03,23,"B5 R1 OU32 Slot 3 OCP - port 1
+B5 R1 SW OU03 P23",B5 R1 OU32 Slot 3 OCP - port 1,B5 R1 SW OU03 P23,,,,,,,
+1OU33,1OU03,24,Franklin,Slot 3 OCP - port 1,2.5M,470-AENF,SFP28 TwinAx,Black,N/A,N/A,B5,1,OU33,,25Gb1,B5,1,OU03,24,"B5 R1 OU33 Slot 3 OCP - port 1
+B5 R1 SW OU03 P24",B5 R1 OU33 Slot 3 OCP - port 1,B5 R1 SW OU03 P24,,,,,,,
+1OU34,1OU03,25,Franklin,Slot 3 OCP - port 1,2.5M,470-AENF,SFP28 TwinAx,Black,N/A,N/A,B5,1,OU34,,25Gb1,B5,1,OU03,25,"B5 R1 OU34 Slot 3 OCP - port 1
+B5 R1 SW OU03 P25",B5 R1 OU34 Slot 3 OCP - port 1,B5 R1 SW OU03 P25,,,,,,,
+1OU35,1OU03,26,Franklin,Slot 3 OCP - port 1,2.5M,470-AENF,SFP28 TwinAx,Black,N/A,N/A,B5,1,OU35,,25Gb1,B5,1,OU03,26,"B5 R1 OU35 Slot 3 OCP - port 1
+B5 R1 SW OU03 P26",B5 R1 OU35 Slot 3 OCP - port 1,B5 R1 SW OU03 P26,,,,,,,
+1OU36,1OU03,27,Franklin,Slot 3 OCP - port 1,2.5M,470-AENF,SFP28 TwinAx,Black,N/A,N/A,B5,1,OU36,,25Gb1,B5,1,OU03,27,"B5 R1 OU36 Slot 3 OCP - port 1
+B5 R1 SW OU03 P27",B5 R1 OU36 Slot 3 OCP - port 1,B5 R1 SW OU03 P27,,,,,,,
+1OU37,1OU03,28,Franklin,Slot 3 OCP - port 1,2.5M,470-AENF,SFP28 TwinAx,Black,N/A,N/A,B5,1,OU37,,25Gb1,B5,1,OU03,28,"B5 R1 OU37 Slot 3 OCP - port 1
+B5 R1 SW OU03 P28",B5 R1 OU37 Slot 3 OCP - port 1,B5 R1 SW OU03 P28,,,,,,,
+1OU41,1OU03,29,Franklin,Slot 3 OCP - port 1,3M,470-ACEU,SFP28 TwinAx,Black,N/A,N/A,B5,1,OU41,,25Gb1,B5,1,OU03,29,"B5 R1 OU41 Slot 3 OCP - port 1
+B5 R1 SW OU03 P29",B5 R1 OU41 Slot 3 OCP - port 1,B5 R1 SW OU03 P29,,,,,,,
+1OU42,1OU03,30,Franklin,Slot 3 OCP - port 1,3M,470-ACEU,SFP28 TwinAx,Black,N/A,N/A,B5,1,OU42,,25Gb1,B5,1,OU03,30,"B5 R1 OU42 Slot 3 OCP - port 1
+B5 R1 SW OU03 P30",B5 R1 OU42 Slot 3 OCP - port 1,B5 R1 SW OU03 P30,,,,,,,
+1OU43,1OU03,31,Franklin,Slot 3 OCP - port 1,3M,470-ACEU,SFP28 TwinAx,Black,N/A,N/A,B5,1,OU43,,25Gb1,B5,1,OU03,31,"B5 R1 OU43 Slot 3 OCP - port 1
+B5 R1 SW OU03 P31",B5 R1 OU43 Slot 3 OCP - port 1,B5 R1 SW OU03 P31,,,,,,,
+1OU44,1OU03,32,Franklin,Slot 3 OCP - port 1,3M,470-ACEU,SFP28 TwinAx,Black,N/A,N/A,B5,1,OU44,,25Gb1,B5,1,OU03,32,"B5 R1 OU44 Slot 3 OCP - port 1
+B5 R1 SW OU03 P32",B5 R1 OU44 Slot 3 OCP - port 1,B5 R1 SW OU03 P32,,,,,,,
+1OU45,1OU03,33,Franklin,Slot 3 OCP - port 1,3M,470-ACEU,SFP28 TwinAx,Black,N/A,N/A,B5,1,OU45,,25Gb1,B5,1,OU03,33,"B5 R1 OU45 Slot 3 OCP - port 1
+B5 R1 SW OU03 P33",B5 R1 OU45 Slot 3 OCP - port 1,B5 R1 SW OU03 P33,,,,,,,
+1OU46,1OU03,34,Franklin,Slot 3 OCP - port 1,3M,470-ACEU,SFP28 TwinAx,Black,N/A,N/A,B5,1,OU46,,25Gb1,B5,1,OU03,34,"B5 R1 OU46 Slot 3 OCP - port 1
+B5 R1 SW OU03 P34",B5 R1 OU46 Slot 3 OCP - port 1,B5 R1 SW OU03 P34,,,,,,,
+1OU47,1OU03,35,Franklin,Slot 3 OCP - port 1,3M,470-ACEU,SFP28 TwinAx,Black,N/A,N/A,B5,1,OU47,,25Gb1,B5,1,OU03,35,"B5 R1 OU47 Slot 3 OCP - port 1
+B5 R1 SW OU03 P35",B5 R1 OU47 Slot 3 OCP - port 1,B5 R1 SW OU03 P35,,,,,,,
+1OU48,1OU03,36,Franklin,Slot 3 OCP - port 1,3M,470-ACEU,SFP28 TwinAx,Black,N/A,N/A,B5,1,OU48,,25Gb1,B5,1,OU03,36,"B5 R1 OU48 Slot 3 OCP - port 1
+B5 R1 SW OU03 P36",B5 R1 OU48 Slot 3 OCP - port 1,B5 R1 SW OU03 P36,,,,,,,
+1OU08,1OU03,37,Franklin,MGMT IN,4FT,4FT-CAT6,CAT6,Blue,N/A,407-BBOS,B5,1,OU08,,MGMT IN,B5,1,OU03,37,"B5 R1 OU08 MGMT IN
+B5 R1 SW OU03 P37",B5 R1 OU08 MGMT IN,B5 R1 SW OU03 P37,,,,,,,
+1IRC,1OU03,38,Franklin,MGMT,7FT,7FT-CAT6,CAT6,Blue,N/A,407-BBOS,B5,1,IRC,,MGMT,B5,1,OU03,38,"B5 R1 IRC MGMT
+B5 R1 SW OU03 P38",B5 R1 IRC MGMT,B5 R1 SW OU03 P38,,,,,,,
+,1OU03,39,,open,,,,,,,,,,,,B5,1,OU03,39,,,,,,,,,,
+,1OU03,40,,open,,,,,,,,,,,,B5,1,OU03,40,,,,,,,,,,
+,1OU03,41,,open,,,,,,,,,,,,B5,1,OU03,41,,,,,,,,,,
+,1OU03,42,,open,,,,,,,,,,,,B5,1,OU03,42,,,,,,,,,,
+,1OU03,43,,open,,,,,,,,,,,,B5,1,OU03,43,,,,,,,,,,
+,1OU03,44,,open,,,,,,,,,,,,B5,1,OU03,44,,,,,,,,,,
+,1OU03,45,,open,,,,,,,,,,,,B5,1,OU03,45,,,,,,,,,,
+,1OU03,46,,open,,,,,,,,,,,,B5,1,OU03,46,,,,,,,,,,
+,1OU03,47,,open,,,,,,,,,,,,B5,1,OU03,47,,,,,,,,,,
+,1OU03,48,,open,,,,,,,,,,,,B5,1,OU03,48,,,,,,,,,,
+,1OU03,49,,open,,,,,,,,,,,,B5,1,OU03,49-50 QSFP-DD,,,,,,,,,,
+,1OU03,50,,open,,,,,,,,,,,,B5,1,OU03,49-50 QSFP-DD,,,,,,,,,,
+,1OU03,51,,open,,,,,,,,,,,,B5,1,OU03,51-52 QSFP-DD,,,,,,,,,,
+,1OU03,52,,open,,,,,,,,,,,,B5,1,OU03,51-52 QSFP-DD,,,,,,,,,,
+,1OU03,53,,open,,,,,,,,,,,,B5,1,OU03,53 - QSFP28,,,,,,,,,,
+,1OU03,54,,open,,,,,,,,,,,,B5,1,OU03,54 - QSFP28,,,,,,,,,,
+in use - ISLin use - ISL,1OU03,55,,in use - ISL,in use - ISL,in use - ISL,in use - ISL,in use - ISL,in use - ISL,in use - ISL,in use - ISL,in use - ISL,in use - ISL,in use - ISL,in use - ISL,B5,1,OU03,55 - QSFP28,,,,,,,,,,
+in use - ISLin use - ISL,1OU03,56,,in use - ISL,in use - ISL,in use - ISL,in use - ISL,in use - ISL,in use - ISL,in use - ISL,in use - ISL,in use - ISL,in use - ISL,in use - ISL,in use - ISL,B5,1,OU03,56 - QSFP28,,,,,,,,,,
+2U13,2U22,57,TSS,MGMT,4FT,4FT-CAT6,CAT6,Blue,N/A,407-BBOS,B5,2,U13,-NODE1,MGMT,B5,2,U22,1,"B5 R2 U13 MGMT
+B5 R2 SW U22 P1",B5 R2 U13 MGMT,B5 R2 SW U22 P1,,,,,,,
+2U13,2U22,58,TSS,MGMT,4FT,4FT-CAT6,CAT6,Blue,N/A,407-BBOS,B5,2,U13,-NODE2,MGMT,B5,2,U22,2,"B5 R2 U13 MGMT
+B5 R2 SW U22 P2",B5 R2 U13 MGMT,B5 R2 SW U22 P2,,,,,,,
+2U13,2U22,59,TSS,MGMT,5FT,5FT-CAT6,CAT6,Blue,N/A,407-BBOS,B5,2,U13,-NODE3,MGMT,B5,2,U22,3,"B5 R2 U13 MGMT
+B5 R2 SW U22 P3",B5 R2 U13 MGMT,B5 R2 SW U22 P3,,,,,,,
+2U13,2U22,60,TSS,MGMT,5FT,5FT-CAT6,CAT6,Blue,N/A,407-BBOS,B5,2,U13,-NODE4,MGMT,B5,2,U22,4,"B5 R2 U13 MGMT
+B5 R2 SW U22 P4",B5 R2 U13 MGMT,B5 R2 SW U22 P4,,,,,,,
+2U20,2U22,61,TSS,MGMT,3FT,3FT-CAT6,CAT6,Blue,N/A,407-BBOS,B5,2,U20,-SPA,MGMT,B5,2,U22,5,"B5 R2 U20 MGMT
+B5 R2 SW U22 P5",B5 R2 U20 MGMT,B5 R2 SW U22 P5,,,,,,,
+2U20,2U22,62,TSS,MGMT,3FT,3FT-CAT6,CAT6,Blue,N/A,407-BBOS,B5,2,U20,-SPB,MGMT,B5,2,U22,6,"B5 R2 U20 MGMT
+B5 R2 SW U22 P6",B5 R2 U20 MGMT,B5 R2 SW U22 P6,,,,,,,
+2U20,2U22,63,TSS,iSCSI A0,1M,470-ACEX,SFP28 TwinAx,Black,N/A,N/A,B5,2,U20,-SPA,A0,B5,2,U22,7,"B5 R2 U20 iSCSI A0
+B5 R2 SW U22 P7",B5 R2 U20 iSCSI A0,B5 R2 SW U22 P7,,,,,,,
+2U20,2U22,64,TSS,iSCSI A1,1M,470-ACEX,SFP28 TwinAx,Black,N/A,N/A,B5,2,U20,-SPA,A1,B5,2,U22,8,"B5 R2 U20 iSCSI A1
+B5 R2 SW U22 P8",B5 R2 U20 iSCSI A1,B5 R2 SW U22 P8,,,,,,,
+2U20,2U22,65,TSS,iSCSI B0,1M,470-ACEX,SFP28 TwinAx,Black,N/A,N/A,B5,2,U20,-SPB,B0,B5,2,U22,9,"B5 R2 U20 iSCSI B0
+B5 R2 SW U22 P9",B5 R2 U20 iSCSI B0,B5 R2 SW U22 P9,,,,,,,
+2U20,2U22,66,TSS,iSCSI B1,1M,470-ACEX,SFP28 TwinAx,Black,N/A,N/A,B5,2,U20,-SPB,B1,B5,2,U22,10,"B5 R2 U20 iSCSI B1
+B5 R2 SW U22 P10",B5 R2 U20 iSCSI B1,B5 R2 SW U22 P10,,,,,,,
+2U28,2U22,67,TSS,OCP - port 1,2M,470-ACFB,SFP28 TwinAx,Black,N/A,N/A,B5,2,U28,,25Gb1,B5,2,U22,11,"B5 R2 U28 OCP - port 1
+B5 R2 SW U22 P11",B5 R2 U28 OCP - port 1,B5 R2 SW U22 P11,,,,,,,
+2U29,2U22,68,TSS,OCP - port 1,2M,470-ACFB,SFP28 TwinAx,Black,N/A,N/A,B5,2,U29,,25Gb1,B5,2,U22,12,"B5 R2 U29 OCP - port 1
+B5 R2 SW U22 P12",B5 R2 U29 OCP - port 1,B5 R2 SW U22 P12,,,,,,,
+2U30,2U22,69,TSS,OCP - port 1,2M,470-ACFB,SFP28 TwinAx,Black,N/A,N/A,B5,2,U30,,25Gb1,B5,2,U22,13,"B5 R2 U30 OCP - port 1
+B5 R2 SW U22 P13",B5 R2 U30 OCP - port 1,B5 R2 SW U22 P13,,,,,,,
+2U31,2U22,70,TSS,OCP - port 1,2M,470-ACFB,SFP28 TwinAx,Black,N/A,N/A,B5,2,U31,,25Gb1,B5,2,U22,14,"B5 R2 U31 OCP - port 1
+B5 R2 SW U22 P14",B5 R2 U31 OCP - port 1,B5 R2 SW U22 P14,,,,,,,
+2U32,2U22,71,TSS,OCP - port 1,2M,470-ACFB,SFP28 TwinAx,Black,N/A,N/A,B5,2,U32,,25Gb1,B5,2,U22,15,"B5 R2 U32 OCP - port 1
+B5 R2 SW U22 P15",B5 R2 U32 OCP - port 1,B5 R2 SW U22 P15,,,,,,,
+2U33,2U22,72,TSS,OCP - port 1,2M,470-ACFB,SFP28 TwinAx,Black,N/A,N/A,B5,2,U33,,25Gb1,B5,2,U22,16,"B5 R2 U33 OCP - port 1
+B5 R2 SW U22 P16",B5 R2 U33 OCP - port 1,B5 R2 SW U22 P16,,,,,,,
+2U34,2U22,73,TSS,OCP - port 1,2M,470-ACFB,SFP28 TwinAx,Black,N/A,N/A,B5,2,U34,,25Gb1,B5,2,U22,17,"B5 R2 U34 OCP - port 1
+B5 R2 SW U22 P17",B5 R2 U34 OCP - port 1,B5 R2 SW U22 P17,,,,,,,
+2U36,2U22,74,TSS,LAN1,6FT,6FT-CAT6,CAT6,Blue,N/A,407-BBOS,B5,2,U36,,LAN1,B5,2,U22,18,"B5 R2 U36 LAN1
+B5 R2 SW U22 P18",B5 R2 U36 LAN1,B5 R2 SW U22 P18,,,,,,,
+2PDU L3,2U22,75,TSS,MGMT IN,3FT,3FT-CAT6,CAT6,Blue,N/A,407-BBOS,B5,2,PDU L3,,MGMT IN,B5,2,U22,19,"B5 R2 PDU L3 MGMT IN
+B5 R2 SW U22 P19",B5 R2 PDU L3 MGMT IN,B5 R2 SW U22 P19,,,,,,,
+2U39,2U22,76,TSS,ISL,3M,470-ACEU,SFP28 TwinAx,Black,N/A,N/A,B5,2,U39,,ISL P65,B5,2,U22,20,"B5 R2 U39 ISL
+B5 R2 SW U22 P20",B5 R2 U39 ISL,B5 R2 SW U22 P20,,,,,,,
+,2U22,77,,open,,,,,,,,,,,,B5,2,U22,21,,,,,,,,,,
+,2U22,78,,open,,,,,,,,,,,,B5,2,U22,22,,,,,,,,,,
+,2U22,79,,open,,,,,,,,,,,,B5,2,U22,23,,,,,,,,,,
+,2U22,80,,open,,,,,,,,,,,,B5,2,U22,24,,,,,,,,,,
+,2U22,81,,open,,,,,,,,,,,,B5,2,U22,25,,,,,,,,,,
+,2U22,82,,open,,,,,,,,,,,,B5,2,U22,26,,,,,,,,,,
+,2U22,83,,open,,,,,,,,,,,,B5,2,U22,27,,,,,,,,,,
+,2U22,84,,open,,,,,,,,,,,,B5,2,U22,28,,,,,,,,,,
+,2U22,85,,open,,,,,,,,,,,,B5,2,U22,29,,,,,,,,,,
+,2U22,86,,open,,,,,,,,,,,,B5,2,U22,30,,,,,,,,,,
+,2U22,87,,open,,,,,,,,,,,,B5,2,U22,31,,,,,,,,,,
+,2U22,88,,open,,,,,,,,,,,,B5,2,U22,32,,,,,,,,,,
+,2U22,89,,open,,,,,,,,,,,,B5,2,U22,33,,,,,,,,,,
+,2U22,90,,open,,,,,,,,,,,,B5,2,U22,34,,,,,,,,,,
+,2U22,91,,open,,,,,,,,,,,,B5,2,U22,35,,,,,,,,,,
+,2U22,92,,open,,,,,,,,,,,,B5,2,U22,36,,,,,,,,,,
+,2U22,93,,open,,,,,,,,,,,,B5,2,U22,37,,,,,,,,,,
+,2U22,94,,open,,,,,,,,,,,,B5,2,U22,38,,,,,,,,,,
+,2U22,95,,open,,,,,,,,,,,,B5,2,U22,39,,,,,,,,,,
+,2U22,96,,open,,,,,,,,,,,,B5,2,U22,40,,,,,,,,,,
+,2U22,97,,open,,,,,,,,,,,,B5,2,U22,41,,,,,,,,,,
+,2U22,98,,open,,,,,,,,,,,,B5,2,U22,42,,,,,,,,,,
+,2U22,99,,open,,,,,,,,,,,,B5,2,U22,43,,,,,,,,,,
+,2U22,100,,open,,,,,,,,,,,,B5,2,U22,44,,,,,,,,,,
+,2U22,101,,open,,,,,,,,,,,,B5,2,U22,45,,,,,,,,,,
+,2U22,102,,open,,,,,,,,,,,,B5,2,U22,46,,,,,,,,,,
+,2U22,103,,open,,,,,,,,,,,,B5,2,U22,47,,,,,,,,,,
+,2U22,104,,open,,,,,,,,,,,,B5,2,U22,48,,,,,,,,,,
+,2U22,105,,open,,,,,,,,,,,,B5,2,U22,49-50 QSFP-DD,,,,,,,,,,
+,2U22,106,,open,,,,,,,,,,,,B5,2,U22,49-50 QSFP-DD,,,,,,,,,,
+,2U22,107,,open,,,,,,,,,,,,B5,2,U22,51-52 QSFP-DD,,,,,,,,,,
+,2U22,108,,open,,,,,,,,,,,,B5,2,U22,51-52 QSFP-DD,,,,,,,,,,
+,2U22,109,,open,,,,,,,,,,,,B5,2,U22,53 - QSFP28,,,,,,,,,,
+,2U22,110,,open,,,,,,,,,,,,B5,2,U22,54 - QSFP28,,,,,,,,,,
+in use - ISLin use - ISL,2U22,111,TSS,in use - ISL,in use - ISL,in use - ISL,in use - ISL,in use - ISL,in use - ISL,in use - ISL,in use - ISL,in use - ISL,in use - ISL,in use - ISL,in use - ISL,B5,2,U22,55 - QSFP28,,,,,,,,,,
+in use - ISLin use - ISL,2U22,112,TSS,in use - ISL,in use - ISL,in use - ISL,in use - ISL,in use - ISL,in use - ISL,in use - ISL,in use - ISL,in use - ISL,in use - ISL,in use - ISL,in use - ISL,B5,2,U22,56 - QSFP28,,,,,,,,,,
+2U20,3U22,113,TSS,iSCSI A2,7M,470-ACIF,SFP28 TwinAx,Black,N/A,N/A,B5,2,U20,-SPA,A2,B5,3,U22,1,"B5 R2 U20 iSCSI A2
+B5 R3 SW U22 P1",B5 R2 U20 iSCSI A2,B5 R3 SW U22 P1,,,,,,,
+2U20,3U22,114,TSS,iSCSI A3,7M,470-ACIF,SFP28 TwinAx,Black,N/A,N/A,B5,2,U20,-SPA,A3,B5,3,U22,2,"B5 R2 U20 iSCSI A3
+B5 R3 SW U22 P2",B5 R2 U20 iSCSI A3,B5 R3 SW U22 P2,,,,,,,
+2U20,3U22,115,TSS,iSCSI B2,7M,470-ACIF,SFP28 TwinAx,Black,N/A,N/A,B5,2,U20,-SPB,B2,B5,3,U22,3,"B5 R2 U20 iSCSI B2
+B5 R3 SW U22 P3",B5 R2 U20 iSCSI B2,B5 R3 SW U22 P3,,,,,,,
+2U20,3U22,116,TSS,iSCSI B3,7M,470-ACIF,SFP28 TwinAx,Black,N/A,N/A,B5,2,U20,-SPB,B3,B5,3,U22,4,"B5 R2 U20 iSCSI B3
+B5 R3 SW U22 P4",B5 R2 U20 iSCSI B3,B5 R3 SW U22 P4,,,,,,,
+3U03,3U22,117,TSS,OCP - port 1,4FT,4FT-CAT6,CAT6,Blue,N/A,407-BBOS,B5,3,U03,,1GB1,B5,3,U22,5,"B5 R3 U03 OCP - port 1
+B5 R3 SW U22 P5",B5 R3 U03 OCP - port 1,B5 R3 SW U22 P5,,,,,,,
+3U04,3U22,118,TSS,OCP - port 1,4FT,4FT-CAT6,CAT6,Blue,N/A,407-BBOS,B5,3,U04,,1GB1,B5,3,U22,6,"B5 R3 U04 OCP - port 1
+B5 R3 SW U22 P6",B5 R3 U04 OCP - port 1,B5 R3 SW U22 P6,,,,,,,
+3U05,3U22,119,TSS,OCP - port 1,4FT,4FT-CAT6,CAT6,Blue,N/A,407-BBOS,B5,3,U05,,1GB1,B5,3,U22,7,"B5 R3 U05 OCP - port 1
+B5 R3 SW U22 P7",B5 R3 U05 OCP - port 1,B5 R3 SW U22 P7,,,,,,,
+3U06,3U22,120,TSS,OCP - port 1,4FT,4FT-CAT6,CAT6,Blue,N/A,407-BBOS,B5,3,U06,,1GB1,B5,3,U22,8,"B5 R3 U06 OCP - port 1
+B5 R3 SW U22 P8",B5 R3 U06 OCP - port 1,B5 R3 SW U22 P8,,,,,,,
+3U07,3U22,121,TSS,OCP - port 1,5FT,5FT-CAT6,CAT6,Blue,N/A,407-BBOS,B5,3,U07,,1GB1,B5,3,U22,9,"B5 R3 U07 OCP - port 1
+B5 R3 SW U22 P9",B5 R3 U07 OCP - port 1,B5 R3 SW U22 P9,,,,,,,
+3U08,3U22,122,TSS,OCP - port 1,5FT,5FT-CAT6,CAT6,Blue,N/A,407-BBOS,B5,3,U08,,1GB1,B5,3,U22,10,"B5 R3 U08 OCP - port 1
+B5 R3 SW U22 P10",B5 R3 U08 OCP - port 1,B5 R3 SW U22 P10,,,,,,,
+3U09,3U22,123,TSS,OCP - port 1,5FT,5FT-CAT6,CAT6,Blue,N/A,407-BBOS,B5,3,U09,,1GB1,B5,3,U22,11,"B5 R3 U09 OCP - port 1
+B5 R3 SW U22 P11",B5 R3 U09 OCP - port 1,B5 R3 SW U22 P11,,,,,,,
+3U10,3U22,124,TSS,OCP - port 1,6FT,6FT-CAT6,CAT6,Blue,N/A,407-BBOS,B5,3,U10,,1GB1,B5,3,U22,12,"B5 R3 U10 OCP - port 1
+B5 R3 SW U22 P12",B5 R3 U10 OCP - port 1,B5 R3 SW U22 P12,,,,,,,
+3U11,3U22,125,TSS,OCP - port 1,6FT,6FT-CAT6,CAT6,Blue,N/A,407-BBOS,B5,3,U11,,1GB1,B5,3,U22,13,"B5 R3 U11 OCP - port 1
+B5 R3 SW U22 P13",B5 R3 U11 OCP - port 1,B5 R3 SW U22 P13,,,,,,,
+3U12,3U22,126,TSS,OCP - port 1,6FT,6FT-CAT6,CAT6,Blue,N/A,407-BBOS,B5,3,U12,,1GB1,B5,3,U22,14,"B5 R3 U12 OCP - port 1
+B5 R3 SW U22 P14",B5 R3 U12 OCP - port 1,B5 R3 SW U22 P14,,,,,,,
+3U13,3U22,127,TSS,OCP - port 1,6FT,6FT-CAT6,CAT6,Blue,N/A,407-BBOS,B5,3,U13,,1GB1,B5,3,U22,15,"B5 R3 U13 OCP - port 1
+B5 R3 SW U22 P15",B5 R3 U13 OCP - port 1,B5 R3 SW U22 P15,,,,,,,
+3U28,3U22,128,TSS,OCP - port 1,2M,470-ACFB,SFP28 TwinAx,Black,N/A,N/A,B5,3,U28,,25Gb1,B5,3,U22,16,"B5 R3 U28 OCP - port 1
+B5 R3 SW U22 P16",B5 R3 U28 OCP - port 1,B5 R3 SW U22 P16,,,,,,,
+3U29,3U22,129,TSS,OCP - port 1,2M,470-ACFB,SFP28 TwinAx,Black,N/A,N/A,B5,3,U29,,25Gb1,B5,3,U22,17,"B5 R3 U29 OCP - port 1
+B5 R3 SW U22 P17",B5 R3 U29 OCP - port 1,B5 R3 SW U22 P17,,,,,,,
+3U30,3U22,130,TSS,OCP - port 1,2M,470-ACFB,SFP28 TwinAx,Black,N/A,N/A,B5,3,U30,,25Gb1,B5,3,U22,18,"B5 R3 U30 OCP - port 1
+B5 R3 SW U22 P18",B5 R3 U30 OCP - port 1,B5 R3 SW U22 P18,,,,,,,
+3U31,3U22,131,TSS,OCP - port 1,2M,470-ACFB,SFP28 TwinAx,Black,N/A,N/A,B5,3,U31,,25Gb1,B5,3,U22,19,"B5 R3 U31 OCP - port 1
+B5 R3 SW U22 P19",B5 R3 U31 OCP - port 1,B5 R3 SW U22 P19,,,,,,,
+3U32,3U22,132,TSS,OCP - port 1,2M,470-ACFB,SFP28 TwinAx,Black,N/A,N/A,B5,3,U32,,25Gb1,B5,3,U22,20,"B5 R3 U32 OCP - port 1
+B5 R3 SW U22 P20",B5 R3 U32 OCP - port 1,B5 R3 SW U22 P20,,,,,,,
+3U33,3U22,133,TSS,OCP - port 1,2M,470-ACFB,SFP28 TwinAx,Black,N/A,N/A,B5,3,U33,,25Gb1,B5,3,U22,21,"B5 R3 U33 OCP - port 1
+B5 R3 SW U22 P21",B5 R3 U33 OCP - port 1,B5 R3 SW U22 P21,,,,,,,
+3U34,3U22,134,TSS,OCP - port 1,2M,470-ACFB,SFP28 TwinAx,Black,N/A,N/A,B5,3,U34,,25Gb1,B5,3,U22,22,"B5 R3 U34 OCP - port 1
+B5 R3 SW U22 P22",B5 R3 U34 OCP - port 1,B5 R3 SW U22 P22,,,,,,,
+3U36,3U22,135,TSS,LAN1,5FT,5FT-CAT6,CAT6,Blue,N/A,407-BBOS,B5,3,U36,,LAN1,B5,3,U22,23,"B5 R3 U36 LAN1
+B5 R3 SW U22 P23",B5 R3 U36 LAN1,B5 R3 SW U22 P23,,,,,,,
+3PDU L3,3U22,136,TSS,MGMT IN,3FT,3FT-CAT6,CAT6,Blue,N/A,407-BBOS,B5,3,PDU L3,,MGMT IN,B5,3,U22,24,"B5 R3 PDU L3 MGMT IN
+B5 R3 SW U22 P24",B5 R3 PDU L3 MGMT IN,B5 R3 SW U22 P24,,,,,,,
+3U39,3U22,137,TSS,ISL,3M,470-ACEU,SFP28 TwinAx,Black,N/A,N/A,B5,3,U39,,ISL P65,B5,3,U22,25,"B5 R3 U39 ISL
+B5 R3 SW U22 P25",B5 R3 U39 ISL,B5 R3 SW U22 P25,,,,,,,
+,3U22,138,,open,,,,,,,,,,,,B5,3,U22,26,,,,,,,,,,
+,3U22,139,,open,,,,,,,,,,,,B5,3,U22,27,,,,,,,,,,
+,3U22,140,,open,,,,,,,,,,,,B5,3,U22,28,,,,,,,,,,
+,3U22,141,,open,,,,,,,,,,,,B5,3,U22,29,,,,,,,,,,
+,3U22,142,,open,,,,,,,,,,,,B5,3,U22,30,,,,,,,,,,
+,3U22,143,,open,,,,,,,,,,,,B5,3,U22,31,,,,,,,,,,
+,3U22,144,,open,,,,,,,,,,,,B5,3,U22,32,,,,,,,,,,
+,3U22,145,,open,,,,,,,,,,,,B5,3,U22,33,,,,,,,,,,
+,3U22,146,,open,,,,,,,,,,,,B5,3,U22,34,,,,,,,,,,
+,3U22,147,,open,,,,,,,,,,,,B5,3,U22,35,,,,,,,,,,
+,3U22,148,,open,,,,,,,,,,,,B5,3,U22,36,,,,,,,,,,
+,3U22,149,,open,,,,,,,,,,,,B5,3,U22,37,,,,,,,,,,
+,3U22,150,,open,,,,,,,,,,,,B5,3,U22,38,,,,,,,,,,
+,3U22,151,,open,,,,,,,,,,,,B5,3,U22,39,,,,,,,,,,
+,3U22,152,,open,,,,,,,,,,,,B5,3,U22,40,,,,,,,,,,
+,3U22,153,,open,,,,,,,,,,,,B5,3,U22,41,,,,,,,,,,
+,3U22,154,,open,,,,,,,,,,,,B5,3,U22,42,,,,,,,,,,
+,3U22,155,,open,,,,,,,,,,,,B5,3,U22,43,,,,,,,,,,
+,3U22,156,,open,,,,,,,,,,,,B5,3,U22,44,,,,,,,,,,
+,3U22,157,,open,,,,,,,,,,,,B5,3,U22,45,,,,,,,,,,
+,3U22,158,,open,,,,,,,,,,,,B5,3,U22,46,,,,,,,,,,
+,3U22,159,,open,,,,,,,,,,,,B5,3,U22,47,,,,,,,,,,
+,3U22,160,,open,,,,,,,,,,,,B5,3,U22,48,,,,,,,,,,
+,3U22,161,,open,,,,,,,,,,,,B5,3,U22,49-50 QSFP-DD,,,,,,,,,,
+,3U22,162,,open,,,,,,,,,,,,B5,3,U22,49-50 QSFP-DD,,,,,,,,,,
+,3U22,163,,open,,,,,,,,,,,,B5,3,U22,51-52 QSFP-DD,,,,,,,,,,
+,3U22,164,,open,,,,,,,,,,,,B5,3,U22,51-52 QSFP-DD,,,,,,,,,,
+,3U22,165,,open,,,,,,,,,,,,B5,3,U22,53 - QSFP28,,,,,,,,,,
+,3U22,166,,open,,,,,,,,,,,,B5,3,U22,54 - QSFP28,,,,,,,,,,
+in use - ISLin use - ISL,3U22,167,TSS,in use - ISL,in use - ISL,in use - ISL,in use - ISL,in use - ISL,in use - ISL,in use - ISL,in use - ISL,in use - ISL,in use - ISL,in use - ISL,in use - ISL,B5,3,U22,55 - QSFP28,,,,,,,,,,
+in use - ISLin use - ISL,3U22,168,TSS,in use - ISL,in use - ISL,in use - ISL,in use - ISL,in use - ISL,in use - ISL,in use - ISL,in use - ISL,in use - ISL,in use - ISL,in use - ISL,in use - ISL,B5,3,U22,56 - QSFP28,,,,,,,,,,
+2U11,2U24,169,TSS,MGMT,4FT,4FT-CAT6,CAT6,Blue,N/A,N/A,B5,2,U11,,MGMT,B5,2,U24,1,"B5 R2 U11 MGMT
+B5 R2 SW U24 P1",B5 R2 U11 MGMT,B5 R2 SW U24 P1,,,,,,,
+2U17,2U24,170,TSS,MGMT,7FT,7FT-CAT6,CAT6,Blue,N/A,N/A,B5,2,U17,,MGMT,B5,2,U24,2,"B5 R2 U17 MGMT
+B5 R2 SW U24 P2",B5 R2 U17 MGMT,B5 R2 SW U24 P2,,,,,,,
+2U18,2U24,171,TSS,MGMT,7FT,7FT-CAT6,CAT6,Blue,N/A,N/A,B5,2,U18,,MGMT,B5,2,U24,3,"B5 R2 U18 MGMT
+B5 R2 SW U24 P3",B5 R2 U18 MGMT,B5 R2 SW U24 P3,,,,,,,
+2U22,2U24,172,TSS,MGMT,7FT,7FT-CAT6,CAT6,Blue,N/A,N/A,B5,2,U22,,MGMT,B5,2,U24,4,"B5 R2 U22 MGMT
+B5 R2 SW U24 P4",B5 R2 U22 MGMT,B5 R2 SW U24 P4,,,,,,,
+2U26,2U24,173,TSS,MGMT,2FT,2FT-CAT6,CAT6,Blue,N/A,N/A,B5,2,U26,,MGMT,B5,2,U24,5,"B5 R2 U26 MGMT
+B5 R2 SW U24 P5",B5 R2 U26 MGMT,B5 R2 SW U24 P5,,,,,,,
+2U34,2U24,174,TSS,DPU MGMT,4FT,4FT-CAT6,CAT6,Blue,N/A,N/A,B5,2,U34,-DPU,MGMT,B5,2,U24,6,"B5 R2 U34 DPU MGMT
+B5 R2 SW U24 P6",B5 R2 U34 DPU MGMT,B5 R2 SW U24 P6,,,,,,,
+2U36,2U24,175,TSS,LAN2,5FT,5FT-CAT6,CAT6,Blue,N/A,N/A,B5,2,U36,,LAN2,B5,2,U24,7,"B5 R2 U36 LAN2
+B5 R2 SW U24 P7",B5 R2 U36 LAN2,B5 R2 SW U24 P7,,,,,,,
+2U39,2U24,176,TSS,MGMT,8FT,8FT-CAT6,CAT6,Blue,N/A,N/A,B5,2,U39,,MGMT,B5,2,U24,8,"B5 R2 U39 MGMT
+B5 R2 SW U24 P8",B5 R2 U39 MGMT,B5 R2 SW U24 P8,,,,,,,
+2U42,2U24,177,TSS,MGMT,10FT,10FT-CAT6,CAT6,Blue,N/A,N/A,B5,2,U42,,MGMT,B5,2,U24,9,"B5 R2 U42 MGMT
+B5 R2 SW U24 P9",B5 R2 U42 MGMT,B5 R2 SW U24 P9,,,,,,,
+2U43,2U24,178,TSS,MGMT,5FT,5FT-CAT6,CAT6,Blue,N/A,N/A,B5,2,U43,,MGMT,B5,2,U24,10,"B5 R2 U43 MGMT
+B5 R2 SW U24 P10",B5 R2 U43 MGMT,B5 R2 SW U24 P10,,,,,,,
+1OU03,2U24,179,TSS,MGMT,25FT,25FT-CAT6,CAT6,Blue,N/A,N/A,B5,1,OU03,,MGMT,B5,2,U24,11,"B5 R1 OU03 MGMT
+B5 R2 SW U24 P11",B5 R1 OU03 MGMT,B5 R2 SW U24 P11,,,,,,,
+1OU25,2U24,180,TSS,MGMT,25FT,25FT-CAT6,CAT6,Blue,N/A,N/A,B5,1,OU25,,MGMT,B5,2,U24,12,"B5 R1 OU25 MGMT
+B5 R2 SW U24 P12",B5 R1 OU25 MGMT,B5 R2 SW U24 P12,,,,,,,
+1OU26,2U24,181,TSS,MGMT,25FT,25FT-CAT6,CAT6,Blue,N/A,N/A,B5,1,OU26,,MGMT,B5,2,U24,13,"B5 R1 OU26 MGMT
+B5 R2 SW U24 P13",B5 R1 OU26 MGMT,B5 R2 SW U24 P13,,,,,,,
+1OU41,2U24,182,TSS,DPU MGMT,20FT,20FT-CAT6,CAT6,Blue,N/A,N/A,B5,1,OU41,-DPU,MGMT,B5,2,U24,14,"B5 R1 OU41 DPU MGMT
+B5 R2 SW U24 P14",B5 R1 OU41 DPU MGMT,B5 R2 SW U24 P14,,,,,,,
+1OU42,2U24,183,TSS,DPU MGMT,20FT,20FT-CAT6,CAT6,Blue,N/A,N/A,B5,1,OU42,-DPU,MGMT,B5,2,U24,15,"B5 R1 OU42 DPU MGMT
+B5 R2 SW U24 P15",B5 R1 OU42 DPU MGMT,B5 R2 SW U24 P15,,,,,,,
+3U15,2U24,184,TSS,MGMT,20FT,20FT-CAT6,CAT6,Blue,N/A,N/A,B5,3,U15,,MGMT,B5,2,U24,16,"B5 R3 U15 MGMT
+B5 R2 SW U24 P16",B5 R3 U15 MGMT,B5 R2 SW U24 P16,,,,,,,
+3U16,2U24,185,TSS,MGMT,20FT,20FT-CAT6,CAT6,Blue,N/A,N/A,B5,3,U16,,MGMT,B5,2,U24,17,"B5 R3 U16 MGMT
+B5 R2 SW U24 P17",B5 R3 U16 MGMT,B5 R2 SW U24 P17,,,,,,,
+3U22,2U24,186,TSS,MGMT,25FT,25FT-CAT6,CAT6,Blue,N/A,N/A,B5,3,U22,,MGMT,B5,2,U24,18,"B5 R3 U22 MGMT
+B5 R2 SW U24 P18",B5 R3 U22 MGMT,B5 R2 SW U24 P18,,,,,,,
+3U26,2U24,187,TSS,MGMT,20FT,20FT-CAT6,CAT6,Blue,N/A,N/A,B5,3,U26,,MGMT,B5,2,U24,19,"B5 R3 U26 MGMT
+B5 R2 SW U24 P19",B5 R3 U26 MGMT,B5 R2 SW U24 P19,,,,,,,
+3U34,2U24,188,TSS,DPU MGMT,15FT,15FT-CAT6,CAT6,Blue,N/A,N/A,B5,3,U34,-DPU,MGMT,B5,2,U24,20,"B5 R3 U34 DPU MGMT
+B5 R2 SW U24 P20",B5 R3 U34 DPU MGMT,B5 R2 SW U24 P20,,,,,,,
+3U36,2U24,189,TSS,LAN2,15FT,15FT-CAT6,CAT6,Blue,N/A,N/A,B5,3,U36,,LAN2,B5,2,U24,21,"B5 R3 U36 LAN2
+B5 R2 SW U24 P21",B5 R3 U36 LAN2,B5 R2 SW U24 P21,,,,,,,
+3U39,2U24,190,TSS,MGMT,20FT,20FT-CAT6,CAT6,Blue,N/A,N/A,B5,3,U39,,MGMT,B5,2,U24,22,"B5 R3 U39 MGMT
+B5 R2 SW U24 P22",B5 R3 U39 MGMT,B5 R2 SW U24 P22,,,,,,,
+3U42,2U24,191,TSS,MGMT,20FT,20FT-CAT6,CAT6,Blue,N/A,N/A,B5,3,U42,,MGMT,B5,2,U24,23,"B5 R3 U42 MGMT
+B5 R2 SW U24 P23",B5 R3 U42 MGMT,B5 R2 SW U24 P23,,,,,,,
+3U43,2U24,192,TSS,MGMT,14FT,14FT-CAT6,CAT6,Blue,N/A,N/A,B5,3,U43,,MGMT,B5,2,U24,24,"B5 R3 U43 MGMT
+B5 R2 SW U24 P24",B5 R3 U43 MGMT,B5 R2 SW U24 P24,,,,,,,
+,2U24,193,,open,,,,,,,,,,,,B5,2,U24,25,,,,,,,,,,
+,2U24,194,,open,,,,,,,,,,,,B5,2,U24,26,,,,,,,,,,
+,2U24,195,,open,,,,,,,,,,,,B5,2,U24,27,,,,,,,,,,
+,2U24,196,,open,,,,,,,,,,,,B5,2,U24,28,,,,,,,,,,
+,2U24,197,,open,,,,,,,,,,,,B5,2,U24,29,,,,,,,,,,
+,2U24,198,,open,,,,,,,,,,,,B5,2,U24,30,,,,,,,,,,
+,2U24,199,,open,,,,,,,,,,,,B5,2,U24,31,,,,,,,,,,
+,2U24,200,,open,,,,,,,,,,,,B5,2,U24,32,,,,,,,,,,
+,2U24,201,,open,,,,,,,,,,,,B5,2,U24,33,,,,,,,,,,
+,2U24,202,,open,,,,,,,,,,,,B5,2,U24,34,,,,,,,,,,
+,2U24,203,,open,,,,,,,,,,,,B5,2,U24,35,,,,,,,,,,
+,2U24,204,,open,,,,,,,,,,,,B5,2,U24,36,,,,,,,,,,
+,2U24,205,,open,,,,,,,,,,,,B5,2,U24,37,,,,,,,,,,
+,2U24,206,,open,,,,,,,,,,,,B5,2,U24,38,,,,,,,,,,
+,2U24,207,,open,,,,,,,,,,,,B5,2,U24,39,,,,,,,,,,
+,2U24,208,,open,,,,,,,,,,,,B5,2,U24,40,,,,,,,,,,
+,2U24,209,,open,,,,,,,,,,,,B5,2,U24,41,,,,,,,,,,
+,2U24,210,,open,,,,,,,,,,,,B5,2,U24,42,,,,,,,,,,
+,2U24,211,,open,,,,,,,,,,,,B5,2,U24,43,,,,,,,,,,
+,2U24,212,,open,,,,,,,,,,,,B5,2,U24,44,,,,,,,,,,
+,2U24,213,,open,,,,,,,,,,,,B5,2,U24,45,,,,,,,,,,
+,2U24,214,,open,,,,,,,,,,,,B5,2,U24,46,,,,,,,,,,
+,2U24,215,,open,,,,,,,,,,,,B5,2,U24,47,,,,,,,,,,
+2U24,2U24,216,TSS,MGMT,1FT,1FT-CAT6,CAT6,Blue,N/A,N/A,B5,2,U24,,MGMT,B5,2,U24,48,"B5 R2 U24 MGMT
+B5 R2 SW U24 P48",B5 R2 U24 MGMT,B5 R2 SW U24 P48,,,,,,,
+,2U24,217,,open,,,,,,,,,,,,B5,2,U24,49 - SFP+,,,,,,,,,,
+,2U24,218,,open,,,,,,,,,,,,B5,2,U24,50 - SFP+,,,,,,,,,,
+,2U24,219,,open,,,,,,,,,,,,B5,2,U24,51 - SFP+,,,,,,,,,,
+,2U24,220,,open,,,,,,,,,,,,B5,2,U24,52 - SFP+,,,,,,,,,,
+2U01,2U11,221,TSS,MGMT,5FT,5FT-CAT6,CAT6,Blue,N/A,N/A,B5,2,U01,,MGMT,B5,2,U11,1,"B5 R2 U01 MGMT
+B5 R2 SW U11 P1",B5 R2 U01 MGMT,B5 R2 SW U11 P1,,,,,,,
+2U01,2U11,222,TSS,1GB1,5FT,5FT-CAT6,CAT6,Blue,N/A,N/A,B5,2,U01,,1GB1,B5,2,U11,2,"B5 R2 U01 1GB1
+B5 R2 SW U11 P2",B5 R2 U01 1GB1,B5 R2 SW U11 P2,,,,,,,
+2U03,2U11,223,TSS,MGMT,4FT,4FT-CAT6,CAT6,Blue,N/A,N/A,B5,2,U03,,MGMT,B5,2,U11,3,"B5 R2 U03 MGMT
+B5 R2 SW U11 P3",B5 R2 U03 MGMT,B5 R2 SW U11 P3,,,,,,,
+2U03,2U11,224,TSS,1GB1,4FT,4FT-CAT6,CAT6,Blue,N/A,N/A,B5,2,U03,,1GB1,B5,2,U11,4,"B5 R2 U03 1GB1
+B5 R2 SW U11 P4",B5 R2 U03 1GB1,B5 R2 SW U11 P4,,,,,,,
+2U05,2U11,225,TSS,MGMT,4FT,4FT-CAT6,CAT6,Blue,N/A,N/A,B5,2,U05,,MGMT,B5,2,U11,5,"B5 R2 U05 MGMT
+B5 R2 SW U11 P5",B5 R2 U05 MGMT,B5 R2 SW U11 P5,,,,,,,
+2U05,2U11,226,TSS,1GB1,4FT,4FT-CAT6,CAT6,Blue,N/A,N/A,B5,2,U05,,1GB1,B5,2,U11,6,"B5 R2 U05 1GB1
+B5 R2 SW U11 P6",B5 R2 U05 1GB1,B5 R2 SW U11 P6,,,,,,,
+2U07,2U11,227,TSS,MGMT,3FT,3FT-CAT6,CAT6,Blue,N/A,N/A,B5,2,U07,,MGMT,B5,2,U11,7,"B5 R2 U07 MGMT
+B5 R2 SW U11 P7",B5 R2 U07 MGMT,B5 R2 SW U11 P7,,,,,,,
+2U07,2U11,228,TSS,1GB1,3FT,3FT-CAT6,CAT6,Blue,N/A,N/A,B5,2,U07,,1GB1,B5,2,U11,8,"B5 R2 U07 1GB1
+B5 R2 SW U11 P8",B5 R2 U07 1GB1,B5 R2 SW U11 P8,,,,,,,
+2U09,2U11,229,TSS,MGMT,2FT,2FT-CAT6,CAT6,Blue,N/A,N/A,B5,2,U09,,MGMT,B5,2,U11,9,"B5 R2 U09 MGMT
+B5 R2 SW U11 P9",B5 R2 U09 MGMT,B5 R2 SW U11 P9,,,,,,,
+2U09,2U11,230,TSS,1GB1,2FT,2FT-CAT6,CAT6,Blue,N/A,N/A,B5,2,U09,,1GB1,B5,2,U11,10,"B5 R2 U09 1GB1
+B5 R2 SW U11 P10",B5 R2 U09 1GB1,B5 R2 SW U11 P10,,,,,,,
+2U09,2U11,231,TSS,1GB2,2FT,2FT-CAT6,CAT6,Blue,N/A,N/A,B5,2,U09,,1GB2,B5,2,U11,11,"B5 R2 U09 1GB2
+B5 R2 SW U11 P11",B5 R2 U09 1GB2,B5 R2 SW U11 P11,,,,,,,
+,2U11,232,,open,,,,,,,,,,,,B5,2,U11,12,,,,,,,,,,
+,2U11,233,,open,,,,,,,,,,,,B5,2,U11,13,,,,,,,,,,
+,2U11,234,,open,,,,,,,,,,,,B5,2,U11,14,,,,,,,,,,
+,2U11,235,,open,,,,,,,,,,,,B5,2,U11,15,,,,,,,,,,
+,2U11,236,,open,,,,,,,,,,,,B5,2,U11,16,,,,,,,,,,
+,2U11,237,,open,,,,,,,,,,,,B5,2,U11,17,,,,,,,,,,
+,2U11,238,,open,,,,,,,,,,,,B5,2,U11,18,,,,,,,,,,
+,2U11,239,,open,,,,,,,,,,,,B5,2,U11,19,,,,,,,,,,
+,2U11,240,,open,,,,,,,,,,,,B5,2,U11,20,,,,,,,,,,
+,2U11,241,,open,,,,,,,,,,,,B5,2,U11,21,,,,,,,,,,
+,2U11,242,,open,,,,,,,,,,,,B5,2,U11,22,,,,,,,,,,
+,2U11,243,,open,,,,,,,,,,,,B5,2,U11,23,,,,,,,,,,
+,2U11,244,,open,,,,,,,,,,,,B5,2,U11,24,,,,,,,,,,
+,2U11,245,,open,,,,,,,,,,,,B5,2,U11,25,,,,,,,,,,
+,2U11,246,,open,,,,,,,,,,,,B5,2,U11,26,,,,,,,,,,
+,2U11,247,,open,,,,,,,,,,,,B5,2,U11,27,,,,,,,,,,
+,2U11,248,,open,,,,,,,,,,,,B5,2,U11,28,,,,,,,,,,
+,2U11,249,,open,,,,,,,,,,,,B5,2,U11,29,,,,,,,,,,
+,2U11,250,,open,,,,,,,,,,,,B5,2,U11,30,,,,,,,,,,
+,2U11,251,,open,,,,,,,,,,,,B5,2,U11,31,,,,,,,,,,
+,2U11,252,,open,,,,,,,,,,,,B5,2,U11,32,,,,,,,,,,
+,2U11,253,,open,,,,,,,,,,,,B5,2,U11,33,,,,,,,,,,
+,2U11,254,,open,,,,,,,,,,,,B5,2,U11,34,,,,,,,,,,
+,2U11,255,,open,,,,,,,,,,,,B5,2,U11,35,,,,,,,,,,
+,2U11,256,,open,,,,,,,,,,,,B5,2,U11,36,,,,,,,,,,
+,2U11,257,,open,,,,,,,,,,,,B5,2,U11,37,,,,,,,,,,
+,2U11,258,,open,,,,,,,,,,,,B5,2,U11,38,,,,,,,,,,
+,2U11,259,,open,,,,,,,,,,,,B5,2,U11,39,,,,,,,,,,
+,2U11,260,,open,,,,,,,,,,,,B5,2,U11,40,,,,,,,,,,
+,2U11,261,,open,,,,,,,,,,,,B5,2,U11,41,,,,,,,,,,
+,2U11,262,,open,,,,,,,,,,,,B5,2,U11,42,,,,,,,,,,
+,2U11,263,,open,,,,,,,,,,,,B5,2,U11,43,,,,,,,,,,
+,2U11,264,,open,,,,,,,,,,,,B5,2,U11,44,,,,,,,,,,
+,2U11,265,,open,,,,,,,,,,,,B5,2,U11,45,,,,,,,,,,
+,2U11,266,,open,,,,,,,,,,,,B5,2,U11,46,,,,,,,,,,
+,2U11,267,,open,,,,,,,,,,,,B5,2,U11,47,,,,,,,,,,
+,2U11,268,,open,,,,,,,,,,,,B5,2,U11,48,,,,,,,,,,
+,2U11,269,,open,,,,,,,,,,,,B5,2,U11,49 - SFP+,,,,,,,,,,
+,2U11,270,,open,,,,,,,,,,,,B5,2,U11,50 - SFP+,,,,,,,,,,
+,2U11,271,,open,,,,,,,,,,,,B5,2,U11,51 - SFP+,,,,,,,,,,
+,2U11,272,,open,,,,,,,,,,,,B5,2,U11,52 - SFP+,,,,,,,,,,
+2U13,2U17,273,TSS,BE1,1M,470-ABPO,OM4 MPO,Aqua,407-BBWV,407-BBWV,B5,2,U13,-NODE1,BE1,B5,2,U17,1,"B5 R2 U13 BE1
+B5 R2 SW U17 P1",B5 R2 U13 BE1,B5 R2 SW U17 P1,,,,,,,
+2U13,2U17,274,TSS,BE1,1M,470-ABPO,OM4 MPO,Aqua,407-BBWV,407-BBWV,B5,2,U13,-NODE2,BE1,B5,2,U17,2,"B5 R2 U13 BE1
+B5 R2 SW U17 P2",B5 R2 U13 BE1,B5 R2 SW U17 P2,,,,,,,
+2U13,2U17,275,TSS,BE1,1M,470-ABPO,OM4 MPO,Aqua,407-BBWV,407-BBWV,B5,2,U13,-NODE3,BE1,B5,2,U17,3,"B5 R2 U13 BE1
+B5 R2 SW U17 P3",B5 R2 U13 BE1,B5 R2 SW U17 P3,,,,,,,
+2U13,2U17,276,TSS,BE1,1M,470-ABPO,OM4 MPO,Aqua,407-BBWV,407-BBWV,B5,2,U13,-NODE4,BE1,B5,2,U17,4,"B5 R2 U13 BE1
+B5 R2 SW U17 P4",B5 R2 U13 BE1,B5 R2 SW U17 P4,,,,,,,
+,2U17,277,,open,,,,,,,,,,,,B5,2,U17,5,,,,,,,,,,
+,2U17,278,,open,,,,,,,,,,,,B5,2,U17,6,,,,,,,,,,
+,2U17,279,,open,,,,,,,,,,,,B5,2,U17,7,,,,,,,,,,
+,2U17,280,,open,,,,,,,,,,,,B5,2,U17,8,,,,,,,,,,
+,2U17,281,,open,,,,,,,,,,,,B5,2,U17,9,,,,,,,,,,
+,2U17,282,,open,,,,,,,,,,,,B5,2,U17,10,,,,,,,,,,
+,2U17,283,,open,,,,,,,,,,,,B5,2,U17,11,,,,,,,,,,
+,2U17,284,,open,,,,,,,,,,,,B5,2,U17,12,,,,,,,,,,
+,2U17,285,,open,,,,,,,,,,,,B5,2,U17,13,,,,,,,,,,
+,2U17,286,,open,,,,,,,,,,,,B5,2,U17,14,,,,,,,,,,
+,2U17,287,,open,,,,,,,,,,,,B5,2,U17,15,,,,,,,,,,
+,2U17,288,,open,,,,,,,,,,,,B5,2,U17,16,,,,,,,,,,
+,2U17,289,,open,,,,,,,,,,,,B5,2,U17,17,,,,,,,,,,
+,2U17,290,,open,,,,,,,,,,,,B5,2,U17,18,,,,,,,,,,
+,2U17,291,,open,,,,,,,,,,,,B5,2,U17,19,,,,,,,,,,
+,2U17,292,,open,,,,,,,,,,,,B5,2,U17,20,,,,,,,,,,
+,2U17,293,,open,,,,,,,,,,,,B5,2,U17,21,,,,,,,,,,
+,2U17,294,,open,,,,,,,,,,,,B5,2,U17,22,,,,,,,,,,
+,2U17,295,,open,,,,,,,,,,,,B5,2,U17,23,,,,,,,,,,
+,2U17,296,,open,,,,,,,,,,,,B5,2,U17,24,,,,,,,,,,
+,2U17,297,,open,,,,,,,,,,,,B5,2,U17,25,,,,,,,,,,
+,2U17,298,,open,,,,,,,,,,,,B5,2,U17,26,,,,,,,,,,
+,2U17,299,,open,,,,,,,,,,,,B5,2,U17,27,,,,,,,,,,
+,2U17,300,,open,,,,,,,,,,,,B5,2,U17,28,,,,,,,,,,
+,2U17,301,,open,,,,,,,,,,,,B5,2,U17,29,,,,,,,,,,
+,2U17,302,,open,,,,,,,,,,,,B5,2,U17,30,,,,,,,,,,
+,2U17,303,,open,,,,,,,,,,,,B5,2,U17,31,,,,,,,,,,
+,2U17,304,,open,,,,,,,,,,,,B5,2,U17,32,,,,,,,,,,
+,2U17,305,,open,,,,,,,,,,,,B5,2,U17,33 - SFP+,,,,,,,,,,
+,2U17,306,,open,,,,,,,,,,,,B5,2,U17,34 - SFP+,,,,,,,,,,
+2U13,2U18,307,TSS,BE2,1M,470-ABPO,OM4 MPO,Aqua,407-BBWV,407-BBWV,B5,2,U13,-NODE1,BE2,B5,2,U18,1,"B5 R2 U13 BE2
+B5 R2 SW U18 P1",B5 R2 U13 BE2,B5 R2 SW U18 P1,,,,,,,
+2U13,2U18,308,TSS,BE2,1M,470-ABPO,OM4 MPO,Aqua,407-BBWV,407-BBWV,B5,2,U13,-NODE2,BE2,B5,2,U18,2,"B5 R2 U13 BE2
+B5 R2 SW U18 P2",B5 R2 U13 BE2,B5 R2 SW U18 P2,,,,,,,
+2U13,2U18,309,TSS,BE2,1M,470-ABPO,OM4 MPO,Aqua,407-BBWV,407-BBWV,B5,2,U13,-NODE3,BE2,B5,2,U18,3,"B5 R2 U13 BE2
+B5 R2 SW U18 P3",B5 R2 U13 BE2,B5 R2 SW U18 P3,,,,,,,
+2U13,2U18,310,TSS,BE2,1M,470-ABPO,OM4 MPO,Aqua,407-BBWV,407-BBWV,B5,2,U13,-NODE4,BE2,B5,2,U18,4,"B5 R2 U13 BE2
+B5 R2 SW U18 P4",B5 R2 U13 BE2,B5 R2 SW U18 P4,,,,,,,
+,2U18,311,,open,,,,,,,,,,,,B5,2,U18,5,,,,,,,,,,
+,2U18,312,,open,,,,,,,,,,,,B5,2,U18,6,,,,,,,,,,
+,2U18,313,,open,,,,,,,,,,,,B5,2,U18,7,,,,,,,,,,
+,2U18,314,,open,,,,,,,,,,,,B5,2,U18,8,,,,,,,,,,
+,2U18,315,,open,,,,,,,,,,,,B5,2,U18,9,,,,,,,,,,
+,2U18,316,,open,,,,,,,,,,,,B5,2,U18,10,,,,,,,,,,
+,2U18,317,,open,,,,,,,,,,,,B5,2,U18,11,,,,,,,,,,
+,2U18,318,,open,,,,,,,,,,,,B5,2,U18,12,,,,,,,,,,
+,2U18,319,,open,,,,,,,,,,,,B5,2,U18,13,,,,,,,,,,
+,2U18,320,,open,,,,,,,,,,,,B5,2,U18,14,,,,,,,,,,
+,2U18,321,,open,,,,,,,,,,,,B5,2,U18,15,,,,,,,,,,
+,2U18,322,,open,,,,,,,,,,,,B5,2,U18,16,,,,,,,,,,
+,2U18,323,,open,,,,,,,,,,,,B5,2,U18,17,,,,,,,,,,
+,2U18,324,,open,,,,,,,,,,,,B5,2,U18,18,,,,,,,,,,
+,2U18,325,,open,,,,,,,,,,,,B5,2,U18,19,,,,,,,,,,
+,2U18,326,,open,,,,,,,,,,,,B5,2,U18,20,,,,,,,,,,
+,2U18,327,,open,,,,,,,,,,,,B5,2,U18,21,,,,,,,,,,
+,2U18,328,,open,,,,,,,,,,,,B5,2,U18,22,,,,,,,,,,
+,2U18,329,,open,,,,,,,,,,,,B5,2,U18,23,,,,,,,,,,
+,2U18,330,,open,,,,,,,,,,,,B5,2,U18,24,,,,,,,,,,
+,2U18,331,,open,,,,,,,,,,,,B5,2,U18,25,,,,,,,,,,
+,2U18,332,,open,,,,,,,,,,,,B5,2,U18,26,,,,,,,,,,
+,2U18,333,,open,,,,,,,,,,,,B5,2,U18,27,,,,,,,,,,
+,2U18,334,,open,,,,,,,,,,,,B5,2,U18,28,,,,,,,,,,
+,2U18,335,,open,,,,,,,,,,,,B5,2,U18,29,,,,,,,,,,
+,2U18,336,,open,,,,,,,,,,,,B5,2,U18,30,,,,,,,,,,
+,2U18,337,,open,,,,,,,,,,,,B5,2,U18,31,,,,,,,,,,
+,2U18,338,,open,,,,,,,,,,,,B5,2,U18,32,,,,,,,,,,
+,2U18,339,,open,,,,,,,,,,,,B5,2,U18,33 - SFP+,,,,,,,,,,
+,2U18,340,,open,,,,,,,,,,,,B5,2,U18,34 - SFP+,,,,,,,,,,
+3U03,3U15,341,TSS,Slot 1 - port 1,1.5M,MCP1650-H01AE30,HDR passive copper,Black,N/A,N/A,B5,3,U03,,200GB1,B5,3,U15,1,"B5 R3 U03 Slot 1 - port 1
+B5 R3 SW U15 P1",B5 R3 U03 Slot 1 - port 1,B5 R3 SW U15 P1,,,,,,,
+3U04,3U15,342,TSS,Slot 1 - port 1,1.5M,MCP1650-H01AE30,HDR passive copper,Black,N/A,N/A,B5,3,U04,,200GB1,B5,3,U15,2,"B5 R3 U04 Slot 1 - port 1
+B5 R3 SW U15 P2",B5 R3 U04 Slot 1 - port 1,B5 R3 SW U15 P2,,,,,,,
+3U05,3U15,343,TSS,Slot 1 - port 1,1.5M,MCP1650-H01AE30,HDR passive copper,Black,N/A,N/A,B5,3,U05,,200GB1,B5,3,U15,3,"B5 R3 U05 Slot 1 - port 1
+B5 R3 SW U15 P3",B5 R3 U05 Slot 1 - port 1,B5 R3 SW U15 P3,,,,,,,
+3U06,3U15,344,TSS,Slot 1 - port 1,1.5M,MCP1650-H01AE30,HDR passive copper,Black,N/A,N/A,B5,3,U06,,200GB1,B5,3,U15,4,"B5 R3 U06 Slot 1 - port 1
+B5 R3 SW U15 P4",B5 R3 U06 Slot 1 - port 1,B5 R3 SW U15 P4,,,,,,,
+3U07,3U15,345,TSS,Slot 1 - port 1,1M,MCP1650-H001E30,HDR passive copper,Black,N/A,N/A,B5,3,U07,,200GB1,B5,3,U15,5,"B5 R3 U07 Slot 1 - port 1
+B5 R3 SW U15 P5",B5 R3 U07 Slot 1 - port 1,B5 R3 SW U15 P5,,,,,,,
+3U08,3U15,346,TSS,Slot 1 - port 1,1M,MCP1650-H001E30,HDR passive copper,Black,N/A,N/A,B5,3,U08,,200GB1,B5,3,U15,6,"B5 R3 U08 Slot 1 - port 1
+B5 R3 SW U15 P6",B5 R3 U08 Slot 1 - port 1,B5 R3 SW U15 P6,,,,,,,
+3U09,3U15,347,TSS,Slot 1 - port 1,1M,MCP1650-H001E30,HDR passive copper,Black,N/A,N/A,B5,3,U09,,200GB1,B5,3,U15,7,"B5 R3 U09 Slot 1 - port 1
+B5 R3 SW U15 P7",B5 R3 U09 Slot 1 - port 1,B5 R3 SW U15 P7,,,,,,,
+3U10,3U15,348,TSS,Slot 1 - port 1,1M,MCP1650-H001E30,HDR passive copper,Black,N/A,N/A,B5,3,U10,,200GB1,B5,3,U15,8,"B5 R3 U10 Slot 1 - port 1
+B5 R3 SW U15 P8",B5 R3 U10 Slot 1 - port 1,B5 R3 SW U15 P8,,,,,,,
+3U11,3U15,349,TSS,Slot 1 - port 1,1M,MCP1650-H001E30,HDR passive copper,Black,N/A,N/A,B5,3,U11,,200GB1,B5,3,U15,9,"B5 R3 U11 Slot 1 - port 1
+B5 R3 SW U15 P9",B5 R3 U11 Slot 1 - port 1,B5 R3 SW U15 P9,,,,,,,
+3U12,3U15,350,TSS,Slot 1 - port 1,1M,MCP1650-H001E30,HDR passive copper,Black,N/A,N/A,B5,3,U12,,200GB1,B5,3,U15,10,"B5 R3 U12 Slot 1 - port 1
+B5 R3 SW U15 P10",B5 R3 U12 Slot 1 - port 1,B5 R3 SW U15 P10,,,,,,,
+3U13,3U15,351,TSS,Slot 1 - port 1,1M,MCP1650-H001E30,HDR passive copper,Black,N/A,N/A,B5,3,U13,,200GB1,B5,3,U15,11,"B5 R3 U13 Slot 1 - port 1
+B5 R3 SW U15 P11",B5 R3 U13 Slot 1 - port 1,B5 R3 SW U15 P11,,,,,,,
+,3U15,352,,open,,,,,,,,,,,,B5,3,U15,12,,,,,,,,,,
+,3U15,353,,open,,,,,,,,,,,,B5,3,U15,13,,,,,,,,,,
+,3U15,354,,open,,,,,,,,,,,,B5,3,U15,14,,,,,,,,,,
+,3U15,355,,open,,,,,,,,,,,,B5,3,U15,15,,,,,,,,,,
+,3U15,356,,open,,,,,,,,,,,,B5,3,U15,16,,,,,,,,,,
+,3U15,357,,open,,,,,,,,,,,,B5,3,U15,17,,,,,,,,,,
+,3U15,358,,open,,,,,,,,,,,,B5,3,U15,18,,,,,,,,,,
+,3U15,359,,open,,,,,,,,,,,,B5,3,U15,19,,,,,,,,,,
+,3U15,360,,open,,,,,,,,,,,,B5,3,U15,20,,,,,,,,,,
+,3U15,361,,open,,,,,,,,,,,,B5,3,U15,21,,,,,,,,,,
+,3U15,362,,open,,,,,,,,,,,,B5,3,U15,22,,,,,,,,,,
+,3U15,363,,open,,,,,,,,,,,,B5,3,U15,23,,,,,,,,,,
+,3U15,364,,open,,,,,,,,,,,,B5,3,U15,24,,,,,,,,,,
+,3U15,365,,open,,,,,,,,,,,,B5,3,U15,25,,,,,,,,,,
+,3U15,366,,open,,,,,,,,,,,,B5,3,U15,26,,,,,,,,,,
+,3U15,367,,open,,,,,,,,,,,,B5,3,U15,27,,,,,,,,,,
+,3U15,368,,open,,,,,,,,,,,,B5,3,U15,28,,,,,,,,,,
+,3U15,369,,open,,,,,,,,,,,,B5,3,U15,29,,,,,,,,,,
+,3U15,370,,open,,,,,,,,,,,,B5,3,U15,30,,,,,,,,,,
+,3U15,371,,open,,,,,,,,,,,,B5,3,U15,31,,,,,,,,,,
+,3U15,372,,open,,,,,,,,,,,,B5,3,U15,32,,,,,,,,,,
+3U03,3U16,373,TSS,Slot 3 - port 1,1.5M,MCP1650-H01AE30,HDR passive copper,Black,N/A,N/A,B5,3,U03,,200GB2,B5,3,U16,1,"B5 R3 U03 Slot 3 - port 1
+B5 R3 SW U16 P1",B5 R3 U03 Slot 3 - port 1,B5 R3 SW U16 P1,,,,,,,
+3U04,3U16,374,TSS,Slot 3 - port 1,1.5M,MCP1650-H01AE30,HDR passive copper,Black,N/A,N/A,B5,3,U04,,200GB2,B5,3,U16,2,"B5 R3 U04 Slot 3 - port 1
+B5 R3 SW U16 P2",B5 R3 U04 Slot 3 - port 1,B5 R3 SW U16 P2,,,,,,,
+3U05,3U16,375,TSS,Slot 3 - port 1,1.5M,MCP1650-H01AE30,HDR passive copper,Black,N/A,N/A,B5,3,U05,,200GB2,B5,3,U16,3,"B5 R3 U05 Slot 3 - port 1
+B5 R3 SW U16 P3",B5 R3 U05 Slot 3 - port 1,B5 R3 SW U16 P3,,,,,,,
+3U06,3U16,376,TSS,Slot 3 - port 1,1.5M,MCP1650-H01AE30,HDR passive copper,Black,N/A,N/A,B5,3,U06,,200GB2,B5,3,U16,4,"B5 R3 U06 Slot 3 - port 1
+B5 R3 SW U16 P4",B5 R3 U06 Slot 3 - port 1,B5 R3 SW U16 P4,,,,,,,
+3U07,3U16,377,TSS,Slot 3 - port 1,1.5M,MCP1650-H01AE30,HDR passive copper,Black,N/A,N/A,B5,3,U07,,200GB2,B5,3,U16,5,"B5 R3 U07 Slot 3 - port 1
+B5 R3 SW U16 P5",B5 R3 U07 Slot 3 - port 1,B5 R3 SW U16 P5,,,,,,,
+3U08,3U16,378,TSS,Slot 3 - port 1,1M,MCP1650-H001E30,HDR passive copper,Black,N/A,N/A,B5,3,U08,,200GB2,B5,3,U16,6,"B5 R3 U08 Slot 3 - port 1
+B5 R3 SW U16 P6",B5 R3 U08 Slot 3 - port 1,B5 R3 SW U16 P6,,,,,,,
+3U09,3U16,379,TSS,Slot 3 - port 1,1M,MCP1650-H001E30,HDR passive copper,Black,N/A,N/A,B5,3,U09,,200GB2,B5,3,U16,7,"B5 R3 U09 Slot 3 - port 1
+B5 R3 SW U16 P7",B5 R3 U09 Slot 3 - port 1,B5 R3 SW U16 P7,,,,,,,
+3U10,3U16,380,TSS,Slot 3 - port 1,1M,MCP1650-H001E30,HDR passive copper,Black,N/A,N/A,B5,3,U10,,200GB2,B5,3,U16,8,"B5 R3 U10 Slot 3 - port 1
+B5 R3 SW U16 P8",B5 R3 U10 Slot 3 - port 1,B5 R3 SW U16 P8,,,,,,,
+3U11,3U16,381,TSS,Slot 3 - port 1,1M,MCP1650-H001E30,HDR passive copper,Black,N/A,N/A,B5,3,U11,,200GB2,B5,3,U16,9,"B5 R3 U11 Slot 3 - port 1
+B5 R3 SW U16 P9",B5 R3 U11 Slot 3 - port 1,B5 R3 SW U16 P9,,,,,,,
+3U12,3U16,382,TSS,Slot 3 - port 1,1M,MCP1650-H001E30,HDR passive copper,Black,N/A,N/A,B5,3,U12,,200GB2,B5,3,U16,10,"B5 R3 U12 Slot 3 - port 1
+B5 R3 SW U16 P10",B5 R3 U12 Slot 3 - port 1,B5 R3 SW U16 P10,,,,,,,
+3U13,3U16,383,TSS,Slot 3 - port 1,1M,MCP1650-H001E30,HDR passive copper,Black,N/A,N/A,B5,3,U13,,200GB2,B5,3,U16,11,"B5 R3 U13 Slot 3 - port 1
+B5 R3 SW U16 P11",B5 R3 U13 Slot 3 - port 1,B5 R3 SW U16 P11,,,,,,,
+,3U16,384,,open,,,,,,,,,,,,B5,3,U16,12,,,,,,,,,,
+,3U16,385,,open,,,,,,,,,,,,B5,3,U16,13,,,,,,,,,,
+,3U16,386,,open,,,,,,,,,,,,B5,3,U16,14,,,,,,,,,,
+,3U16,387,,open,,,,,,,,,,,,B5,3,U16,15,,,,,,,,,,
+,3U16,388,,open,,,,,,,,,,,,B5,3,U16,16,,,,,,,,,,
+,3U16,389,,open,,,,,,,,,,,,B5,3,U16,17,,,,,,,,,,
+,3U16,390,,open,,,,,,,,,,,,B5,3,U16,18,,,,,,,,,,
+,3U16,391,,open,,,,,,,,,,,,B5,3,U16,19,,,,,,,,,,
+,3U16,392,,open,,,,,,,,,,,,B5,3,U16,20,,,,,,,,,,
+,3U16,393,,open,,,,,,,,,,,,B5,3,U16,21,,,,,,,,,,
+,3U16,394,,open,,,,,,,,,,,,B5,3,U16,22,,,,,,,,,,
+,3U16,395,,open,,,,,,,,,,,,B5,3,U16,23,,,,,,,,,,
+,3U16,396,,open,,,,,,,,,,,,B5,3,U16,24,,,,,,,,,,
+,3U16,397,,open,,,,,,,,,,,,B5,3,U16,25,,,,,,,,,,
+,3U16,398,,open,,,,,,,,,,,,B5,3,U16,26,,,,,,,,,,
+,3U16,399,,open,,,,,,,,,,,,B5,3,U16,27,,,,,,,,,,
+,3U16,400,,open,,,,,,,,,,,,B5,3,U16,28,,,,,,,,,,
+,3U16,401,,open,,,,,,,,,,,,B5,3,U16,29,,,,,,,,,,
+,3U16,402,,open,,,,,,,,,,,,B5,3,U16,30,,,,,,,,,,
+,3U16,403,,open,,,,,,,,,,,,B5,3,U16,31,,,,,,,,,,
+,3U16,404,,open,,,,,,,,,,,,B5,3,U16,32,,,,,,,,,,
+2U22,2U42,405,TSS,ISL,3M,470-ABPN,OM4 MPO,Aqua,407-BBWV,407-BBWV,B5,2,U22,,ISL P55,B5,2,U42,1,"B5 R2 U22 ISL
+B5 R2 SW U42 P1",B5 R2 U22 ISL,B5 R2 SW U42 P1,,,,,,,
+3U22,2U42,406,TSS,ISL,5M,470-ABPQ,OM4 MPO,Aqua,407-BBWV,407-BBWV,B5,3,U22,,ISL P55,B5,2,U42,2,"B5 R3 U22 ISL
+B5 R2 SW U42 P2",B5 R3 U22 ISL,B5 R2 SW U42 P2,,,,,,,
+1OU03,2U42,407,TSS,ISL,10M,470-ABPV,OM4 MPO,Aqua,407-BBWV,407-BBWV,B5,1,OU03,,ISL P55,B5,2,U42,3,"B5 R1 OU03 ISL
+B5 R2 SW U42 P3",B5 R1 OU03 ISL,B5 R2 SW U42 P3,,,,,,,
+2U13,2U42,408,TSS,FE1,3M,470-ABPN,OM4 MPO,Aqua,407-BBWV,407-BBWV,B5,2,U13,,FE1,B5,2,U42,4,"B5 R2 U13 FE1
+B5 R2 SW U42 P4",B5 R2 U13 FE1,B5 R2 SW U42 P4,,,,,,,
+2U13,2U42,409,TSS,FE1,3M,470-ABPN,OM4 MPO,Aqua,407-BBWV,407-BBWV,B5,2,U13,,FE1,B5,2,U42,5,"B5 R2 U13 FE1
+B5 R2 SW U42 P5",B5 R2 U13 FE1,B5 R2 SW U42 P5,,,,,,,
+2U13,2U42,410,TSS,FE1,3M,470-ABPN,OM4 MPO,Aqua,407-BBWV,407-BBWV,B5,2,U13,,FE1,B5,2,U42,6,"B5 R2 U13 FE1
+B5 R2 SW U42 P6",B5 R2 U13 FE1,B5 R2 SW U42 P6,,,,,,,
+2U13,2U42,411,TSS,FE1,3M,470-ABPN,OM4 MPO,Aqua,407-BBWV,407-BBWV,B5,2,U13,,FE1,B5,2,U42,7,"B5 R2 U13 FE1
+B5 R2 SW U42 P7",B5 R2 U13 FE1,B5 R2 SW U42 P7,,,,,,,
+,2U42,412,,open,,,,,,,,,,,,B5,2,U42,8,,,,,,,,,,
+,2U42,413,,open,,,,,,,,,,,,B5,2,U42,9,,,,,,,,,,
+,2U42,414,,open,,,,,,,,,,,,B5,2,U42,10,,,,,,,,,,
+,2U42,415,,open,,,,,,,,,,,,B5,2,U42,11,,,,,,,,,,
+,2U42,416,,open,,,,,,,,,,,,B5,2,U42,12,,,,,,,,,,
+,2U42,417,,open,,,,,,,,,,,,B5,2,U42,13,,,,,,,,,,
+,2U42,418,,open,,,,,,,,,,,,B5,2,U42,14,,,,,,,,,,
+,2U42,419,,open,,,,,,,,,,,,B5,2,U42,15,,,,,,,,,,
+,2U42,420,,open,,,,,,,,,,,,B5,2,U42,16,,,,,,,,,,
+,2U42,421,,open,,,,,,,,,,,,B5,2,U42,17,,,,,,,,,,
+,2U42,422,,open,,,,,,,,,,,,B5,2,U42,18,,,,,,,,,,
+,2U42,423,,open,,,,,,,,,,,,B5,2,U42,19,,,,,,,,,,
+,2U42,424,,open,,,,,,,,,,,,B5,2,U42,20,,,,,,,,,,
+,2U42,425,,open,,,,,,,,,,,,B5,2,U42,21,,,,,,,,,,
+,2U42,426,,open,,,,,,,,,,,,B5,2,U42,22,,,,,,,,,,
+,2U42,427,,open,,,,,,,,,,,,B5,2,U42,23,,,,,,,,,,
+,2U42,428,,open,,,,,,,,,,,,B5,2,U42,24,,,,,,,,,,
+,2U42,429,,open,,,,,,,,,,,,B5,2,U42,25,,,,,,,,,,
+,2U42,430,,open,,,,,,,,,,,,B5,2,U42,26,,,,,,,,,,
+,2U42,431,,open,,,,,,,,,,,,B5,2,U42,27,,,,,,,,,,
+,2U42,432,,open,,,,,,,,,,,,B5,2,U42,28,,,,,,,,,,
+,2U42,433,,open,,,,,,,,,,,,B5,2,U42,29,,,,,,,,,,
+,2U42,434,,open,,,,,,,,,,,,B5,2,U42,30,,,,,,,,,,
+,2U42,435,,open,,,,,,,,,,,,B5,2,U42,31,,,,,,,,,,
+,2U42,436,,open,,,,,,,,,,,,B5,2,U42,32,,,,,,,,,,
+,2U42,437,,open,,,,,,,,,,,,B5,2,U42,33 - SFP+,,,,,,,,,,
+,2U42,438,,open,,,,,,,,,,,,B5,2,U42,34 - SFP+,,,,,,,,,,
+2U22,3U42,439,TSS,ISL,5M,470-ABPQ,OM4 MPO,Aqua,407-BBWV,407-BBWV,B5,2,U22,,ISL P56,B5,3,U42,1,"B5 R2 U22 ISL
+B5 R3 SW U42 P1",B5 R2 U22 ISL,B5 R3 SW U42 P1,,,,,,,
+3U22,3U42,440,TSS,ISL,3M,470-ABPN,OM4 MPO,Aqua,407-BBWV,407-BBWV,B5,3,U22,,ISL P56,B5,3,U42,2,"B5 R3 U22 ISL
+B5 R3 SW U42 P2",B5 R3 U22 ISL,B5 R3 SW U42 P2,,,,,,,
+1OU03,3U42,441,TSS,ISL,10M,470-ABPV,OM4 MPO,Aqua,407-BBWV,407-BBWV,B5,1,OU03,,ISL P56,B5,3,U42,3,"B5 R1 OU03 ISL
+B5 R3 SW U42 P3",B5 R1 OU03 ISL,B5 R3 SW U42 P3,,,,,,,
+2U13,3U42,442,TSS,FE2,5M,470-ABPQ,OM4 MPO,Aqua,407-BBWV,407-BBWV,B5,2,U13,,FE2,B5,3,U42,4,"B5 R2 U13 FE2
+B5 R3 SW U42 P4",B5 R2 U13 FE2,B5 R3 SW U42 P4,,,,,,,
+2U13,3U42,443,TSS,FE2,5M,470-ABPQ,OM4 MPO,Aqua,407-BBWV,407-BBWV,B5,2,U13,,FE2,B5,3,U42,5,"B5 R2 U13 FE2
+B5 R3 SW U42 P5",B5 R2 U13 FE2,B5 R3 SW U42 P5,,,,,,,
+2U13,3U42,444,TSS,FE2,5M,470-ABPQ,OM4 MPO,Aqua,407-BBWV,407-BBWV,B5,2,U13,,FE2,B5,3,U42,6,"B5 R2 U13 FE2
+B5 R3 SW U42 P6",B5 R2 U13 FE2,B5 R3 SW U42 P6,,,,,,,
+2U13,3U42,445,TSS,FE2,5M,470-ABPQ,OM4 MPO,Aqua,407-BBWV,407-BBWV,B5,2,U13,,FE2,B5,3,U42,7,"B5 R2 U13 FE2
+B5 R3 SW U42 P7",B5 R2 U13 FE2,B5 R3 SW U42 P7,,,,,,,
+,3U42,446,,open,,,,,,,,,,,,B5,3,U42,8,,,,,,,,,,
+,3U42,447,,open,,,,,,,,,,,,B5,3,U42,9,,,,,,,,,,
+,3U42,448,,open,,,,,,,,,,,,B5,3,U42,10,,,,,,,,,,
+,3U42,449,,open,,,,,,,,,,,,B5,3,U42,11,,,,,,,,,,
+,3U42,450,,open,,,,,,,,,,,,B5,3,U42,12,,,,,,,,,,
+,3U42,451,,open,,,,,,,,,,,,B5,3,U42,13,,,,,,,,,,
+,3U42,452,,open,,,,,,,,,,,,B5,3,U42,14,,,,,,,,,,
+,3U42,453,,open,,,,,,,,,,,,B5,3,U42,15,,,,,,,,,,
+,3U42,454,,open,,,,,,,,,,,,B5,3,U42,16,,,,,,,,,,
+,3U42,455,,open,,,,,,,,,,,,B5,3,U42,17,,,,,,,,,,
+,3U42,456,,open,,,,,,,,,,,,B5,3,U42,18,,,,,,,,,,
+,3U42,457,,open,,,,,,,,,,,,B5,3,U42,19,,,,,,,,,,
+,3U42,458,,open,,,,,,,,,,,,B5,3,U42,20,,,,,,,,,,
+,3U42,459,,open,,,,,,,,,,,,B5,3,U42,21,,,,,,,,,,
+,3U42,460,,open,,,,,,,,,,,,B5,3,U42,22,,,,,,,,,,
+,3U42,461,,open,,,,,,,,,,,,B5,3,U42,23,,,,,,,,,,
+,3U42,462,,open,,,,,,,,,,,,B5,3,U42,24,,,,,,,,,,
+,3U42,463,,open,,,,,,,,,,,,B5,3,U42,25,,,,,,,,,,
+,3U42,464,,open,,,,,,,,,,,,B5,3,U42,26,,,,,,,,,,
+,3U42,465,,open,,,,,,,,,,,,B5,3,U42,27,,,,,,,,,,
+,3U42,466,,open,,,,,,,,,,,,B5,3,U42,28,,,,,,,,,,
+,3U42,467,,open,,,,,,,,,,,,B5,3,U42,29,,,,,,,,,,
+,3U42,468,,open,,,,,,,,,,,,B5,3,U42,30,,,,,,,,,,
+,3U42,469,,open,,,,,,,,,,,,B5,3,U42,31,,,,,,,,,,
+,3U42,470,,open,,,,,,,,,,,,B5,3,U42,32,,,,,,,,,,
+,3U42,471,,open,,,,,,,,,,,,B5,3,U42,33 - SFP+,,,,,,,,,,
+,3U42,472,,open,,,,,,,,,,,,B5,3,U42,34 - SFP+,,,,,,,,,,
+2U34,2U39,473,TSS,DPU - Port 1,5M,MFP7E10-N005,OSFP to QSFP112 MMF,Aqua,MMA1Z00-NS400-T,MMA4Z00-NS-T,B5,2,U34,,DPU0,B5,2,U39,1/1,"B5 R2 U34 DPU - Port 1
+B5 R2 SW U39 P1/1",B5 R2 U34 DPU - Port 1,B5 R2 SW U39 P1/1,,,,,,,
+3U34,2U39,474,TSS,DPU - Port 1,5M,MFP7E10-N005,OSFP to QSFP112 MMF,Aqua,MMA1Z00-NS400-T,,B5,3,U34,,DPU0,B5,2,U39,1/2,"B5 R3 U34 DPU - Port 1
+B5 R2 SW U39 P1/2",B5 R3 U34 DPU - Port 1,B5 R2 SW U39 P1/2,,,,,,,
+1OU41,2U39,475,TSS,DPU - Port 1,7M,MFP7E10-N007,OSFP to QSFP112 MMF,Aqua,MMA1Z00-NS400-T,MMA4Z00-NS-T,B5,1,OU41,,DPU0,B5,2,U39,2/1,"B5 R1 OU41 DPU - Port 1
+B5 R2 SW U39 P2/1",B5 R1 OU41 DPU - Port 1,B5 R2 SW U39 P2/1,,,,,,,
+1OU42,2U39,476,TSS,DPU - Port 1,7M,MFP7E10-N007,OSFP to QSFP112 MMF,Aqua,MMA1Z00-NS400-T,,B5,1,OU42,,DPU0,B5,2,U39,2/2,"B5 R1 OU42 DPU - Port 1
+B5 R2 SW U39 P2/2",B5 R1 OU42 DPU - Port 1,B5 R2 SW U39 P2/2,,,,,,,
+2U36,2U39,477,TSS,HCA1 - Port 1,1.5M,MCP7Y60-H01A,NDR to 2x HDR copper,Black,N/A,N/A,B5,2,U36,,200GBE1,B5,2,U39,3/1,"B5 R2 U36 HCA1 - Port 1
+B5 R2 SW U39 P3/1",B5 R2 U36 HCA1 - Port 1,B5 R2 SW U39 P3/1,,,,,,,
+2U36,2U39,478,TSS,HCA2 - Port 1,,,,,N/A,,B5,2,U36,,200GBE2,B5,2,U39,3/2,"B5 R2 U36 HCA2 - Port 1
+B5 R2 SW U39 P3/2",B5 R2 U36 HCA2 - Port 1,B5 R2 SW U39 P3/2,,,,,,,
+2U36,2U39,479,TSS,HCA3 - Port 1,1.5M,MCP7Y60-H01A,NDR to 2x HDR copper,Black,N/A,N/A,B5,2,U36,,200GBE3,B5,2,U39,4/1,"B5 R2 U36 HCA3 - Port 1
+B5 R2 SW U39 P4/1",B5 R2 U36 HCA3 - Port 1,B5 R2 SW U39 P4/1,,,,,,,
+2U36,2U39,480,TSS,HCA4 - Port 1,,,,,N/A,,B5,2,U36,,200GBE4,B5,2,U39,4/2,"B5 R2 U36 HCA4 - Port 1
+B5 R2 SW U39 P4/2",B5 R2 U36 HCA4 - Port 1,B5 R2 SW U39 P4/2,,,,,,,
+3U36,2U39,481,TSS,HCA1 - Port 1,5M,MFA7U10-H005,NDR to 2x HDR copper,Black,N/A,N/A,B5,3,U36,,200GBE1,B5,2,U39,5/1,"B5 R3 U36 HCA1 - Port 1
+B5 R2 SW U39 P5/1",B5 R3 U36 HCA1 - Port 1,B5 R2 SW U39 P5/1,,,,,,,
+3U36,2U39,482,TSS,HCA2 - Port 1,,,,,N/A,,B5,3,U36,,200GBE2,B5,2,U39,5/2,"B5 R3 U36 HCA2 - Port 1
+B5 R2 SW U39 P5/2",B5 R3 U36 HCA2 - Port 1,B5 R2 SW U39 P5/2,,,,,,,
+3U36,2U39,483,TSS,HCA3 - Port 1,5M,MFA7U10-H005,NDR to 2x HDR copper,Black,N/A,N/A,B5,3,U36,,200GBE3,B5,2,U39,6/1,"B5 R3 U36 HCA3 - Port 1
+B5 R2 SW U39 P6/1",B5 R3 U36 HCA3 - Port 1,B5 R2 SW U39 P6/1,,,,,,,
+3U36,2U39,484,TSS,HCA4 - Port 1,,,,,N/A,,B5,3,U36,,200GBE4,B5,2,U39,6/2,"B5 R3 U36 HCA4 - Port 1
+B5 R2 SW U39 P6/2",B5 R3 U36 HCA4 - Port 1,B5 R2 SW U39 P6/2,,,,,,,
+,2U39,485,,open,,,,,,,,,,,,B5,2,U39,7,,,,,,,,,,
+,2U39,486,,open,,,,,,,,,,,,B5,2,U39,8,,,,,,,,,,
+,2U39,487,,open,,,,,,,,,,,,B5,2,U39,9,,,,,,,,,,
+,2U39,488,,open,,,,,,,,,,,,B5,2,U39,10,,,,,,,,,,
+,2U39,489,,open,,,,,,,,,,,,B5,2,U39,11,,,,,,,,,,
+,2U39,490,,open,,,,,,,,,,,,B5,2,U39,12,,,,,,,,,,
+,2U39,491,,open,,,,,,,,,,,,B5,2,U39,13,,,,,,,,,,
+,2U39,492,,open,,,,,,,,,,,,B5,2,U39,14,,,,,,,,,,
+,2U39,493,,open,,,,,,,,,,,,B5,2,U39,15,,,,,,,,,,
+,2U39,494,,open,,,,,,,,,,,,B5,2,U39,16,,,,,,,,,,
+,2U39,495,,open,,,,,,,,,,,,B5,2,U39,17,,,,,,,,,,
+,2U39,496,,open,,,,,,,,,,,,B5,2,U39,18,,,,,,,,,,
+,2U39,497,,open,,,,,,,,,,,,B5,2,U39,19,,,,,,,,,,
+,2U39,498,,open,,,,,,,,,,,,B5,2,U39,20,,,,,,,,,,
+,2U39,499,,open,,,,,,,,,,,,B5,2,U39,21,,,,,,,,,,
+,2U39,500,,open,,,,,,,,,,,,B5,2,U39,22,,,,,,,,,,
+,2U39,501,,open,,,,,,,,,,,,B5,2,U39,23,,,,,,,,,,
+,2U39,502,,open,,,,,,,,,,,,B5,2,U39,24,,,,,,,,,,
+,2U39,503,,open,,,,,,,,,,,,B5,2,U39,25,,,,,,,,,,
+,2U39,504,,open,,,,,,,,,,,,B5,2,U39,26,,,,,,,,,,
+,2U39,505,,open,,,,,,,,,,,,B5,2,U39,27,,,,,,,,,,
+,2U39,506,,open,,,,,,,,,,,,B5,2,U39,28,,,,,,,,,,
+,2U39,507,,open,,,,,,,,,,,,B5,2,U39,29,,,,,,,,,,
+,2U39,508,,open,,,,,,,,,,,,B5,2,U39,30,,,,,,,,,,
+,2U39,509,,open,,,,,,,,,,,,B5,2,U39,31,,,,,,,,,,
+,2U39,510,,open,,,,,,,,,,,,B5,2,U39,32,,,,,,,,,,
+,2U39,511,,open,,,,,,,,,,,,B5,2,U39,33,,,,,,,,,,
+,2U39,512,,open,,,,,,,,,,,,B5,2,U39,34,,,,,,,,,,
+,2U39,513,,open,,,,,,,,,,,,B5,2,U39,35,,,,,,,,,,
+,2U39,514,,open,,,,,,,,,,,,B5,2,U39,36,,,,,,,,,,
+,2U39,515,,open,,,,,,,,,,,,B5,2,U39,37,,,,,,,,,,
+,2U39,516,,open,,,,,,,,,,,,B5,2,U39,38,,,,,,,,,,
+,2U39,517,,open,,,,,,,,,,,,B5,2,U39,39,,,,,,,,,,
+,2U39,518,,open,,,,,,,,,,,,B5,2,U39,40,,,,,,,,,,
+,2U39,519,,open,,,,,,,,,,,,B5,2,U39,41,,,,,,,,,,
+,2U39,520,,open,,,,,,,,,,,,B5,2,U39,42,,,,,,,,,,
+,2U39,521,,open,,,,,,,,,,,,B5,2,U39,43,,,,,,,,,,
+,2U39,522,,open,,,,,,,,,,,,B5,2,U39,44,,,,,,,,,,
+,2U39,523,,open,,,,,,,,,,,,B5,2,U39,45,,,,,,,,,,
+,2U39,524,,open,,,,,,,,,,,,B5,2,U39,46,,,,,,,,,,
+,2U39,525,,open,,,,,,,,,,,,B5,2,U39,47,,,,,,,,,,
+,2U39,526,,open,,,,,,,,,,,,B5,2,U39,48,,,,,,,,,,
+,2U39,527,,open,,,,,,,,,,,,B5,2,U39,49,,,,,,,,,,
+,2U39,528,,open,,,,,,,,,,,,B5,2,U39,50,,,,,,,,,,
+,2U39,529,,open,,,,,,,,,,,,B5,2,U39,51,,,,,,,,,,
+,2U39,530,,open,,,,,,,,,,,,B5,2,U39,52,,,,,,,,,,
+,2U39,531,,open,,,,,,,,,,,,B5,2,U39,53,,,,,,,,,,
+,2U39,532,,open,,,,,,,,,,,,B5,2,U39,54,,,,,,,,,,
+,2U39,533,,open,,,,,,,,,,,,B5,2,U39,55,,,,,,,,,,
+,2U39,534,,open,,,,,,,,,,,,B5,2,U39,56,,,,,,,,,,
+,2U39,535,,open,,,,,,,,,,,,B5,2,U39,57,,,,,,,,,,
+,2U39,536,,open,,,,,,,,,,,,B5,2,U39,58,,,,,,,,,,
+,2U39,537,,open,,,,,,,,,,,,B5,2,U39,59,,,,,,,,,,
+,2U39,538,,open,,,,,,,,,,,,B5,2,U39,60,,,,,,,,,,
+,2U39,539,,open,,,,,,,,,,,,B5,2,U39,61,,,,,,,,,,
+,2U39,540,,open,,,,,,,,,,,,B5,2,U39,62,,,,,,,,,,
+,2U39,541,,open,,,,,,,,,,,,B5,2,U39,63,,,,,,,,,,
+,2U39,542,,open,,,,,,,,,,,,B5,2,U39,64,,,,,,,,,,
+in use - ISLin use - ISL,2U39,543,TSS,in use - ISL,in use - ISL,in use - ISL,in use - ISL,in use - ISL,in use - ISL,in use - ISL,in use - ISL,in use - ISL,in use - ISL,in use - ISL,in use - ISL,B5,2,U39,65 - SFP28,,,,,,,,,,
+2U34,3U39,544,TSS,DPU - Port 2,5M,MFP7E10-N005,OSFP to QSFP112 MMF,Aqua,MMA1Z00-NS400-T,MMA4Z00-NS-T,B5,2,U34,,DPU0,B5,3,U39,1/1,"B5 R2 U34 DPU - Port 2
+B5 R3 SW U39 P1/1",B5 R2 U34 DPU - Port 2,B5 R3 SW U39 P1/1,,,,,,,
+3U34,3U39,545,TSS,DPU - Port 2,5M,MFP7E10-N005,OSFP to QSFP112 MMF,Aqua,MMA1Z00-NS400-T,,B5,3,U34,,DPU0,B5,3,U39,1/2,"B5 R3 U34 DPU - Port 2
+B5 R3 SW U39 P1/2",B5 R3 U34 DPU - Port 2,B5 R3 SW U39 P1/2,,,,,,,
+1OU41,3U39,546,TSS,DPU - Port 2,10M,MFP7E10-N007,OSFP to QSFP112 MMF,Aqua,MMA1Z00-NS400-T,MMA4Z00-NS-T,B5,1,OU41,,DPU0,B5,3,U39,2/1,"B5 R1 OU41 DPU - Port 2
+B5 R3 SW U39 P2/1",B5 R1 OU41 DPU - Port 2,B5 R3 SW U39 P2/1,,,,,,,
+1OU42,3U39,547,TSS,DPU - Port 2,7M,MFP7E10-N007,OSFP to QSFP112 MMF,Aqua,MMA1Z00-NS400-T,,B5,1,OU42,,DPU0,B5,3,U39,2/2,"B5 R1 OU42 DPU - Port 2
+B5 R3 SW U39 P2/2",B5 R1 OU42 DPU - Port 2,B5 R3 SW U39 P2/2,,,,,,,
+2U36,3U39,548,TSS,HCA5 - Port 1,5M,MFA7U10-H005,NDR to 2x HDR copper,Black,N/A,N/A,B5,2,U36,,200GBE5,B5,3,U39,3/1,"B5 R2 U36 HCA5 - Port 1
+B5 R3 SW U39 P3/1",B5 R2 U36 HCA5 - Port 1,B5 R3 SW U39 P3/1,,,,,,,
+2U36,3U39,549,TSS,HCA6 - Port 1,,,,,N/A,,B5,2,U36,,200GBE6,B5,3,U39,3/2,"B5 R2 U36 HCA6 - Port 1
+B5 R3 SW U39 P3/2",B5 R2 U36 HCA6 - Port 1,B5 R3 SW U39 P3/2,,,,,,,
+2U36,3U39,550,TSS,HCA7 - Port 1,5M,MFA7U10-H005,NDR to 2x HDR copper,Black,N/A,N/A,B5,2,U36,,200GBE7,B5,3,U39,4/1,"B5 R2 U36 HCA7 - Port 1
+B5 R3 SW U39 P4/1",B5 R2 U36 HCA7 - Port 1,B5 R3 SW U39 P4/1,,,,,,,
+2U36,3U39,551,TSS,HCA8 - Port 1,,,,,N/A,,B5,2,U36,,200GBE8,B5,3,U39,4/2,"B5 R2 U36 HCA8 - Port 1
+B5 R3 SW U39 P4/2",B5 R2 U36 HCA8 - Port 1,B5 R3 SW U39 P4/2,,,,,,,
+3U36,3U39,552,TSS,HCA5 - Port 1,1.5M,MCP7Y60-H01A,NDR to 2x HDR copper,Black,N/A,N/A,B5,3,U36,,200GBE5,B5,3,U39,5/1,"B5 R3 U36 HCA5 - Port 1
+B5 R3 SW U39 P5/1",B5 R3 U36 HCA5 - Port 1,B5 R3 SW U39 P5/1,,,,,,,
+3U36,3U39,553,TSS,HCA6 - Port 1,,,,,N/A,,B5,3,U36,,200GBE6,B5,3,U39,5/2,"B5 R3 U36 HCA6 - Port 1
+B5 R3 SW U39 P5/2",B5 R3 U36 HCA6 - Port 1,B5 R3 SW U39 P5/2,,,,,,,
+3U36,3U39,554,TSS,HCA7 - Port 1,1.5M,MCP7Y60-H01A,NDR to 2x HDR copper,Black,N/A,N/A,B5,3,U36,,200GBE7,B5,3,U39,6/1,"B5 R3 U36 HCA7 - Port 1
+B5 R3 SW U39 P6/1",B5 R3 U36 HCA7 - Port 1,B5 R3 SW U39 P6/1,,,,,,,
+3U36,3U39,555,TSS,HCA8 - Port 1,,,,,N/A,,B5,3,U36,,200GBE8,B5,3,U39,6/2,"B5 R3 U36 HCA8 - Port 1
+B5 R3 SW U39 P6/2",B5 R3 U36 HCA8 - Port 1,B5 R3 SW U39 P6/2,,,,,,,
+,3U39,556,,open,,,,,,,,,,,,B5,3,U39,7,,,,,,,,,,
+,3U39,557,,open,,,,,,,,,,,,B5,3,U39,8,,,,,,,,,,
+,3U39,558,,open,,,,,,,,,,,,B5,3,U39,9,,,,,,,,,,
+,3U39,559,,open,,,,,,,,,,,,B5,3,U39,10,,,,,,,,,,
+,3U39,560,,open,,,,,,,,,,,,B5,3,U39,11,,,,,,,,,,
+,3U39,561,,open,,,,,,,,,,,,B5,3,U39,12,,,,,,,,,,
+,3U39,562,,open,,,,,,,,,,,,B5,3,U39,13,,,,,,,,,,
+,3U39,563,,open,,,,,,,,,,,,B5,3,U39,14,,,,,,,,,,
+,3U39,564,,open,,,,,,,,,,,,B5,3,U39,15,,,,,,,,,,
+,3U39,565,,open,,,,,,,,,,,,B5,3,U39,16,,,,,,,,,,
+,3U39,566,,open,,,,,,,,,,,,B5,3,U39,17,,,,,,,,,,
+,3U39,567,,open,,,,,,,,,,,,B5,3,U39,18,,,,,,,,,,
+,3U39,568,,open,,,,,,,,,,,,B5,3,U39,19,,,,,,,,,,
+,3U39,569,,open,,,,,,,,,,,,B5,3,U39,20,,,,,,,,,,
+,3U39,570,,open,,,,,,,,,,,,B5,3,U39,21,,,,,,,,,,
+,3U39,571,,open,,,,,,,,,,,,B5,3,U39,22,,,,,,,,,,
+,3U39,572,,open,,,,,,,,,,,,B5,3,U39,23,,,,,,,,,,
+,3U39,573,,open,,,,,,,,,,,,B5,3,U39,24,,,,,,,,,,
+,3U39,574,,open,,,,,,,,,,,,B5,3,U39,25,,,,,,,,,,
+,3U39,575,,open,,,,,,,,,,,,B5,3,U39,26,,,,,,,,,,
+,3U39,576,,open,,,,,,,,,,,,B5,3,U39,27,,,,,,,,,,
+,3U39,577,,open,,,,,,,,,,,,B5,3,U39,28,,,,,,,,,,
+,3U39,578,,open,,,,,,,,,,,,B5,3,U39,29,,,,,,,,,,
+,3U39,579,,open,,,,,,,,,,,,B5,3,U39,30,,,,,,,,,,
+,3U39,580,,open,,,,,,,,,,,,B5,3,U39,31,,,,,,,,,,
+,3U39,581,,open,,,,,,,,,,,,B5,3,U39,32,,,,,,,,,,
+,3U39,582,,open,,,,,,,,,,,,B5,3,U39,33,,,,,,,,,,
+,3U39,583,,open,,,,,,,,,,,,B5,3,U39,34,,,,,,,,,,
+,3U39,584,,open,,,,,,,,,,,,B5,3,U39,35,,,,,,,,,,
+,3U39,585,,open,,,,,,,,,,,,B5,3,U39,36,,,,,,,,,,
+,3U39,586,,open,,,,,,,,,,,,B5,3,U39,37,,,,,,,,,,
+,3U39,587,,open,,,,,,,,,,,,B5,3,U39,38,,,,,,,,,,
+,3U39,588,,open,,,,,,,,,,,,B5,3,U39,39,,,,,,,,,,
+,3U39,589,,open,,,,,,,,,,,,B5,3,U39,40,,,,,,,,,,
+,3U39,590,,open,,,,,,,,,,,,B5,3,U39,41,,,,,,,,,,
+,3U39,591,,open,,,,,,,,,,,,B5,3,U39,42,,,,,,,,,,
+,3U39,592,,open,,,,,,,,,,,,B5,3,U39,43,,,,,,,,,,
+,3U39,593,,open,,,,,,,,,,,,B5,3,U39,44,,,,,,,,,,
+,3U39,594,,open,,,,,,,,,,,,B5,3,U39,45,,,,,,,,,,
+,3U39,595,,open,,,,,,,,,,,,B5,3,U39,46,,,,,,,,,,
+,3U39,596,,open,,,,,,,,,,,,B5,3,U39,47,,,,,,,,,,
+,3U39,597,,open,,,,,,,,,,,,B5,3,U39,48,,,,,,,,,,
+,3U39,598,,open,,,,,,,,,,,,B5,3,U39,49,,,,,,,,,,
+,3U39,599,,open,,,,,,,,,,,,B5,3,U39,50,,,,,,,,,,
+,3U39,600,,open,,,,,,,,,,,,B5,3,U39,51,,,,,,,,,,
+,3U39,601,,open,,,,,,,,,,,,B5,3,U39,52,,,,,,,,,,
+,3U39,602,,open,,,,,,,,,,,,B5,3,U39,53,,,,,,,,,,
+,3U39,603,,open,,,,,,,,,,,,B5,3,U39,54,,,,,,,,,,
+,3U39,604,,open,,,,,,,,,,,,B5,3,U39,55,,,,,,,,,,
+,3U39,605,,open,,,,,,,,,,,,B5,3,U39,56,,,,,,,,,,
+,3U39,606,,open,,,,,,,,,,,,B5,3,U39,57,,,,,,,,,,
+,3U39,607,,open,,,,,,,,,,,,B5,3,U39,58,,,,,,,,,,
+,3U39,608,,open,,,,,,,,,,,,B5,3,U39,59,,,,,,,,,,
+,3U39,609,,open,,,,,,,,,,,,B5,3,U39,60,,,,,,,,,,
+,3U39,610,,open,,,,,,,,,,,,B5,3,U39,61,,,,,,,,,,
+,3U39,611,,open,,,,,,,,,,,,B5,3,U39,62,,,,,,,,,,
+,3U39,612,,open,,,,,,,,,,,,B5,3,U39,63,,,,,,,,,,
+,3U39,613,,open,,,,,,,,,,,,B5,3,U39,64,,,,,,,,,,
+in use - ISLin use - ISL,3U39,614,TSS,in use - ISL,in use - ISL,in use - ISL,in use - ISL,in use - ISL,in use - ISL,in use - ISL,in use - ISL,in use - ISL,in use - ISL,in use - ISL,in use - ISL,B5,3,U39,65 - SFP28,,,,,,,,,,
+1OU40,1OU39,615,Franklin,MGMT,1FT,1FT-CAT6,CAT6,Blue,N/A,N/A,B5,1,OU40,,MGMT IN,B5,1,OU39,MGMT OUT,"B5 R1 OU40 MGMT
+B5 R1 SW OU39 PMGMT OUT",B5 R1 OU40 MGMT,B5 R1 SW OU39 PMGMT OUT,,,,,,,
+1OU39,1OU38,616,Franklin,MGMT,1FT,1FT-CAT6,CAT6,Blue,N/A,N/A,B5,1,OU39,,MGMT IN,B5,1,OU38,MGMT OUT,"B5 R1 OU39 MGMT
+B5 R1 SW OU38 PMGMT OUT",B5 R1 OU39 MGMT,B5 R1 SW OU38 PMGMT OUT,,,,,,,
+1OU38,1OU23,617,Franklin,MGMT,3FT,3FT-CAT6,CAT6,Blue,N/A,N/A,B5,1,OU38,,MGMT IN,B5,1,OU23,MGMT OUT,"B5 R1 OU38 MGMT
+B5 R1 SW OU23 PMGMT OUT",B5 R1 OU38 MGMT,B5 R1 SW OU23 PMGMT OUT,,,,,,,
+1OU23,1OU22,618,Franklin,MGMT,1FT,1FT-CAT6,CAT6,Blue,N/A,N/A,B5,1,OU23,,MGMT IN,B5,1,OU22,MGMT OUT,"B5 R1 OU23 MGMT
+B5 R1 SW OU22 PMGMT OUT",B5 R1 OU23 MGMT,B5 R1 SW OU22 PMGMT OUT,,,,,,,
+1OU22,1OU10,619,Franklin,MGMT,3FT,3FT-CAT6,CAT6,Blue,N/A,N/A,B5,1,OU22,,MGMT IN,B5,1,OU10,MGMT OUT,"B5 R1 OU22 MGMT
+B5 R1 SW OU10 PMGMT OUT",B5 R1 OU22 MGMT,B5 R1 SW OU10 PMGMT OUT,,,,,,,
+1OU10,1OU09,620,Franklin,MGMT,1FT,1FT-CAT6,CAT6,Blue,N/A,N/A,B5,1,OU10,,MGMT IN,B5,1,OU09,MGMT OUT,"B5 R1 OU10 MGMT
+B5 R1 SW OU09 PMGMT OUT",B5 R1 OU10 MGMT,B5 R1 SW OU09 PMGMT OUT,,,,,,,
+1OU09,1OU08,621,Franklin,MGMT,1FT,1FT-CAT6,CAT6,Blue,N/A,N/A,B5,1,OU09,,MGMT IN,B5,1,OU08,MGMT OUT,"B5 R1 OU09 MGMT
+B5 R1 SW OU08 PMGMT OUT",B5 R1 OU09 MGMT,B5 R1 SW OU08 PMGMT OUT,,,,,,,
+1OU08,1OU03,622,Franklin,MGMT,4FT,4FT-CAT6,CAT6,Blue,N/A,N/A,B5,1,OU08,,MGMT IN,B5,1,OU03,MGMT OUT,"B5 R1 OU08 MGMT
+B5 R1 SW OU03 PMGMT OUT",B5 R1 OU08 MGMT,B5 R1 SW OU03 PMGMT OUT,,,,,,,
+2PDU R3,2PDU R4,623,TSS,MGMT,1FT,1FT-CAT6,CAT6,Blue,N/A,N/A,B5,2,PDU R3,,MGMT IN,B5,2,PDU R4,MGMT OUT,"B5 R2 PDU R3 MGMT
+B5 R2 SW PDU R4 PMGMT OUT",B5 R2 PDU R3 MGMT,B5 R2 SW PDU R4 PMGMT OUT,,,,,,,
+2PDU R4,2PDU L4,624,TSS,MGMT,4FT,4FT-CAT6,CAT6,Blue,N/A,N/A,B5,2,PDU R4,,MGMT IN,B5,2,PDU L4,MGMT OUT,"B5 R2 PDU R4 MGMT
+B5 R2 SW PDU L4 PMGMT OUT",B5 R2 PDU R4 MGMT,B5 R2 SW PDU L4 PMGMT OUT,,,,,,,
+2PDU L4,2PDU L3,625,TSS,MGMT,1FT,1FT-CAT6,CAT6,Blue,N/A,N/A,B5,2,PDU L4,,MGMT IN,B5,2,PDU L3,MGMT OUT,"B5 R2 PDU L4 MGMT
+B5 R2 SW PDU L3 PMGMT OUT",B5 R2 PDU L4 MGMT,B5 R2 SW PDU L3 PMGMT OUT,,,,,,,
+3PDU R3,3PDU R4,626,TSS,MGMT,1FT,1FT-CAT6,CAT6,Blue,N/A,N/A,B5,3,PDU R3,,MGMT IN,B5,3,PDU R4,MGMT OUT,"B5 R3 PDU R3 MGMT
+B5 R3 SW PDU R4 PMGMT OUT",B5 R3 PDU R3 MGMT,B5 R3 SW PDU R4 PMGMT OUT,,,,,,,
+3PDU R4,3PDU L4,627,TSS,MGMT,4FT,4FT-CAT6,CAT6,Blue,N/A,N/A,B5,3,PDU R4,,MGMT IN,B5,3,PDU L4,MGMT OUT,"B5 R3 PDU R4 MGMT
+B5 R3 SW PDU L4 PMGMT OUT",B5 R3 PDU R4 MGMT,B5 R3 SW PDU L4 PMGMT OUT,,,,,,,
+3PDU L4,3PDU L3,628,TSS,MGMT,1FT,1FT-CAT6,CAT6,Blue,N/A,N/A,B5,3,PDU L4,,MGMT IN,B5,3,PDU L3,MGMT OUT,"B5 R3 PDU L4 MGMT
+B5 R3 SW PDU L3 PMGMT OUT",B5 R3 PDU L4 MGMT,B5 R3 SW PDU L3 PMGMT OUT,,,,,,,

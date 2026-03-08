@@ -1,0 +1,207 @@
+--- eas/ips_to_hosts_baseline.py	2026-03-07 21:04:17
++++ eas/ips_to_hosts.py	2026-03-07 21:01:14
+@@ -2,9 +2,11 @@
+ """
+ Generate an /etc/hosts-compliant file from eas/ips.csv.
+ 
+-Each row is a host; columns are interfaces/networks. Includes Cray EX xName
+-and optional Notes alias. One line per IP: IP followed by canonical name
+-and aliases (NodeName, xName, Notes). Output grouped by network section.
++Each row is a host; columns are interfaces/networks. Each IP gets a
++per-interface hostname (e.g. node-eth1, node-ib0, node-idrac). The first
++Cluster Admin column is the node's primary hostname (NodeName) with xName
++and Notes as aliases. InfiniBand is split into Public and Private sections.
++See NETWORKS for (section, header, interface_suffix) mapping.
+ """
+ 
+ import csv
+@@ -26,53 +28,65 @@
+     "Notes",
+ }
+ 
+-# Network definitions: (label, [CSV column headers]). Order defines section order in output.
++# Network definitions: (section_label, [(CSV column header, interface_suffix), ...]).
++# interface_suffix: None = node's primary hostname (Cluster Admin first only); else e.g. "eth1", "ib0".
++# Per-IP hostname = node_name if suffix is None else f"{node_name}-{suffix}".
++# Order of (header, suffix) defines section order and #1, #2, etc. within a network.
+ NETWORKS = [
++    # Cluster Admin: first = node hostname; #2→eth1, #3→eth2, #4→eth3
+     ("Cluster Admin", [
+-        "Cluster Admin Network",
+-        "Cluster Admin Network #2",
+-        "Cluster Admin Network #3",
+-        "Cluster Admin Network #4",
++        ("Cluster Admin Network", None),
++        ("Cluster Admin Network #2", "eth1"),
++        ("Cluster Admin Network #3", "eth2"),
++        ("Cluster Admin Network #4", "eth3"),
+     ]),
++    # iDrac: first = idrac
+     ("iDrac", [
+-        "iDrac Network (iDrac)",
+-        "iDrac Network (Local)",
++        ("iDrac Network (iDrac)", "idrac"),
++        ("iDrac Network (Local)", "idrac2"),
+     ]),
+-    ("InfiniBand", [
+-        "InfiniBand (Public)",
+-        "InfiniBand ib0 (Private)",
+-        "InfiniBand ib0 #2(Private)",
+-        "InfiniBand ib1 (Private)",
+-        "InfiniBand ib1 #2(Private)",
++    # InfiniBand: Public and Private sections; Private #1→ib0, #2→ib1, #3→ib2, #4→ib3
++    ("InfiniBand Public", [
++        ("InfiniBand (Public)", "ibpub"),
+     ]),
++    ("InfiniBand Private", [
++        ("InfiniBand ib0 (Private)", "ib0"),
++        ("InfiniBand ib0 #2(Private)", "ib1"),
++        ("InfiniBand ib1 (Private)", "ib2"),
++        ("InfiniBand ib1 #2(Private)", "ib3"),
++    ]),
++    # Switch Management: first = swmgt, second = swmgt1
+     ("Switch Management", [
+-        "Switch Management Network",
+-        "Switch Management Network #2",
++        ("Switch Management Network", "swmgt"),
++        ("Switch Management Network #2", "swmgt1"),
+     ]),
++    # PowerScale Admin: first = psadm, #2→psadm2, #3→psadm3, #4→psadm4
+     ("PowerScale Admin", [
+-        "PowerScale Admin Network #1",
+-        "PowerScale Admin Network #2",
+-        "PowerScale Admin Network #3",
+-        "PowerScale Admin Network #4",
++        ("PowerScale Admin Network #1", "psadm"),
++        ("PowerScale Admin Network #2", "psadm2"),
++        ("PowerScale Admin Network #3", "psadm3"),
++        ("PowerScale Admin Network #4", "psadm4"),
+     ]),
++    # PowerScale Storage: first = psstg, #2→psstg2, #3→psstg3, #4→psstg4
+     ("PowerScale Storage", [
+-        "PowerScale Storage Network #1",
+-        "PowerScale Storage Network #2",
+-        "PowerScale Storage Network #3",
+-        "PowerScale Storage Network #4",
++        ("PowerScale Storage Network #1", "psstg"),
++        ("PowerScale Storage Network #2", "psstg2"),
++        ("PowerScale Storage Network #3", "psstg3"),
++        ("PowerScale Storage Network #4", "psstg4"),
+     ]),
++    # Side Door: first = sdr
+     ("Side Door", [
+-        "Side Door Network",
++        ("Side Door Network", "sdr"),
+     ]),
+ ]
+ 
+ 
+-def _header_to_network_map():
+-    """Map CSV column header -> network label from NETWORKS. Unlisted columns -> 'Other'."""
++def _header_to_info_map():
++    """Map CSV column header -> (section_label, interface_suffix). Unlisted columns -> ('Other', None)."""
+     out = {}
+-    for label, headers in NETWORKS:
+-        for h in headers:
+-            out[h] = label
++    for label, pairs in NETWORKS:
++        for h, suffix in pairs:
++            out[h] = (label, suffix)
+     return out
+ 
+ 
+@@ -85,6 +99,7 @@
+     m = IPv4_RE.match(val)
+     if not m:
+         return None
++    # basic octet check
+     try:
+         parts = [int(x) for x in m.group(1).split(".")]
+         if all(0 <= p <= 255 for p in parts):
+@@ -101,13 +116,16 @@
+         print("ips.csv not found", file=sys.stderr)
+         sys.exit(1)
+ 
++    # IP -> {node_name, names, network, suffix}; one host per IP (first row wins)
+     ip_to_data = {}
+-    header_to_network = _header_to_network_map()
++    header_to_info = _header_to_info_map()
+ 
+     with open(csv_path, newline="", encoding="utf-8") as f:
+         reader = csv.reader(f)
+         header = next(reader)
++        # map header name -> index (handle duplicates by taking first)
+         col_index = {h.strip(): i for i, h in enumerate(header)}
++        # strip trailing comma from last header if present
+         for k in list(col_index):
+             if k.endswith(","):
+                 col_index[k.rstrip(",")] = col_index.pop(k)
+@@ -119,6 +137,7 @@
+             print("NodeName column not found", file=sys.stderr)
+             sys.exit(1)
+ 
++        # IP columns: (index, header_name) for network lookup
+         ip_cols = []
+         for i, h in enumerate(header):
+             name = h.strip().rstrip(",")
+@@ -139,6 +158,7 @@
+                 xname = (row[idx_xname] or "").strip()
+                 if xname and xname not in names:
+                     names.append(xname)
++            # Notes: header may be "Notes" with data in same or next (trailing-comma) column
+             note = ""
+             if idx_notes is not None and idx_notes < len(row):
+                 note = (row[idx_notes] or "").strip().rstrip(",")
+@@ -155,20 +175,22 @@
+                 ip = is_valid_ip(row[i])
+                 if not ip:
+                     continue
+-                network = header_to_network.get(col_name, "Other")
++                network, suffix = header_to_info.get(col_name, ("Other", None))
+                 if ip not in ip_to_data:
+-                    ip_to_data[ip] = {"names": [], "network": network}
+-                for n in names:
+-                    if n and n not in ip_to_data[ip]["names"]:
+-                        ip_to_data[ip]["names"].append(n)
++                    ip_to_data[ip] = {
++                        "node_name": node_name,
++                        "names": list(names),
++                        "network": network,
++                        "suffix": suffix,
++                    }
+ 
++    # Emit /etc/hosts format: sections by network; each IP gets interface-specific hostname
+     network_order = [label for label, _ in NETWORKS] + ["Other"]
+     ip_sort_key = lambda x: tuple(map(int, x.split(".")))
+ 
+     lines = [
+-        "# Generated from ips.csv - Cray EX hosts and xNames",
+-        "# Format: IP_address\tcanonical_hostname\t[xName]\t[aliases]",
+-        "# Networks defined in NETWORKS; sections grouped by network.",
++        "# Generated from ips.csv - per-interface hostnames",
++        "# Primary (Cluster Admin first) = node hostname + xName/Notes aliases; others = node-interface (e.g. node-eth1, node-ib0).",
+         "#",
+     ]
+     for net_label in network_order:
+@@ -178,8 +200,19 @@
+         lines.append(f"# --- {net_label} ---")
+         lines.append("")
+         for ip in sorted(ips_in_net, key=ip_sort_key):
+-            names = ip_to_data[ip]["names"]
+-            lines.append(ip + "\t" + "\t".join(names))
++            data = ip_to_data[ip]
++            node_name = data["node_name"]
++            names = data["names"]
++            suffix = data["suffix"]
++            if suffix is None or suffix == "":
++                hostname = node_name
++                # Primary IP: add xName and Notes as aliases so node name and xname resolve here
++                aliases = [n for n in names[1:] if n]
++                parts = [ip, hostname] + aliases
++            else:
++                hostname = f"{node_name}-{suffix}"
++                parts = [ip, hostname]
++            lines.append("\t".join(parts))
+         lines.append("")
+ 
+     out = "\n".join(lines).rstrip() + "\n"
