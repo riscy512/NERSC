@@ -1,0 +1,83 @@
+cech-border2 border
+cech-cdu0 cdu x7003
+cech-ethLeaf1 ethLeaf
+cech-ethLeaf2 ethLeaf
+cech-ethLeaf3 ethLeaf
+cech-ethMgmt1 ethMgmt
+cech-ethSpine1 ethSpine
+cech-ethSpine2 ethSpine
+cech-ircRack1 ircRack
+cech-mgt1 mgt x7001
+cech-mgt2 mgt x7002
+cech-ome1 ome x7001
+cech-ome2 ome x7002
+cech-pscale1 pscale x7001
+cech-pvault1a pvault x7001
+cech-pvault1b pvault x7001
+cech-r1ibleaf1 r1ibleaf
+cech-r1ibleaf2 r1ibleaf
+cech-r2ibleaf1 r2ibleaf
+cech-r2ibspine1 r2ibspine
+cech-r3ibleaf1 r3ibleaf
+cech-r3spine1 r3spine
+cech-sfm1 sfm x7001
+cech-sfm2 sfm x7002
+cech-slurm1 slurm x7001
+cech-slurm2 slurm x7002
+cech-svc1 svc x7001
+cech-svc2 svc x7002
+cech-ufm1 ufm x7001
+cech-ufm2 ufm x7002
+cech-vast1 vast x7002
+cech-vast10 vast x7002
+cech-vast11 vast x7002
+cech-vast2 vast x7002
+cech-vast3 vast x7002
+cech-vast4 vast x7002
+cech-vast5 vast x7002
+cech-vast6 vast x7002
+cech-vast7 vast x7002
+cech-vast8 vast x7002
+cech-vast9 vast x7002
+cech-vastDns1 vastDns
+cech-vastMgt1 vastMgt
+cech-vastSw1 vastSw
+cech-vastSw2 vastSw
+cech-wen1 wen x7001
+cech-wen2 wen x7002
+nid7001 compute x7000
+nid7002 compute x7000
+nid7003 compute x7000
+nid7004 compute x7000
+nid7005 compute x7000
+nid7006 compute x7000
+nid7007 compute x7000
+nid7008 compute x7000
+nid7009 compute x7000
+nid7010 compute x7000
+nid7011 compute x7000
+nid7012 compute x7000
+nid7013 compute x7000
+nid7014 compute x7000
+nid7015 compute x7000
+nid7016 compute x7000
+nid7017 compute x7000
+nid7018 compute x7000
+nid7019 compute x7000
+nid7020 compute x7000
+nid7021 compute x7000
+nid7022 compute x7000
+nid7023 compute x7000
+nid7024 compute x7000
+nid7025 compute x7000
+nid7026 compute x7000
+nid7027 compute x7000
+nid7028 compute x7000
+nid7029 compute x7000
+nid7030 compute x7000
+nid7031 compute x7000
+nid7032 compute x7000
+nid7033 compute x7000
+nid7034 compute x7000
+nid7035 compute x7000
+nid7036 compute x7000
