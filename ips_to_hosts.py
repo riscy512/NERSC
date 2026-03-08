@@ -14,6 +14,15 @@ import re
 import sys
 from pathlib import Path
 
+class autoDict(dict):
+    """Hash-of-hashes helper (Perl nostalgia)."""
+
+    def __missing__(self, key):
+        value = self[key] = type(self)()
+        return value
+    
+cluster=autoDict()
+
 # IPv4 pattern (simple: four octets)
 IPv4_RE = re.compile(r"^\s*(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})\s*$")
 
@@ -184,6 +193,22 @@ def main():
                         "network": network,
                         "suffix": suffix,
                     }
+                    hostname = node_name if (suffix is None or suffix == "") else f"{node_name}-{suffix}"
+                    cluster["hosts"]["byNode"][node_name]["network"][network]["hostname"] = hostname
+                    cluster["hosts"]["byNode"][node_name]["network"][network]["ip"]=ip
+                    cluster["hosts"]["byNode"][node_name]["network"][network]["suffix"]=suffix
+                    cluster["hosts"]["byNode"][node_name]["network"][network]["names"]=names
+                    cluster["hosts"]["byHostname"][hostname]["node_name"]=node_name
+                    cluster["hosts"]["byHostname"][hostname]["network"]=network
+                    cluster["hosts"]["byHostname"][hostname]["ip"]=ip
+                    cluster["hosts"]["byHostname"][hostname]["names"]=names
+                    cluster["hosts"]["byIP"][ip]["node_name"]=node_name
+                    cluster["hosts"]["byIP"][ip]["hostname"]=hostname
+                    cluster["hosts"]["byIP"][ip]["network"]=network
+                    cluster["hosts"]["byIP"][ip]["suffix"]=suffix
+                    cluster["hosts"]["byIP"][ip]["names"]=names
+#                    print ("A", cluster["hosts"]["byNode"][node_name])
+#                    print ("B", cluster["hosts"]["byHostname"][hostname])
                 else:
                     # Check for IP reuse: same IP assigned to a different host or interface
                     existing = ip_to_data[ip]
@@ -254,3 +279,5 @@ def main():
 
 if __name__ == "__main__":
     main()
+
+print (cluster)
