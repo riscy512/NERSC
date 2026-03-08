@@ -16,6 +16,11 @@ from pathlib import Path
 SCRIPT_DIR = Path(__file__).resolve().parent
 DEFAULT_CONFIG = SCRIPT_DIR / "ips.csv"
 
+# Redfish (iDrac) credentials for power/boot. Used when not passed via CLI or env.
+# For initial testing only; replace with a secure solution (e.g. HashiCorp Vault API).
+OMNIA_REDFISH_USER: str | None = None
+OMNIA_REDFISH_PASSWORD: str | None = None
+
 
 def _get_config_path(args: argparse.Namespace) -> Path:
     return Path(args.config) if getattr(args, "config", None) else DEFAULT_CONFIG
@@ -41,6 +46,13 @@ def _resolve_nodes(cluster: dict, names: list[str]) -> list[str]:
             seen.add(node)
             out.append(node)
     return out
+
+
+def _redfish_credentials(args: argparse.Namespace) -> tuple[str | None, str | None]:
+    """Return (user, password) for Redfish: CLI args > OMNIA_* vars > None (redfish modules use env)."""
+    user = getattr(args, "redfish_user", None) or OMNIA_REDFISH_USER
+    password = getattr(args, "redfish_password", None) or OMNIA_REDFISH_PASSWORD
+    return (user or None, password or None)
 
 
 def _load_cluster(args: argparse.Namespace):
@@ -127,9 +139,13 @@ def cmd_power(args: argparse.Namespace) -> None:
         print("Error: power subcommand requires at least one node", file=sys.stderr)
         sys.exit(1)
     verify_ssl = getattr(args, "verify_ssl", False)
-    # Output format "nodeName: <single line>" on stdout so dshbak can parse and roll up
+    user, password = _redfish_credentials(args)
+    # Each node: iDrac IP from cluster["hosts"]["byNode"][node]["network"]["iDrac"]["ip"]
     for node in nodes:
-        ok, err, result = run_for_node(cluster, node, action, verify_ssl=verify_ssl)
+        ok, err, result = run_for_node(
+            cluster, node, action,
+            user=user, password=password, verify_ssl=verify_ssl,
+        )
         if action == "status":
             info = (result if ok else err) or "unknown"
             print(f"{node}: {info}")
@@ -151,12 +167,13 @@ def cmd_boot(args: argparse.Namespace) -> None:
         sys.exit(1)
     if not nodes:
         nodes = sorted(cluster.get("hosts", {}).get("byNode", {}))
+    user, password = _redfish_credentials(args)
     for node in nodes:
         ok, err, result = run_for_node(
             cluster, node, action,
             target=target,
             enabled=BOOT_OVERRIDE_ONCE,
-            verify_ssl=verify_ssl,
+            user=user, password=password, verify_ssl=verify_ssl,
         )
         if action in ("show_next", "show_permanent", "show_options") and result is not None:
             print(f"{node}: {result}")
@@ -175,6 +192,8 @@ def main() -> int:
     parser.add_argument("-v", "--verbose", action="store_true", help="Verbose")
     parser.add_argument("-d", "--debug", action="store_true", help="Debug")
     parser.add_argument("--no-verify-ssl", action="store_true", dest="no_verify_ssl", help="Disable SSL verify for Redfish")
+    parser.add_argument("--redfish-user", "-U", dest="redfish_user", default=None, help="Redfish/BMC user (else OMNIA_REDFISH_USER or REDFISH_USER env)")
+    parser.add_argument("--redfish-password", "-P", dest="redfish_password", default=None, help="Redfish/BMC password (else OMNIA_REDFISH_PASSWORD or REDFISH_PASSWORD env)")
     sub = parser.add_subparsers(dest="command", required=True)
 
     # help

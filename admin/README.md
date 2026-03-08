@@ -50,7 +50,11 @@ omniactl boot clear-next cech-mgt2
 | `-v`, `--verbose` | Verbose output |
 | `-d`, `--debug` | Debug output |
 | `--no-verify-ssl` | Disable SSL verification for Redfish (typical for iDRAC) |
+| `-U`, `--redfish-user` | Redfish/BMC user (else `OMNIA_REDFISH_USER` or `REDFISH_USER` env) |
+| `-P`, `--redfish-password` | Redfish/BMC password (else `OMNIA_REDFISH_PASSWORD` or `REDFISH_PASSWORD` env) |
 | `-h`, `--help` | Show help at any level (e.g. `omniactl power -h`) |
+
+For initial testing, set `OMNIA_REDFISH_USER` and `OMNIA_REDFISH_PASSWORD` at the top of `omniactl`; a secure solution (e.g. HashiCorp Vault API) can replace this later. Power and boot use the **iDrac IP for the node being acted upon** (from `cluster["hosts"]["byNode"][node]["network"]["iDrac"]["ip"]`).
 
 ### Subcommands
 

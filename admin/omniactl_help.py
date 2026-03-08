@@ -25,7 +25,13 @@ GLOBAL OPTIONS
   -v, --verbose        Verbose output
   -d, --debug          Debug output
   --no-verify-ssl      Disable SSL verification for Redfish (typical for iDRAC)
+  -U, --redfish-user   Redfish/BMC user (overrides OMNIA_REDFISH_USER and REDFISH_USER env)
+  -P, --redfish-password  Redfish/BMC password (overrides OMNIA_REDFISH_PASSWORD and REDFISH_PASSWORD env)
   -h, --help           Show help (any level: omniactl -h, omniactl power -h)
+
+Redfish credentials (power/boot): precedence is -U/-P, then omniactl OMNIA_REDFISH_USER/OMNIA_REDFISH_PASSWORD
+(for testing until e.g. Vault), then REDFISH_USER/REDFISH_PASSWORD env. Each node is acted on via its
+iDrac IP from the cluster (byNode[node]["network"]["iDrac"]["ip"]).
 
 SUBCOMMANDS
 
