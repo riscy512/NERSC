@@ -14,6 +14,8 @@ import re
 import sys
 from pathlib import Path
 
+from xname import get_node_xname, parse_xname
+
 class autoDict(dict):
     """Hash-of-hashes helper (Perl nostalgia)."""
 
@@ -21,7 +23,19 @@ class autoDict(dict):
         value = self[key] = type(self)()
         return value
     
-cluster=autoDict()
+# Cluster index for hosts and future query lookups.
+# All dictionary keys and stored node_name/hostname values are WITHOUT the domain
+# (nodeName only); use nodeNameWithDomain / hostnameWithDomain for FQDN output.
+#   hosts.byNode[node_name]     -> networks, IPs, names, xname_parsed, nodeNameWithDomain
+#   hosts.by_xname[node_xname]  -> node_name (canonical xName -> display name)
+#   hosts.byHostname[hostname]  -> node_name, hostname, hostnameWithDomain, network, ip, names
+#   hosts.byIP[ip]              -> node_name, hostname, network, suffix, names
+#   racks[rack_id][node_name]   -> True (nodes in that rack; keys = node names)
+# Expand with by_component_type, etc., as needed.
+cluster = autoDict()
+
+# Domain for FQDN-style host entries (nodeName.domain, xName.domain lead each line)
+DOMAIN = "cech.nersc.gov"
 
 # IPv4 pattern (simple: four octets)
 IPv4_RE = re.compile(r"^\s*(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})\s*$")
@@ -118,6 +132,32 @@ def is_valid_ip(val):
     return None
 
 
+def write_genders(cluster, filepath=None):
+    """
+    Write a pdsh genders file from the cluster index.
+
+    Genders entries use ONLY node names without domain names (same as cluster
+    lookup keys). One line per node: node_name NodePurpose x{rack_id}
+    (e.g. nid0001 compute x7000). Uses NodePurpose from ips.csv and rack_id
+    from parsed xName. Nodes without a rack_id get only node_name and NodePurpose.
+    """
+    lines = []
+    for node_name in sorted(cluster.get("hosts", {}).get("byNode", {})):
+        node_data = cluster["hosts"]["byNode"][node_name]
+        purpose = node_data.get("NodePurpose") or "unknown"
+        attrs = [purpose]
+        xname_parsed = node_data.get("xname_parsed")
+        if xname_parsed and xname_parsed.get("rack_id") is not None:
+            attrs.append(f"x{xname_parsed['rack_id']}")
+        line = f"{node_name} {' '.join(attrs)}\n"
+        lines.append(line)
+    out = "".join(lines)
+    if filepath is None:
+        return out
+    Path(filepath).write_text(out, encoding="utf-8")
+    return out
+
+
 def main():
     script_dir = Path(__file__).resolve().parent
     csv_path = script_dir / "ips.csv"
@@ -143,6 +183,7 @@ def main():
         idx_node = col_index.get("NodeName")
         idx_xname = col_index.get("xName")
         idx_notes = col_index.get("Notes")
+        idx_node_purpose = col_index.get("NodePurpose")
         if idx_node is None:
             print("NodeName column not found", file=sys.stderr)
             sys.exit(1)
@@ -168,6 +209,26 @@ def main():
                 xname = (row[idx_xname] or "").strip()
                 if xname and xname not in names:
                     names.append(xname)
+
+            # Parse xName for future lookups by rack, node xname, component type
+            primary_xname = (row[idx_xname] or "").strip() if idx_xname is not None and idx_xname < len(row) else ""
+            if not primary_xname:
+                primary_xname = node_name
+            node_purpose = ""
+            if idx_node_purpose is not None and idx_node_purpose < len(row):
+                node_purpose = (row[idx_node_purpose] or "").strip()
+            cluster["hosts"]["byNode"][node_name]["NodePurpose"] = node_purpose or "unknown"
+            cluster["hosts"]["byNode"][node_name]["nodeNameWithDomain"] = f"{node_name}.{DOMAIN}"
+
+            xname_parsed = parse_xname(primary_xname)
+            if xname_parsed:
+                cluster["hosts"]["byNode"][node_name]["xname_parsed"] = xname_parsed
+                node_xname = xname_parsed.get("node_xname")
+                rack_id = xname_parsed.get("rack_id")
+                if node_xname:
+                    cluster["hosts"]["by_xname"][node_xname] = node_name
+                if rack_id is not None:
+                    cluster["racks"][rack_id][node_name] = True
             # Notes: header may be "Notes" with data in same or next (trailing-comma) column
             note = ""
             if idx_notes is not None and idx_notes < len(row):
@@ -195,10 +256,13 @@ def main():
                     }
                     hostname = node_name if (suffix is None or suffix == "") else f"{node_name}-{suffix}"
                     cluster["hosts"]["byNode"][node_name]["network"][network]["hostname"] = hostname
+                    cluster["hosts"]["byNode"][node_name]["network"][network]["hostnameWithDomain"] = f"{hostname}.{DOMAIN}"
                     cluster["hosts"]["byNode"][node_name]["network"][network]["ip"]=ip
                     cluster["hosts"]["byNode"][node_name]["network"][network]["suffix"]=suffix
                     cluster["hosts"]["byNode"][node_name]["network"][network]["names"]=names
                     cluster["hosts"]["byHostname"][hostname]["node_name"]=node_name
+                    cluster["hosts"]["byHostname"][hostname]["hostname"]=hostname
+                    cluster["hosts"]["byHostname"][hostname]["hostnameWithDomain"]=f"{hostname}.{DOMAIN}"
                     cluster["hosts"]["byHostname"][hostname]["network"]=network
                     cluster["hosts"]["byHostname"][hostname]["ip"]=ip
                     cluster["hosts"]["byHostname"][hostname]["names"]=names
@@ -242,7 +306,9 @@ def main():
 
     lines = [
         "# Generated from ips.csv - per-interface hostnames",
-        "# Primary (Cluster Admin first) = node hostname + xName/Notes aliases; others = node-interface (e.g. node-eth1, node-ib0).",
+        f"# Domain: {DOMAIN}",
+        "# Primary line order: nodeName.domain, xName.domain, nodeName, xName, Notes.",
+        "# Other lines: hostname.domain, hostname (e.g. node-eth1, node-ib0).",
         "#",
     ]
     for net_label in network_order:
@@ -258,12 +324,25 @@ def main():
             suffix = data["suffix"]
             if suffix is None or suffix == "":
                 hostname = node_name
-                # Primary IP: add xName and Notes as aliases so node name and xname resolve here
-                aliases = [n for n in names[1:] if n]
-                parts = [ip, hostname] + aliases
+                # Primary IP: lead with nodeName.domain, xName.domain, nodeName, xName; then Notes
+                node_xname = None
+                node_data = cluster.get("hosts", {}).get("byNode", {}).get(node_name, {})
+                xp = node_data.get("xname_parsed")
+                if xp:
+                    node_xname = xp.get("node_xname")
+                parts = [ip, f"{hostname}.{DOMAIN}"]
+                if node_xname:
+                    parts.append(f"{node_xname}.{DOMAIN}")
+                parts.append(hostname)
+                if node_xname:
+                    parts.append(node_xname)
+                for n in names:
+                    if n and n != node_name and n != (node_xname or ""):
+                        parts.append(n)
+                parts = [str(p) for p in parts]
             else:
                 hostname = f"{node_name}-{suffix}"
-                parts = [ip, hostname]
+                parts = [ip, f"{hostname}.{DOMAIN}", hostname]
             lines.append("\t".join(parts))
         lines.append("")
 
@@ -275,6 +354,17 @@ def main():
         print(f"Wrote {len(ip_to_data)} entries to {out_path}", file=sys.stderr)
     else:
         print(out, end="")
+
+    # Optional: write pdsh genders file (NodePurpose + rack_id per node)
+    if "-g" in sys.argv:
+        gidx = sys.argv.index("-g")
+        gpath = None
+        if gidx + 1 < len(sys.argv) and not sys.argv[gidx + 1].startswith("-"):
+            gpath = Path(sys.argv[gidx + 1])
+        else:
+            gpath = script_dir / "genders"
+        write_genders(cluster, gpath)
+        print(f"Wrote genders ({len(cluster.get('hosts', {}).get('byNode', {}))} nodes) to {gpath}", file=sys.stderr)
 
 
 if __name__ == "__main__":
