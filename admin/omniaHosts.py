@@ -78,7 +78,10 @@ def _header_to_info_map() -> dict[str, tuple[str, Optional[str]]]:
     out = {}
     for label, pairs in NETWORKS:
         for h, suffix in pairs:
-            out[h] = (label, suffix)
+            # Normalize internal whitespace so headers like 'iDrac\\nNetwork (iDrac)'
+            # from CSV match 'iDrac Network (iDrac)' here.
+            key = " ".join(h.split())
+            out[key] = (label, suffix)
     return out
 
 
@@ -120,7 +123,8 @@ def load_cluster(csv_path: Optional[Path] = None) -> tuple[dict[str, Any], dict[
     with open(csv_path, newline="", encoding="utf-8") as f:
         reader = csv.reader(f)
         header = next(reader)
-        col_index = {h.strip(): i for i, h in enumerate(header)}
+        # Normalize header keys: strip and collapse internal whitespace
+        col_index = {" ".join(h.strip().split()): i for i, h in enumerate(header)}
         for k in list(col_index):
             if k.endswith(","):
                 col_index[k.rstrip(",")] = col_index.pop(k)
@@ -132,9 +136,10 @@ def load_cluster(csv_path: Optional[Path] = None) -> tuple[dict[str, Any], dict[
         if idx_node is None:
             raise ValueError("NodeName column not found")
 
-        ip_cols = []
+        ip_cols: list[tuple[int, str]] = []
         for i, h in enumerate(header):
-            name = h.strip().rstrip(",")
+            # Normalize header name for IP column detection and NETWORKS mapping
+            name = " ".join(h.strip().rstrip(",").split())
             if name not in NON_IP_COLUMNS and i not in (idx_node, idx_xname, idx_notes):
                 if idx_notes is not None and i == idx_notes:
                     continue
