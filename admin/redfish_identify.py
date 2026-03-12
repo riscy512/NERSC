@@ -1,29 +1,17 @@
 """
-Redfish chassis identify/beacon LED (IndicatorLED).
+Redfish chassis identify/beacon LED. Modeled after:
 
-Uses the same cluster/iDrac pattern as redfish_power: resolve node name to iDrac IP
-via cluster["hosts"]["byNode"][node_name]["network"]["iDrac"]["ip"].
+  curl -k -u root:password -X PATCH -H "Content-Type: application/json" \\
+    https://idrac-ip/redfish/v1/Chassis/System.Embedded.1 -d '{"IndicatorLED":"Blinking"}'
 
-References:
-  - DMTF Redfish Chassis: IndicatorLED "Lit" | "Blinking" | "Off".
-  - Dell iDRAC Redfish API Guide (e.g. iDRAC9 v3.11.11.11): Chassis PATCH supports
-    property IndicatorLed (capital L, lowercase ed) with values Blinking, Off only.
-    https://www.dell.com/support/manuals/en-us/idrac9-lifecycle-controller-v3.1-series/
-    idrac_3.11.11.11_redfishapiguide/chassis
+Uses cluster iDrac IP from omniaHosts; credentials from env or -U/-P.
 """
 
 from __future__ import annotations
 
 from typing import Any, Optional
 
-# IndicatorLED values (DMTF Redfish Chassis)
-INDICATOR_LIT = "Lit"
-INDICATOR_BLINKING = "Blinking"
-INDICATOR_OFF = "Off"
-# Dell iDRAC Chassis uses property "IndicatorLed" (not "IndicatorLED") and only Blinking, Off
-DELL_INDICATOR_PROP = "IndicatorLed"
-
-DEFAULT_CHASSIS_ID = "System.Embedded.1"
+CHASSIS_ID = "System.Embedded.1"
 
 
 def _redfish_request(
@@ -36,138 +24,49 @@ def _redfish_request(
     verify_ssl: bool = False,
     timeout: int = 30,
 ):
-    """Use redfish_power's request helper for consistency."""
     from redfish_power import _redfish_request as _req
     return _req(method, url, user=user, password=password, body=body, verify_ssl=verify_ssl, timeout=timeout)
-
-
-def _redfish_error_message(data: Any, status_code: int) -> str:
-    """Extract a readable error from Redfish error response, including ExtendedInfo."""
-    if not isinstance(data, dict):
-        return str(status_code)
-    err = data.get("error", data)
-    if not isinstance(err, dict):
-        return str(data) if data else str(status_code)
-    # Prefer @Message.ExtendedInfo[0].Message (or .MessageId) over generic message
-    ext = err.get("@Message.ExtendedInfo") or err.get("ExtendedInfo")
-    if isinstance(ext, list) and ext:
-        first = ext[0]
-        if isinstance(first, dict):
-            msg = first.get("Message") or first.get("MessageId")
-            if msg:
-                return msg
-    return err.get("message") or str(status_code)
-
-
-def get_chassis_id(
-    idrac_ip: str,
-    *,
-    user: Optional[str] = None,
-    password: Optional[str] = None,
-    verify_ssl: bool = False,
-) -> str:
-    """
-    Discover the Redfish Chassis ID (e.g. System.Embedded.1) from the BMC.
-    Returns the first chassis member ID or DEFAULT_CHASSIS_ID if discovery fails.
-    """
-    base = f"https://{idrac_ip}"
-    url = f"{base}/redfish/v1/Chassis"
-    code, data = _redfish_request("GET", url, user=user, password=password, verify_ssl=verify_ssl)
-    if code != 200 or not data:
-        return DEFAULT_CHASSIS_ID
-    members = data.get("Members", [])
-    if not members:
-        return DEFAULT_CHASSIS_ID
-    first = members[0]
-    ref = first.get("@odata.id", "")
-    if ref.startswith("/"):
-        ref = ref.split("/")[-1]
-    else:
-        ref = ref.split("/")[-1] if "/" in ref else first.get("Id", DEFAULT_CHASSIS_ID)
-    return ref or DEFAULT_CHASSIS_ID
 
 
 def indicator_led_set(
     idrac_ip: str,
     state: str,
     *,
-    chassis_id: Optional[str] = None,
     user: Optional[str] = None,
     password: Optional[str] = None,
     verify_ssl: bool = False,
 ) -> tuple[bool, Optional[str]]:
-    """
-    Set chassis identify/beacon LED. state: "Lit" | "Blinking" | "Off".
-    Tries IndicatorLED first; if the BMC reports it not found, falls back to
-    LocationIndicatorActive (boolean), which many iDRACs use instead.
-    Returns (success, error_message or None).
-    """
-    chassis_id = chassis_id or get_chassis_id(idrac_ip, user=user, password=password, verify_ssl=verify_ssl)
-    base = f"https://{idrac_ip}"
-    url = f"{base}/redfish/v1/Chassis/{chassis_id}"
+    """PATCH /redfish/v1/Chassis/System.Embedded.1 with {"IndicatorLED": state}. state is "Blinking" or "Off"."""
+    url = f"https://{idrac_ip}/redfish/v1/Chassis/{CHASSIS_ID}"
     code, data = _redfish_request("PATCH", url, body={"IndicatorLED": state}, user=user, password=password, verify_ssl=verify_ssl)
     if code in (200, 204):
         return True, None
-    msg = _redfish_error_message(data, code)
-    # Fallback 0: Dell iDRAC Redfish API Guide uses property "IndicatorLed" (not "IndicatorLED") and values Blinking, Off only
-    if code in (400, 404) or (msg and "IndicatorLED" in msg and ("not found" in msg.lower() or "invalid" in msg.lower())):
-        dell_state = INDICATOR_BLINKING if state != INDICATOR_OFF else INDICATOR_OFF
-        code0, data0 = _redfish_request("PATCH", url, body={DELL_INDICATOR_PROP: dell_state}, user=user, password=password, verify_ssl=verify_ssl)
-        if code0 in (200, 204):
-            return True, None
-        msg = _redfish_error_message(data0, code0)
-    # Fallback 1: many BMCs use LocationIndicatorActive (boolean) on Chassis instead of IndicatorLED/IndicatorLed
-    if code in (400, 404) or (msg and ("IndicatorLED" in msg or "IndicatorLed" in msg) and ("not found" in msg.lower() or "invalid" in msg.lower())):
-        active = state != INDICATOR_OFF
-        code2, data2 = _redfish_request("PATCH", url, body={"LocationIndicatorActive": active}, user=user, password=password, verify_ssl=verify_ssl)
-        if code2 in (200, 204):
-            return True, None
-        msg = _redfish_error_message(data2, code2)
-        # Fallback 2: some iDRACs expose identify only on ComputerSystem (Systems), not Chassis
-        if code2 in (400, 404) or (msg and "LocationIndicatorActive" in msg and "not found" in msg.lower()):
-            from redfish_power import get_system_id
-            system_id = get_system_id(idrac_ip, user=user, password=password, verify_ssl=verify_ssl)
-            sys_url = f"{base}/redfish/v1/Systems/{system_id}"
-            code3, data3 = _redfish_request("PATCH", sys_url, body={"IndicatorLED": state}, user=user, password=password, verify_ssl=verify_ssl)
-            if code3 in (200, 204):
-                return True, None
-            msg3 = _redfish_error_message(data3, code3)
-            code4, data4 = _redfish_request("PATCH", sys_url, body={"LocationIndicatorActive": active}, user=user, password=password, verify_ssl=verify_ssl)
-            if code4 in (200, 204):
-                return True, None
-            msg = msg3 or msg
-    if code in (401, 403) or (msg and "credential" in msg.lower() and ("missing" in msg.lower() or "invalid" in msg.lower())):
-        msg = f"{msg} Set OMNIA_REDFISH_USER/OMNIA_REDFISH_PASSWORD or REDFISH_USER/REDFISH_PASSWORD (env) or -U/-P with omniactl."
+    msg = None
+    if isinstance(data, dict) and "error" in data:
+        err = data["error"]
+        ext = err.get("@Message.ExtendedInfo") or err.get("ExtendedInfo")
+        if isinstance(ext, list) and ext and isinstance(ext[0], dict):
+            msg = ext[0].get("Message") or ext[0].get("MessageId")
+        msg = msg or err.get("message")
+    msg = msg or str(code)
+    if code in (401, 403) or "credential" in msg.lower():
+        msg = f"{msg} Set OMNIA_REDFISH_USER/OMNIA_REDFISH_PASSWORD or REDFISH_USER/REDFISH_PASSWORD or -U/-P."
     return False, msg
 
 
 def indicator_led_status(
     idrac_ip: str,
     *,
-    chassis_id: Optional[str] = None,
     user: Optional[str] = None,
     password: Optional[str] = None,
     verify_ssl: bool = False,
 ) -> tuple[Optional[str], Optional[dict[str, Any]]]:
-    """
-    Get current IndicatorLED state. Returns (IndicatorLED value, full chassis json or None).
-    """
-    chassis_id = chassis_id or get_chassis_id(idrac_ip, user=user, password=password, verify_ssl=verify_ssl)
-    base = f"https://{idrac_ip}"
-    url = f"{base}/redfish/v1/Chassis/{chassis_id}"
+    """GET /redfish/v1/Chassis/System.Embedded.1, return IndicatorLED value."""
+    url = f"https://{idrac_ip}/redfish/v1/Chassis/{CHASSIS_ID}"
     code, data = _redfish_request("GET", url, user=user, password=password, verify_ssl=verify_ssl)
     if code != 200 or not data:
         return None, None
-    led = data.get("IndicatorLED") or data.get(DELL_INDICATOR_PROP)
-    if led is not None:
-        return led, data
-    # Fallback: read LocationIndicatorActive (boolean) when IndicatorLED/IndicatorLed not present
-    active = data.get("LocationIndicatorActive")
-    if active is True:
-        return "Lit", data
-    if active is False:
-        return "Off", data
-    return None, data
+    return data.get("IndicatorLED"), data
 
 
 def run_for_node(
@@ -179,25 +78,16 @@ def run_for_node(
     password: Optional[str] = None,
     verify_ssl: bool = False,
 ) -> tuple[bool, Optional[str]]:
-    """
-    Run an identify/beacon action for a node by name using the cluster's iDrac IP.
-    action: "on" | "off" | "blink" | "status".
-    Returns (success, message). For "status", message is the IndicatorLED value; else error or None.
-    """
+    """Resolve node to iDrac IP, then set or get IndicatorLED. on/blink -> Blinking, off -> Off."""
     from redfish_power import get_idrac_ip_for_node
     ip = get_idrac_ip_for_node(cluster, node_name)
     if not ip:
         return False, "no iDrac IP for node"
     action = action.lower().strip()
-    if action == "on":
-        return indicator_led_set(ip, INDICATOR_LIT, user=user, password=password, verify_ssl=verify_ssl)
+    if action in ("on", "blink", "blinking"):
+        return indicator_led_set(ip, "Blinking", user=user, password=password, verify_ssl=verify_ssl)
     if action == "off":
-        return indicator_led_set(ip, INDICATOR_OFF, user=user, password=password, verify_ssl=verify_ssl)
-    if action == "blink" or action == "blinking":
-        ok, msg = indicator_led_set(ip, INDICATOR_BLINKING, user=user, password=password, verify_ssl=verify_ssl)
-        if not ok and msg:
-            return False, f"{msg} (try 'identify on' if this BMC only supports Lit/Off)"
-        return ok, msg
+        return indicator_led_set(ip, "Off", user=user, password=password, verify_ssl=verify_ssl)
     if action == "status":
         state, _ = indicator_led_status(ip, user=user, password=password, verify_ssl=verify_ssl)
         return state is not None, (state or "unknown")
