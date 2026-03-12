@@ -91,7 +91,9 @@ def indicator_led_set(
     verify_ssl: bool = False,
 ) -> tuple[bool, Optional[str]]:
     """
-    Set chassis IndicatorLED (identify/beacon). state: "Lit" | "Blinking" | "Off".
+    Set chassis identify/beacon LED. state: "Lit" | "Blinking" | "Off".
+    Tries IndicatorLED first; if the BMC reports it not found, falls back to
+    LocationIndicatorActive (boolean), which many iDRACs use instead.
     Returns (success, error_message or None).
     """
     chassis_id = chassis_id or get_chassis_id(idrac_ip, user=user, password=password, verify_ssl=verify_ssl)
@@ -101,6 +103,13 @@ def indicator_led_set(
     if code in (200, 204):
         return True, None
     msg = _redfish_error_message(data, code)
+    # Fallback: many BMCs (e.g. newer iDRAC) use LocationIndicatorActive (boolean) instead of IndicatorLED
+    if code in (400, 404) or (msg and "IndicatorLED" in msg and ("not found" in msg.lower() or "invalid" in msg.lower())):
+        active = state != INDICATOR_OFF
+        code2, data2 = _redfish_request("PATCH", url, body={"LocationIndicatorActive": active}, user=user, password=password, verify_ssl=verify_ssl)
+        if code2 in (200, 204):
+            return True, None
+        msg = _redfish_error_message(data2, code2)
     if code in (401, 403) or (msg and "credential" in msg.lower() and ("missing" in msg.lower() or "invalid" in msg.lower())):
         msg = f"{msg}. Set REDFISH_USER and REDFISH_PASSWORD (env) or use -U / -P with omniactl."
     return False, msg
@@ -123,7 +132,16 @@ def indicator_led_status(
     code, data = _redfish_request("GET", url, user=user, password=password, verify_ssl=verify_ssl)
     if code != 200 or not data:
         return None, None
-    return data.get("IndicatorLED"), data
+    led = data.get("IndicatorLED")
+    if led is not None:
+        return led, data
+    # Fallback: read LocationIndicatorActive (boolean) when IndicatorLED not present
+    active = data.get("LocationIndicatorActive")
+    if active is True:
+        return "Lit", data
+    if active is False:
+        return "Off", data
+    return None, data
 
 
 def run_for_node(
