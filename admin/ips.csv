@@ -1,8 +1,3 @@
-Cluster IP Addresses,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
-,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
-,SystemName,cech,,,,,,,,,,,,,,,,,,,,,,,,,,,,
-,,Domain,n10-eas.nersc.gov,,,,,,,,,,,,,,,,,,,,,,,,,,,
-,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
 NodeName,NodePurpose,Node Instance,xName,Rack Number,uPos,Cluster Admin IPv6,Cluster Admin Network,"iDrac
 Network (iDrac)",iDrac Network (Local),InfiniBand (Public),InfiniBand ib0 (Private),InfiniBand ib0 #2(Private),InfiniBand ib1 (Private),InfiniBand ib1 #2(Private),Switch Management Network,Cluster Admin Network #2,Cluster Admin Network #3,Cluster Admin Network #4,Switch Management Network #2,PowerScale Admin Network #1,PowerScale Admin Network #2,PowerScale Admin Network #3,PowerScale Admin Network #4,PowerScale Storage Network #1,PowerScale Storage Network #2,PowerScale Storage Network #3,PowerScale Storage Network #4,"Side Door
 Network",Notes,
