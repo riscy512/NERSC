@@ -282,6 +282,8 @@ def write_hosts(
                 for n in names:
                     if n and n != node_name and n != (node_xname or ""):
                         parts.append(n)
+                if node_name == "oim" and "cech-oim.cech.nersc.gov" not in parts:
+                    parts.append("cech-oim.cech.nersc.gov")
                 parts = [str(p) for p in parts]
             else:
                 hostname = f"{node_name}-{suffix}"
