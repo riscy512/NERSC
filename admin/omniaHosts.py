@@ -251,8 +251,8 @@ def write_hosts(
         "# Primary line order: nodeName.domain, xName.domain, nodeName, xName, Notes.",
         "# Other lines: hostname.domain, hostname (e.g. node-eth1, node-ib0).",
         "#",
-        "127.0.0.1\tlocalhost\tlocalhost4",
-        "::1\tlocalhost\tlocalhost6",
+        "127.0.0.1\tlocalhost\tlocalhost4\tlocalhost.localdomain\tlocalhost4.localdomain",
+        "::1\tlocalhost\tlocalhost6\tlocalhost.localdomain\tlocalhost6.localdomain",
         "",
     ]
     for net_label in network_order:
