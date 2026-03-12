@@ -9,6 +9,7 @@ Loads cluster from ips.csv (--config); dispatches to omniaHosts, redfish_power, 
 from __future__ import annotations
 
 import argparse
+import os
 import sys
 from pathlib import Path
 
@@ -16,10 +17,10 @@ from pathlib import Path
 SCRIPT_DIR = Path(__file__).resolve().parent
 DEFAULT_CONFIG = SCRIPT_DIR / "ips.csv"
 
-# Redfish (iDrac) credentials for power/boot. Used when not passed via CLI or env.
-# For initial testing only; replace with a secure solution (e.g. HashiCorp Vault API).
-OMNIA_REDFISH_USER: str | None = None
-OMNIA_REDFISH_PASSWORD: str | None = None
+# Redfish (iDrac) credentials for power/identify/boot. Read from env OMNIA_REDFISH_USER / OMNIA_REDFISH_PASSWORD
+# when set; else use -U/-P from CLI. For testing you can also set these in the script.
+OMNIA_REDFISH_USER: str | None = os.environ.get("OMNIA_REDFISH_USER") or None
+OMNIA_REDFISH_PASSWORD: str | None = os.environ.get("OMNIA_REDFISH_PASSWORD") or None
 
 
 def _get_config_path(args: argparse.Namespace) -> Path:
