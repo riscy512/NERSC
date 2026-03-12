@@ -103,15 +103,28 @@ def indicator_led_set(
     if code in (200, 204):
         return True, None
     msg = _redfish_error_message(data, code)
-    # Fallback: many BMCs (e.g. newer iDRAC) use LocationIndicatorActive (boolean) instead of IndicatorLED
+    # Fallback 1: many BMCs use LocationIndicatorActive (boolean) on Chassis instead of IndicatorLED
     if code in (400, 404) or (msg and "IndicatorLED" in msg and ("not found" in msg.lower() or "invalid" in msg.lower())):
         active = state != INDICATOR_OFF
         code2, data2 = _redfish_request("PATCH", url, body={"LocationIndicatorActive": active}, user=user, password=password, verify_ssl=verify_ssl)
         if code2 in (200, 204):
             return True, None
         msg = _redfish_error_message(data2, code2)
+        # Fallback 2: some iDRACs expose identify only on ComputerSystem (Systems), not Chassis
+        if code2 in (400, 404) or (msg and "LocationIndicatorActive" in msg and "not found" in msg.lower()):
+            from redfish_power import get_system_id
+            system_id = get_system_id(idrac_ip, user=user, password=password, verify_ssl=verify_ssl)
+            sys_url = f"{base}/redfish/v1/Systems/{system_id}"
+            code3, data3 = _redfish_request("PATCH", sys_url, body={"IndicatorLED": state}, user=user, password=password, verify_ssl=verify_ssl)
+            if code3 in (200, 204):
+                return True, None
+            msg3 = _redfish_error_message(data3, code3)
+            code4, data4 = _redfish_request("PATCH", sys_url, body={"LocationIndicatorActive": active}, user=user, password=password, verify_ssl=verify_ssl)
+            if code4 in (200, 204):
+                return True, None
+            msg = msg3 or msg
     if code in (401, 403) or (msg and "credential" in msg.lower() and ("missing" in msg.lower() or "invalid" in msg.lower())):
-        msg = f"{msg}. Set REDFISH_USER and REDFISH_PASSWORD (env) or use -U / -P with omniactl."
+        msg = f"{msg} Set OMNIA_REDFISH_USER/OMNIA_REDFISH_PASSWORD or REDFISH_USER/REDFISH_PASSWORD (env) or -U/-P with omniactl."
     return False, msg
 
 
