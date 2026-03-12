@@ -35,6 +35,24 @@ def _redfish_request(
     return _req(method, url, user=user, password=password, body=body, verify_ssl=verify_ssl, timeout=timeout)
 
 
+def _redfish_error_message(data: Any, status_code: int) -> str:
+    """Extract a readable error from Redfish error response, including ExtendedInfo."""
+    if not isinstance(data, dict):
+        return str(status_code)
+    err = data.get("error", data)
+    if not isinstance(err, dict):
+        return str(data) if data else str(status_code)
+    # Prefer @Message.ExtendedInfo[0].Message (or .MessageId) over generic message
+    ext = err.get("@Message.ExtendedInfo") or err.get("ExtendedInfo")
+    if isinstance(ext, list) and ext:
+        first = ext[0]
+        if isinstance(first, dict):
+            msg = first.get("Message") or first.get("MessageId")
+            if msg:
+                return msg
+    return err.get("message") or str(status_code)
+
+
 def get_chassis_id(
     idrac_ip: str,
     *,
@@ -82,7 +100,7 @@ def indicator_led_set(
     code, data = _redfish_request("PATCH", url, body={"IndicatorLED": state}, user=user, password=password, verify_ssl=verify_ssl)
     if code in (200, 204):
         return True, None
-    msg = data.get("error", {}).get("message", str(data)) if isinstance(data, dict) else str(code)
+    msg = _redfish_error_message(data, code)
     return False, msg
 
 
@@ -130,7 +148,10 @@ def run_for_node(
     if action == "off":
         return indicator_led_set(ip, INDICATOR_OFF, user=user, password=password, verify_ssl=verify_ssl)
     if action == "blink" or action == "blinking":
-        return indicator_led_set(ip, INDICATOR_BLINKING, user=user, password=password, verify_ssl=verify_ssl)
+        ok, msg = indicator_led_set(ip, INDICATOR_BLINKING, user=user, password=password, verify_ssl=verify_ssl)
+        if not ok and msg:
+            return False, f"{msg} (try 'identify on' if this BMC only supports Lit/Off)"
+        return ok, msg
     if action == "status":
         state, _ = indicator_led_status(ip, user=user, password=password, verify_ssl=verify_ssl)
         return state is not None, (state or "unknown")
