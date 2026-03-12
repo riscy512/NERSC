@@ -36,7 +36,7 @@ def indicator_led_set(
     password: Optional[str] = None,
     verify_ssl: bool = False,
 ) -> tuple[bool, Optional[str]]:
-    """PATCH /redfish/v1/Chassis/System.Embedded.1 with {"IndicatorLED": state}. state is "Blinking" or "Off"."""
+    """PATCH /redfish/v1/Chassis/System.Embedded.1 with {"IndicatorLED": state}. state is "Lit", "Blinking", or "Off"."""
     url = f"https://{idrac_ip}/redfish/v1/Chassis/{CHASSIS_ID}"
     code, data = _redfish_request("PATCH", url, body={"IndicatorLED": state}, user=user, password=password, verify_ssl=verify_ssl)
     if code in (200, 204):
@@ -78,14 +78,16 @@ def run_for_node(
     password: Optional[str] = None,
     verify_ssl: bool = False,
 ) -> tuple[bool, Optional[str]]:
-    """Resolve node to iDrac IP, then set or get IndicatorLED. on/blink -> Blinking, off -> Off."""
+    """Resolve node to iDrac IP, then set or get IndicatorLED. blink->Blinking, on->Lit, off->Off."""
     from redfish_power import get_idrac_ip_for_node
     ip = get_idrac_ip_for_node(cluster, node_name)
     if not ip:
         return False, "no iDrac IP for node"
     action = action.lower().strip()
-    if action in ("on", "blink", "blinking"):
+    if action in ("blink", "blinking"):
         return indicator_led_set(ip, "Blinking", user=user, password=password, verify_ssl=verify_ssl)
+    if action == "on":
+        return indicator_led_set(ip, "Lit", user=user, password=password, verify_ssl=verify_ssl)
     if action == "off":
         return indicator_led_set(ip, "Off", user=user, password=password, verify_ssl=verify_ssl)
     if action == "status":
