@@ -11,7 +11,7 @@ omniactl — Cluster control CLI (wwctl-style)
 
 omniactl is the main entry point for cluster inventory and control. It loads node
 data from ips.csv (see --config) and provides subcommands for generating host files,
-genders files, querying nodes, and controlling power and boot via Redfish (iDrac).
+genders files, querying nodes, and controlling power, identify (beacon) LED, and boot via Redfish (iDrac).
 
 All node names and cluster lookups use short names only (no domain). Nodes must
 have the iDrac network defined in ips.csv for power and boot subcommands to work.
@@ -59,6 +59,10 @@ SUBCOMMANDS
     nodes "On", another for nodes "Off").
     ACTION: on, off, status, reset, cycle, graceful_shutdown, graceful_restart,
             force_off, nmi
+
+  identify ACTION [NODE ...]
+    Chassis identify/beacon LED (Redfish Chassis IndicatorLED). NODE(s) may be nodeName or xName.
+    ACTION: on (Lit), off (Off), blink (Blinking), status. Requires at least one node.
 
   boot show-next [NODE ...]
     Show next boot override (BootSourceOverrideTarget, Enabled, Mode) per node.

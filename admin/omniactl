@@ -2,7 +2,7 @@
 """
 omniactl — cluster control CLI (wwctl-style).
 
-Subcommands: hosts, genders, node, power, boot.
+Subcommands: hosts, genders, node, power, identify, boot.
 Loads cluster from ips.csv (--config); dispatches to omniaHosts, redfish_power, redfish_boot.
 """
 
@@ -153,6 +153,28 @@ def cmd_power(args: argparse.Namespace) -> None:
         print(f"{node}: {info}")
 
 
+def cmd_identify(args: argparse.Namespace) -> None:
+    cluster, _ = _load_cluster(args)
+    from redfish_identify import run_for_node
+    action = args.identify_action  # on, off, blink, status
+    nodes = _resolve_nodes(cluster, args.nodes or [])
+    if not nodes:
+        print("Error: identify subcommand requires at least one node", file=sys.stderr)
+        sys.exit(1)
+    verify_ssl = getattr(args, "verify_ssl", False)
+    user, password = _redfish_credentials(args)
+    for node in nodes:
+        ok, msg = run_for_node(
+            cluster, node, action,
+            user=user, password=password, verify_ssl=verify_ssl,
+        )
+        if action == "status":
+            info = msg or "unknown"
+        else:
+            info = "ok" if ok else f"failed: {msg or 'unknown'}"
+        print(f"{node}: {info}")
+
+
 def cmd_boot(args: argparse.Namespace) -> None:
     cluster, _ = _load_cluster(args)
     from redfish_boot import run_for_node, BOOT_OVERRIDE_ONCE
@@ -224,6 +246,12 @@ def main() -> int:
     p_power.add_argument("power_action", choices=["on", "off", "status", "reset", "cycle", "graceful_shutdown", "graceful_restart", "force_off", "nmi"], help="Action")
     p_power.add_argument("nodes", nargs="*", help="Node name(s) or xName(s) (alias)")
     p_power.set_defaults(run=cmd_power, verify_ssl=False)
+
+    # identify (beacon/IndicatorLED)
+    p_identify = sub.add_parser("identify", help="Chassis identify/beacon LED (Redfish/iDrac)")
+    p_identify.add_argument("identify_action", choices=["on", "off", "blink", "status"], help="Turn LED on, off, blink, or show status")
+    p_identify.add_argument("nodes", nargs="+", help="Node name(s) or xName(s) (at least one)")
+    p_identify.set_defaults(run=cmd_identify, verify_ssl=False)
 
     # boot
     p_boot = sub.add_parser("boot", help="Boot config (Redfish/iDrac)")
