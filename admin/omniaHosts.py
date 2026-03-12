@@ -251,6 +251,9 @@ def write_hosts(
         "# Primary line order: nodeName.domain, xName.domain, nodeName, xName, Notes.",
         "# Other lines: hostname.domain, hostname (e.g. node-eth1, node-ib0).",
         "#",
+        "127.0.0.1\tlocalhost\tlocalhost4",
+        "::1\tlocalhost\tlocalhost6",
+        "",
     ]
     for net_label in network_order:
         ips_in_net = [ip for ip, data in ip_to_data.items() if data["network"] == net_label]
