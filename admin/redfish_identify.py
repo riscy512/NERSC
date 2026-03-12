@@ -4,8 +4,12 @@ Redfish chassis identify/beacon LED (IndicatorLED).
 Uses the same cluster/iDrac pattern as redfish_power: resolve node name to iDrac IP
 via cluster["hosts"]["byNode"][node_name]["network"]["iDrac"]["ip"].
 
-DMTF Redfish Chassis IndicatorLED: "Lit" | "Blinking" | "Off".
-Dell iDRAC typically supports Lit and Off; Blinking may be supported on newer firmware.
+References:
+  - DMTF Redfish Chassis: IndicatorLED "Lit" | "Blinking" | "Off".
+  - Dell iDRAC Redfish API Guide (e.g. iDRAC9 v3.11.11.11): Chassis PATCH supports
+    property IndicatorLed (capital L, lowercase ed) with values Blinking, Off only.
+    https://www.dell.com/support/manuals/en-us/idrac9-lifecycle-controller-v3.1-series/
+    idrac_3.11.11.11_redfishapiguide/chassis
 """
 
 from __future__ import annotations
@@ -16,6 +20,8 @@ from typing import Any, Optional
 INDICATOR_LIT = "Lit"
 INDICATOR_BLINKING = "Blinking"
 INDICATOR_OFF = "Off"
+# Dell iDRAC Chassis uses property "IndicatorLed" (not "IndicatorLED") and only Blinking, Off
+DELL_INDICATOR_PROP = "IndicatorLed"
 
 DEFAULT_CHASSIS_ID = "System.Embedded.1"
 
@@ -103,8 +109,15 @@ def indicator_led_set(
     if code in (200, 204):
         return True, None
     msg = _redfish_error_message(data, code)
-    # Fallback 1: many BMCs use LocationIndicatorActive (boolean) on Chassis instead of IndicatorLED
+    # Fallback 0: Dell iDRAC Redfish API Guide uses property "IndicatorLed" (not "IndicatorLED") and values Blinking, Off only
     if code in (400, 404) or (msg and "IndicatorLED" in msg and ("not found" in msg.lower() or "invalid" in msg.lower())):
+        dell_state = INDICATOR_BLINKING if state != INDICATOR_OFF else INDICATOR_OFF
+        code0, data0 = _redfish_request("PATCH", url, body={DELL_INDICATOR_PROP: dell_state}, user=user, password=password, verify_ssl=verify_ssl)
+        if code0 in (200, 204):
+            return True, None
+        msg = _redfish_error_message(data0, code0)
+    # Fallback 1: many BMCs use LocationIndicatorActive (boolean) on Chassis instead of IndicatorLED/IndicatorLed
+    if code in (400, 404) or (msg and ("IndicatorLED" in msg or "IndicatorLed" in msg) and ("not found" in msg.lower() or "invalid" in msg.lower())):
         active = state != INDICATOR_OFF
         code2, data2 = _redfish_request("PATCH", url, body={"LocationIndicatorActive": active}, user=user, password=password, verify_ssl=verify_ssl)
         if code2 in (200, 204):
@@ -145,10 +158,10 @@ def indicator_led_status(
     code, data = _redfish_request("GET", url, user=user, password=password, verify_ssl=verify_ssl)
     if code != 200 or not data:
         return None, None
-    led = data.get("IndicatorLED")
+    led = data.get("IndicatorLED") or data.get(DELL_INDICATOR_PROP)
     if led is not None:
         return led, data
-    # Fallback: read LocationIndicatorActive (boolean) when IndicatorLED not present
+    # Fallback: read LocationIndicatorActive (boolean) when IndicatorLED/IndicatorLed not present
     active = data.get("LocationIndicatorActive")
     if active is True:
         return "Lit", data
