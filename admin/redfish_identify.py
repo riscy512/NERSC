@@ -101,6 +101,8 @@ def indicator_led_set(
     if code in (200, 204):
         return True, None
     msg = _redfish_error_message(data, code)
+    if code in (401, 403) or (msg and "credential" in msg.lower() and ("missing" in msg.lower() or "invalid" in msg.lower())):
+        msg = f"{msg}. Set REDFISH_USER and REDFISH_PASSWORD (env) or use -U / -P with omniactl."
     return False, msg
 
 
