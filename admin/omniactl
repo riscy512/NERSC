@@ -142,16 +142,15 @@ def cmd_power(args: argparse.Namespace) -> None:
     user, password = _redfish_credentials(args)
     # Each node: iDrac IP from cluster["hosts"]["byNode"][node]["network"]["iDrac"]["ip"]
     for node in nodes:
-        ok, err, result = run_for_node(
+        ok, msg = run_for_node(
             cluster, node, action,
             user=user, password=password, verify_ssl=verify_ssl,
         )
         if action == "status":
-            info = (result if ok else err) or "unknown"
-            print(f"{node}: {info}")
+            info = msg or "unknown"
         else:
-            info = "ok" if ok else f"failed: {err}"
-            print(f"{node}: {info}")
+            info = "ok" if ok else f"failed: {msg or 'unknown'}"
+        print(f"{node}: {info}")
 
 
 def cmd_boot(args: argparse.Namespace) -> None:
