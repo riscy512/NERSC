@@ -11,7 +11,9 @@ from __future__ import annotations
 import argparse
 import os
 import sys
+from concurrent.futures import ThreadPoolExecutor, TimeoutError as FuturesTimeout, as_completed
 from pathlib import Path
+from typing import Any, Callable, TypeVar
 
 # Default config path relative to this script
 SCRIPT_DIR = Path(__file__).resolve().parent
@@ -49,11 +51,62 @@ def _resolve_nodes(cluster: dict, names: list[str]) -> list[str]:
     return out
 
 
+def _cli_node_names(args: argparse.Namespace) -> list[str]:
+    """
+    Node arguments from CLI: expand bracket ranges (nid[7002-7007,7009]) then return flat list.
+    """
+    raw = getattr(args, "nodes", None) or []
+    if not raw:
+        return []
+    from node_expand import expand_node_tokens
+    try:
+        return expand_node_tokens(list(raw))
+    except ValueError as e:
+        print(f"Error: {e}", file=sys.stderr)
+        sys.exit(2)
+
+
 def _redfish_credentials(args: argparse.Namespace) -> tuple[str | None, str | None]:
     """Return (user, password) for Redfish: CLI args > OMNIA_* vars > None (redfish modules use env)."""
     user = getattr(args, "redfish_user", None) or OMNIA_REDFISH_USER
     password = getattr(args, "redfish_password", None) or OMNIA_REDFISH_PASSWORD
     return (user or None, password or None)
+
+
+def _redfish_timeout_sec(args: argparse.Namespace) -> int:
+    """Per-HTTP urllib read timeout (seconds)."""
+    t = getattr(args, "redfish_timeout", None)
+    return max(1, int(t) if t is not None else 30)
+
+
+def _node_wall_timeout_sec(http_timeout: int) -> float:
+    """
+    Max wall-clock wait for one worker (ThreadPoolExecutor.result).
+    Redfish may use several HTTP round-trips per node; urllib raises per request.
+    """
+    return float(max(http_timeout * 5, 90))
+
+
+T = TypeVar("T")
+
+
+def _fanout_ordered(nodes: list[str], fanout: int, wall_timeout: float, func: Callable[[str], T]) -> list[T | None]:
+    """
+    Run func(node) per node. If fanout > 1, use a thread pool; preserve input order in the result list.
+    On FuturesTimeout for a node, that slot is None (caller should treat as timeout).
+    """
+    if fanout <= 1:
+        return [func(n) for n in nodes]
+    out: list[T | None] = [None] * len(nodes)
+    with ThreadPoolExecutor(max_workers=fanout) as ex:
+        fut_to_i = {ex.submit(func, n): i for i, n in enumerate(nodes)}
+        for fut in as_completed(fut_to_i):
+            i = fut_to_i[fut]
+            try:
+                out[i] = fut.result(timeout=wall_timeout)
+            except FuturesTimeout:
+                out[i] = None
+    return out
 
 
 def _load_cluster(args: argparse.Namespace):
@@ -135,18 +188,28 @@ def cmd_power(args: argparse.Namespace) -> None:
     cluster, _ = _load_cluster(args)
     from redfish_power import run_for_node
     action = args.power_action  # on, off, status, reset, cycle, ...
-    nodes = _resolve_nodes(cluster, args.nodes or [])
+    nodes = _resolve_nodes(cluster, _cli_node_names(args))
     if not nodes:
         print("Error: power subcommand requires at least one node", file=sys.stderr)
         sys.exit(1)
     verify_ssl = getattr(args, "verify_ssl", False)
     user, password = _redfish_credentials(args)
-    # Each node: iDrac IP from cluster["hosts"]["byNode"][node]["network"]["iDrac"]["ip"]
-    for node in nodes:
-        ok, msg = run_for_node(
+    rt = _redfish_timeout_sec(args)
+    fanout = max(1, int(getattr(args, "fanout", 1) or 1))
+    wall = _node_wall_timeout_sec(rt)
+
+    def _one(node: str) -> tuple[bool, str | None]:
+        return run_for_node(
             cluster, node, action,
-            user=user, password=password, verify_ssl=verify_ssl,
+            user=user, password=password, verify_ssl=verify_ssl, timeout=rt,
         )
+
+    results = _fanout_ordered(nodes, fanout, wall, _one)
+    for node, res in zip(nodes, results):
+        if res is None:
+            print(f"{node}: failed: fanout timeout after {wall:.0f}s (increase --redfish-timeout or lower -f)")
+            continue
+        ok, msg = res
         if action == "status":
             info = msg or "unknown"
         else:
@@ -158,17 +221,28 @@ def cmd_identify(args: argparse.Namespace) -> None:
     cluster, _ = _load_cluster(args)
     from redfish_identify import run_for_node
     action = args.identify_action  # on, off, blink, status
-    nodes = _resolve_nodes(cluster, args.nodes or [])
+    nodes = _resolve_nodes(cluster, _cli_node_names(args))
     if not nodes:
         print("Error: identify subcommand requires at least one node", file=sys.stderr)
         sys.exit(1)
     verify_ssl = getattr(args, "verify_ssl", False)
     user, password = _redfish_credentials(args)
-    for node in nodes:
-        ok, msg = run_for_node(
+    rt = _redfish_timeout_sec(args)
+    fanout = max(1, int(getattr(args, "fanout", 1) or 1))
+    wall = _node_wall_timeout_sec(rt)
+
+    def _one(node: str) -> tuple[bool, str | None]:
+        return run_for_node(
             cluster, node, action,
-            user=user, password=password, verify_ssl=verify_ssl,
+            user=user, password=password, verify_ssl=verify_ssl, timeout=rt,
         )
+
+    results = _fanout_ordered(nodes, fanout, wall, _one)
+    for node, res in zip(nodes, results):
+        if res is None:
+            print(f"{node}: failed: fanout timeout after {wall:.0f}s (increase --redfish-timeout or lower -f)")
+            continue
+        ok, msg = res
         if action == "status":
             info = msg or "unknown"
         else:
@@ -180,7 +254,7 @@ def cmd_boot(args: argparse.Namespace) -> None:
     cluster, _ = _load_cluster(args)
     from redfish_boot import run_for_node, BOOT_OVERRIDE_ONCE
     action = args.boot_action  # show_next, set_next, show_permanent, clear_next, show_options
-    raw_nodes = getattr(args, "nodes", None) or []
+    raw_nodes = _cli_node_names(args)
     nodes = _resolve_nodes(cluster, raw_nodes) if raw_nodes else []
     verify_ssl = getattr(args, "verify_ssl", False)
     target = getattr(args, "target", None)
@@ -190,13 +264,25 @@ def cmd_boot(args: argparse.Namespace) -> None:
     if not nodes:
         nodes = sorted(cluster.get("hosts", {}).get("byNode", {}))
     user, password = _redfish_credentials(args)
-    for node in nodes:
-        ok, err, result = run_for_node(
+    rt = _redfish_timeout_sec(args)
+    fanout = max(1, int(getattr(args, "fanout", 1) or 1))
+    wall = _node_wall_timeout_sec(rt)
+
+    def _one(node: str) -> tuple[bool, str | None, Any]:
+        return run_for_node(
             cluster, node, action,
             target=target,
             enabled=BOOT_OVERRIDE_ONCE,
             user=user, password=password, verify_ssl=verify_ssl,
+            timeout=rt,
         )
+
+    results = _fanout_ordered(nodes, fanout, wall, _one)
+    for node, res in zip(nodes, results):
+        if res is None:
+            print(f"{node}: fanout timeout after {wall:.0f}s (increase --redfish-timeout or lower -f)", file=sys.stderr)
+            continue
+        ok, err, result = res
         if action in ("show_next", "show_permanent", "show_options") and result is not None:
             print(f"{node}: {result}")
         elif not ok:
@@ -208,7 +294,7 @@ def cmd_boot(args: argparse.Namespace) -> None:
 def main() -> int:
     parser = argparse.ArgumentParser(
         prog="omniactl",
-        description="Cluster control: hosts, genders, node list/show, power, boot (Redfish).",
+        description="Cluster control: hosts, genders, node list/show, power, identify, boot (Redfish).",
     )
     parser.add_argument("-c", "--config", default=None, help=f"Path to ips.csv (default: {DEFAULT_CONFIG})")
     parser.add_argument("-v", "--verbose", action="store_true", help="Verbose")
@@ -216,6 +302,20 @@ def main() -> int:
     parser.add_argument("--no-verify-ssl", action="store_true", dest="no_verify_ssl", help="Disable SSL verify for Redfish")
     parser.add_argument("--redfish-user", "-U", dest="redfish_user", default=None, help="Redfish/BMC user (else OMNIA_REDFISH_USER or REDFISH_USER env)")
     parser.add_argument("--redfish-password", "-P", dest="redfish_password", default=None, help="Redfish/BMC password (else OMNIA_REDFISH_PASSWORD or REDFISH_PASSWORD env)")
+    parser.add_argument(
+        "-f", "--fanout",
+        type=int,
+        default=1,
+        metavar="N",
+        help="Parallel threads for multi-node power, identify, boot (default: 1 = sequential)",
+    )
+    parser.add_argument(
+        "-T", "--redfish-timeout",
+        type=int,
+        default=30,
+        metavar="SEC",
+        help="Per-HTTP urllib read timeout for Redfish (default: 30). Also scales fanout per-node wall wait.",
+    )
     sub = parser.add_subparsers(dest="command", required=True)
 
     # help
@@ -248,9 +348,9 @@ def main() -> int:
     p_power.add_argument("nodes", nargs="*", help="Node name(s) or xName(s) (alias)")
     p_power.set_defaults(run=cmd_power, verify_ssl=False)
 
-    # identify (beacon/IndicatorLED)
-    p_identify = sub.add_parser("identify", help="Chassis identify/beacon LED (Redfish/iDrac)")
-    p_identify.add_argument("identify_action", choices=["on", "off", "blink", "status"], help="Turn LED on, off, blink, or show status")
+    # identify (Chassis LocationIndicatorActive)
+    p_identify = sub.add_parser("identify", help="Chassis identify LED (LocationIndicatorActive on Chassis/System.Embedded.1)")
+    p_identify.add_argument("identify_action", choices=["on", "off", "blink", "status"], help="on/blink=true, off=false, or status")
     p_identify.add_argument("nodes", nargs="+", help="Node name(s) or xName(s) (at least one)")
     p_identify.set_defaults(run=cmd_identify, verify_ssl=False)
 

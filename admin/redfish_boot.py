@@ -10,12 +10,26 @@ Credentials: REDFISH_USER, REDFISH_PASSWORD env or user/password kwargs.
 from __future__ import annotations
 
 import base64
+import contextvars
 import json
 import os
 import ssl
 import urllib.error
 import urllib.request
-from typing import Any, Optional
+from contextlib import contextmanager
+from typing import Any, Iterator, Optional
+
+_boot_http_timeout_ctx: contextvars.ContextVar[int] = contextvars.ContextVar("_boot_http_timeout_ctx", default=30)
+
+
+@contextmanager
+def boot_http_timeout_scope(seconds: int) -> Iterator[None]:
+    """Per-thread urllib timeout for boot Redfish calls."""
+    tok = _boot_http_timeout_ctx.set(max(1, int(seconds)))
+    try:
+        yield
+    finally:
+        _boot_http_timeout_ctx.reset(tok)
 
 # BootSourceOverrideTarget common values (DMTF Redfish)
 BOOT_TARGET_NONE = "None"
@@ -50,9 +64,10 @@ def _request(
     password: Optional[str] = None,
     body: Optional[dict[str, Any]] = None,
     verify_ssl: bool = False,
-    timeout: int = 30,
+    timeout: Optional[int] = None,
 ) -> tuple[int, dict[str, Any] | None]:
     """HTTP request to Redfish. Returns (status_code, json_body or None)."""
+    t = timeout if timeout is not None else _boot_http_timeout_ctx.get()
     user = user or os.environ.get("REDFISH_USER", "")
     password = password or os.environ.get("REDFISH_PASSWORD", "")
     headers = {"Accept": "application/json", "Content-Type": "application/json"}
@@ -66,7 +81,7 @@ def _request(
         ctx.check_hostname = False
         ctx.verify_mode = ssl.CERT_NONE
     try:
-        with urllib.request.urlopen(req, timeout=timeout, context=ctx) as resp:
+        with urllib.request.urlopen(req, timeout=t, context=ctx) as resp:
             raw = resp.read().decode("utf-8")
             return resp.status, json.loads(raw) if raw else None
     except urllib.error.HTTPError as e:
@@ -312,40 +327,43 @@ def run_for_node(
     user: Optional[str] = None,
     password: Optional[str] = None,
     verify_ssl: bool = False,
+    timeout: int = 30,
 ) -> tuple[bool, Optional[str], Any]:
     """
     Run a boot action for a node by name (resolves iDrac IP from cluster).
     action: 'show_permanent' | 'set_permanent' | 'show_next' | 'set_next' | 'clear_next' | 'show_options'.
     For set_permanent pass order=[...]. For set_next pass target=..., optional enabled=, mode=.
     Returns (success, error_message, result). result: for show_* is the dict/list; for set_* is None.
+    timeout: per-HTTP urllib read timeout (seconds).
     """
-    ip = _get_idrac_ip(cluster, node_name, None)
-    if not ip:
-        return False, "no iDrac IP for node", None
-    action = action.lower().strip()
-    if action == "show_permanent":
-        order_list, err = get_permanent_boot_order(ip, user=user, password=password, verify_ssl=verify_ssl)
-        return (err is None), err, order_list
-    if action == "set_permanent":
-        if not order:
-            return False, "set_permanent requires order= [...]", None
-        ok, err = set_permanent_boot_order(ip, order, user=user, password=password, verify_ssl=verify_ssl)
-        return ok, err, None
-    if action == "show_next":
-        next_d, err = get_next_boot(ip, user=user, password=password, verify_ssl=verify_ssl)
-        return (err is None), err, next_d
-    if action == "set_next":
-        if target is None:
-            return False, "set_next requires target= ...", None
-        ok, err = set_next_boot(
-            ip, target, enabled=enabled, mode=mode,
-            user=user, password=password, verify_ssl=verify_ssl,
-        )
-        return ok, err, None
-    if action == "clear_next":
-        ok, err = clear_next_boot(ip, user=user, password=password, verify_ssl=verify_ssl)
-        return ok, err, None
-    if action == "show_options":
-        opts, err = get_boot_options(ip, user=user, password=password, verify_ssl=verify_ssl)
-        return (err is None), err, opts
-    return False, f"unknown action: {action}", None
+    with boot_http_timeout_scope(timeout):
+        ip = _get_idrac_ip(cluster, node_name, None)
+        if not ip:
+            return False, "no iDrac IP for node", None
+        action = action.lower().strip()
+        if action == "show_permanent":
+            order_list, err = get_permanent_boot_order(ip, user=user, password=password, verify_ssl=verify_ssl)
+            return (err is None), err, order_list
+        if action == "set_permanent":
+            if not order:
+                return False, "set_permanent requires order= [...]", None
+            ok, err = set_permanent_boot_order(ip, order, user=user, password=password, verify_ssl=verify_ssl)
+            return ok, err, None
+        if action == "show_next":
+            next_d, err = get_next_boot(ip, user=user, password=password, verify_ssl=verify_ssl)
+            return (err is None), err, next_d
+        if action == "set_next":
+            if target is None:
+                return False, "set_next requires target= ...", None
+            ok, err = set_next_boot(
+                ip, target, enabled=enabled, mode=mode,
+                user=user, password=password, verify_ssl=verify_ssl,
+            )
+            return ok, err, None
+        if action == "clear_next":
+            ok, err = clear_next_boot(ip, user=user, password=password, verify_ssl=verify_ssl)
+            return ok, err, None
+        if action == "show_options":
+            opts, err = get_boot_options(ip, user=user, password=password, verify_ssl=verify_ssl)
+            return (err is None), err, opts
+        return False, f"unknown action: {action}", None

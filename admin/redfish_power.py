@@ -12,12 +12,27 @@ Optional: REDFISH_USER, REDFISH_PASSWORD env vars for BMC credentials.
 from __future__ import annotations
 
 import base64
+import contextvars
 import json
 import os
 import ssl
 import urllib.error
 import urllib.request
-from typing import Any, Optional
+from contextlib import contextmanager
+from typing import Any, Iterator, Optional
+
+# Per-thread HTTP timeout for urllib (used by run_for_node and parallel fanout).
+_http_timeout_ctx: contextvars.ContextVar[int] = contextvars.ContextVar("_http_timeout_ctx", default=30)
+
+
+@contextmanager
+def redfish_http_timeout_scope(seconds: int) -> Iterator[None]:
+    """Set urllib read timeout for Redfish calls in this thread (nested scopes restore correctly)."""
+    tok = _http_timeout_ctx.set(max(1, int(seconds)))
+    try:
+        yield
+    finally:
+        _http_timeout_ctx.reset(tok)
 
 # Default Redfish system ID for Dell iDRAC (can be overridden after discovery)
 DEFAULT_SYSTEM_ID = "System.Embedded.1"
@@ -46,11 +61,13 @@ def _redfish_request(
     password: Optional[str] = None,
     body: Optional[dict[str, Any]] = None,
     verify_ssl: bool = True,
-    timeout: int = 30,
+    timeout: Optional[int] = None,
 ) -> tuple[int, dict[str, Any] | None]:
     """
     Perform an HTTP request to a Redfish endpoint. Returns (status_code, json_body or None).
+    If timeout is None, uses the current thread's redfish_http_timeout_scope (default 30s).
     """
+    t = timeout if timeout is not None else _http_timeout_ctx.get()
     user = user or os.environ.get("REDFISH_USER", "")
     password = password or os.environ.get("REDFISH_PASSWORD", "")
     headers = {"Accept": "application/json", "Content-Type": "application/json"}
@@ -64,7 +81,7 @@ def _redfish_request(
         ctx.check_hostname = False
         ctx.verify_mode = ssl.CERT_NONE
     try:
-        with urllib.request.urlopen(req, timeout=timeout, context=ctx) as resp:
+        with urllib.request.urlopen(req, timeout=t, context=ctx) as resp:
             raw = resp.read().decode("utf-8")
             return resp.status, json.loads(raw) if raw else None
     except urllib.error.HTTPError as e:
@@ -279,33 +296,36 @@ def run_for_node(
     user: Optional[str] = None,
     password: Optional[str] = None,
     verify_ssl: bool = False,
+    timeout: int = 30,
 ) -> tuple[bool, Optional[str]]:
     """
     Run a power action for a node by name using the cluster's iDrac IP.
     action: one of 'on', 'off', 'force_off', 'status', 'reset', 'cycle', 'graceful_shutdown', 'graceful_restart', 'nmi'.
     Returns (success, error_message or None). For 'status', success is True if we got a state; error_message holds the state string.
+    timeout: per-HTTP-request read timeout in seconds (urllib); use with omniactl --redfish-timeout / fanout.
     """
-    ip = get_idrac_ip_for_node(cluster, node_name)
-    if not ip:
-        return False, "no iDrac IP for node"
-    action = action.lower().strip()
-    if action == "on":
-        return power_on(ip, user=user, password=password, verify_ssl=verify_ssl)
-    if action == "off":
-        return power_off(ip, user=user, password=password, verify_ssl=verify_ssl)
-    if action == "force_off":
-        return power_force_off(ip, user=user, password=password, verify_ssl=verify_ssl)
-    if action == "reset":
-        return power_reset(ip, user=user, password=password, verify_ssl=verify_ssl)
-    if action == "cycle":
-        return power_cycle(ip, user=user, password=password, verify_ssl=verify_ssl)
-    if action == "graceful_shutdown":
-        return power_graceful_shutdown(ip, user=user, password=password, verify_ssl=verify_ssl)
-    if action == "graceful_restart":
-        return power_graceful_restart(ip, user=user, password=password, verify_ssl=verify_ssl)
-    if action == "nmi":
-        return power_nmi(ip, user=user, password=password, verify_ssl=verify_ssl)
-    if action == "status":
-        state, _ = power_status(ip, user=user, password=password, verify_ssl=verify_ssl)
-        return state is not None, (state or "unknown")
-    return False, f"unknown action: {action}"
+    with redfish_http_timeout_scope(timeout):
+        ip = get_idrac_ip_for_node(cluster, node_name)
+        if not ip:
+            return False, "no iDrac IP for node"
+        action = action.lower().strip()
+        if action == "on":
+            return power_on(ip, user=user, password=password, verify_ssl=verify_ssl)
+        if action == "off":
+            return power_off(ip, user=user, password=password, verify_ssl=verify_ssl)
+        if action == "force_off":
+            return power_force_off(ip, user=user, password=password, verify_ssl=verify_ssl)
+        if action == "reset":
+            return power_reset(ip, user=user, password=password, verify_ssl=verify_ssl)
+        if action == "cycle":
+            return power_cycle(ip, user=user, password=password, verify_ssl=verify_ssl)
+        if action == "graceful_shutdown":
+            return power_graceful_shutdown(ip, user=user, password=password, verify_ssl=verify_ssl)
+        if action == "graceful_restart":
+            return power_graceful_restart(ip, user=user, password=password, verify_ssl=verify_ssl)
+        if action == "nmi":
+            return power_nmi(ip, user=user, password=password, verify_ssl=verify_ssl)
+        if action == "status":
+            state, _ = power_status(ip, user=user, password=password, verify_ssl=verify_ssl)
+            return state is not None, (state or "unknown")
+        return False, f"unknown action: {action}"

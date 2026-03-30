@@ -24,7 +24,7 @@ def _redfish_request(
     password: Optional[str] = None,
     body: Optional[dict[str, object]] = None,
     verify_ssl: bool = False,
-    timeout: int = 30,
+    timeout: Optional[int] = None,
 ) -> tuple[int, Optional[dict[str, object]]]:
     from redfish_power import _redfish_request as _req
     return _req(method, url, user=user, password=password, body=body, verify_ssl=verify_ssl, timeout=timeout)
@@ -93,19 +93,21 @@ def run_for_node(
     user: Optional[str] = None,
     password: Optional[str] = None,
     verify_ssl: bool = False,
+    timeout: int = 30,
 ) -> tuple[bool, Optional[str]]:
     """Resolve node to iDrac IP, then set or get LocationIndicatorActive. on/blink->true, off->false."""
-    from redfish_power import get_idrac_ip_for_node
+    from redfish_power import get_idrac_ip_for_node, redfish_http_timeout_scope
 
-    ip = get_idrac_ip_for_node(cluster, node_name)
-    if not ip:
-        return False, "no iDrac IP for node"
-    action = action.lower().strip()
-    if action in ("blink", "blinking", "on"):
-        return location_indicator_set(ip, True, user=user, password=password, verify_ssl=verify_ssl)
-    if action == "off":
-        return location_indicator_set(ip, False, user=user, password=password, verify_ssl=verify_ssl)
-    if action == "status":
-        state, _ = location_indicator_status(ip, user=user, password=password, verify_ssl=verify_ssl)
-        return state is not None, (state or "unknown")
-    return False, f"unknown action: {action}"
+    with redfish_http_timeout_scope(timeout):
+        ip = get_idrac_ip_for_node(cluster, node_name)
+        if not ip:
+            return False, "no iDrac IP for node"
+        action = action.lower().strip()
+        if action in ("blink", "blinking", "on"):
+            return location_indicator_set(ip, True, user=user, password=password, verify_ssl=verify_ssl)
+        if action == "off":
+            return location_indicator_set(ip, False, user=user, password=password, verify_ssl=verify_ssl)
+        if action == "status":
+            state, _ = location_indicator_status(ip, user=user, password=password, verify_ssl=verify_ssl)
+            return state is not None, (state or "unknown")
+        return False, f"unknown action: {action}"
