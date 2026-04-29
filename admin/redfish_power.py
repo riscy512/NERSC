@@ -87,8 +87,30 @@ def _redfish_request(
     except urllib.error.HTTPError as e:
         raw = e.read().decode("utf-8") if e.fp else ""
         return e.code, (json.loads(raw) if raw.strip() else None)
-    except (urllib.error.URLError, json.JSONDecodeError, OSError):
-        return -1, None
+    except urllib.error.URLError as e:
+        reason = getattr(e, "reason", e)
+        return -1, {"error": {"message": f"transport error ({method} {url}): {reason}"}}
+    except json.JSONDecodeError as e:
+        return -1, {"error": {"message": f"invalid JSON response ({method} {url}): {e}"}}
+    except OSError as e:
+        return -1, {"error": {"message": f"os error ({method} {url}): {e}"}}
+
+
+def _redfish_error_message(data: Any, status_code: int) -> str:
+    """Extract best-effort error detail from Redfish response payload."""
+    if not isinstance(data, dict):
+        return str(status_code)
+    err = data.get("error", data)
+    if not isinstance(err, dict):
+        return str(data) if data else str(status_code)
+    ext = err.get("@Message.ExtendedInfo") or err.get("ExtendedInfo")
+    if isinstance(ext, list) and ext:
+        first = ext[0]
+        if isinstance(first, dict):
+            msg = first.get("Message") or first.get("MessageId")
+            if msg:
+                return msg
+    return err.get("message") or str(status_code)
 
 
 def get_idrac_ip_for_node(cluster: dict[str, Any], node_name: str) -> Optional[str]:
@@ -176,7 +198,7 @@ def reset(
     )
     if code in (200, 204):
         return True, None
-    msg = data.get("error", {}).get("message", str(data)) if isinstance(data, dict) else str(code)
+    msg = _redfish_error_message(data, code)
     return False, msg
 
 
@@ -297,6 +319,7 @@ def run_for_node(
     password: Optional[str] = None,
     verify_ssl: bool = False,
     timeout: int = 30,
+    debug: bool = False,
 ) -> tuple[bool, Optional[str]]:
     """
     Run a power action for a node by name using the cluster's iDrac IP.
@@ -309,23 +332,32 @@ def run_for_node(
         if not ip:
             return False, "no iDrac IP for node"
         action = action.lower().strip()
+        def _with_ctx(res: tuple[bool, Optional[str]]) -> tuple[bool, Optional[str]]:
+            ok, msg = res
+            if not debug or ok:
+                return res
+            return False, f"{msg or 'unknown'} [node={node_name} ip={ip} action={action} timeout={timeout}s]"
         if action == "on":
-            return power_on(ip, user=user, password=password, verify_ssl=verify_ssl)
+            return _with_ctx(power_on(ip, user=user, password=password, verify_ssl=verify_ssl))
         if action == "off":
-            return power_off(ip, user=user, password=password, verify_ssl=verify_ssl)
+            return _with_ctx(power_off(ip, user=user, password=password, verify_ssl=verify_ssl))
         if action == "force_off":
-            return power_force_off(ip, user=user, password=password, verify_ssl=verify_ssl)
+            return _with_ctx(power_force_off(ip, user=user, password=password, verify_ssl=verify_ssl))
         if action == "reset":
-            return power_reset(ip, user=user, password=password, verify_ssl=verify_ssl)
+            return _with_ctx(power_reset(ip, user=user, password=password, verify_ssl=verify_ssl))
         if action == "cycle":
-            return power_cycle(ip, user=user, password=password, verify_ssl=verify_ssl)
+            return _with_ctx(power_cycle(ip, user=user, password=password, verify_ssl=verify_ssl))
         if action == "graceful_shutdown":
-            return power_graceful_shutdown(ip, user=user, password=password, verify_ssl=verify_ssl)
+            return _with_ctx(power_graceful_shutdown(ip, user=user, password=password, verify_ssl=verify_ssl))
         if action == "graceful_restart":
-            return power_graceful_restart(ip, user=user, password=password, verify_ssl=verify_ssl)
+            return _with_ctx(power_graceful_restart(ip, user=user, password=password, verify_ssl=verify_ssl))
         if action == "nmi":
-            return power_nmi(ip, user=user, password=password, verify_ssl=verify_ssl)
+            return _with_ctx(power_nmi(ip, user=user, password=password, verify_ssl=verify_ssl))
         if action == "status":
             state, _ = power_status(ip, user=user, password=password, verify_ssl=verify_ssl)
-            return state is not None, (state or "unknown")
+            if state is not None:
+                return True, state
+            if debug:
+                return False, f"status unavailable [node={node_name} ip={ip} action={action} timeout={timeout}s]"
+            return False, "unknown"
         return False, f"unknown action: {action}"

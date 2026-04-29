@@ -70,7 +70,9 @@ NETWORKS = [
         ("PowerScale Storage Network #3", "psstg3"),
         ("PowerScale Storage Network #4", "psstg4"),
     ]),
-    ("Side Door", [("Side Door Network", "sdr")]),
+    ("Side Door", [("Side Door Network", "sdn")]),
+    ("Monitoring", [("Monitoring Network", "mon")]),
+    ("Border Leaf", [("Border Leaf Network", "bdr")]),
 ]
 
 
