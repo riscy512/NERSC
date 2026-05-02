@@ -67,6 +67,10 @@ SUBCOMMANDS
     nodes "On", another for nodes "Off").
     ACTION: on, off, status, reset, cycle, graceful_shutdown, graceful_restart,
             force_off, nmi
+    off and force_off both use Redfish ResetType ForceOff (immediate host power off).
+    reset uses Redfish ForceRestart; if the BMC returns success but the host does not
+    reboot, try cycle (PowerCycle) or graceful_restart. With -d/--debug, stderr shows
+    the POST URL, HTTP status, response body, and power state before and ~2s after.
 
   identify ACTION [NODE ...]
     Chassis identify/beacon LED via Redfish PATCH to

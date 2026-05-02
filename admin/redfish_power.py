@@ -16,6 +16,8 @@ import contextvars
 import json
 import os
 import ssl
+import sys
+import time
 import urllib.error
 import urllib.request
 from contextlib import contextmanager
@@ -62,9 +64,10 @@ def _redfish_request(
     body: Optional[dict[str, Any]] = None,
     verify_ssl: bool = True,
     timeout: Optional[int] = None,
-) -> tuple[int, dict[str, Any] | None]:
+) -> tuple[int, dict[str, Any] | None, dict[str, str]]:
     """
-    Perform an HTTP request to a Redfish endpoint. Returns (status_code, json_body or None).
+    Perform an HTTP request to a Redfish endpoint.
+    Returns (status_code, json_body or None, response_headers lower-cased keys).
     If timeout is None, uses the current thread's redfish_http_timeout_scope (default 30s).
     """
     t = timeout if timeout is not None else _http_timeout_ctx.get()
@@ -80,20 +83,23 @@ def _redfish_request(
     if not verify_ssl:
         ctx.check_hostname = False
         ctx.verify_mode = ssl.CERT_NONE
+    empty_hdrs: dict[str, str] = {}
     try:
         with urllib.request.urlopen(req, timeout=t, context=ctx) as resp:
             raw = resp.read().decode("utf-8")
-            return resp.status, json.loads(raw) if raw else None
+            rh = {k.lower(): v for k, v in resp.headers.items()}
+            return resp.status, json.loads(raw) if raw else None, rh
     except urllib.error.HTTPError as e:
         raw = e.read().decode("utf-8") if e.fp else ""
-        return e.code, (json.loads(raw) if raw.strip() else None)
+        rh = {k.lower(): v for k, v in e.headers.items()} if e.headers else empty_hdrs
+        return e.code, (json.loads(raw) if raw.strip() else None), rh
     except urllib.error.URLError as e:
         reason = getattr(e, "reason", e)
-        return -1, {"error": {"message": f"transport error ({method} {url}): {reason}"}}
+        return -1, {"error": {"message": f"transport error ({method} {url}): {reason}"}}, empty_hdrs
     except json.JSONDecodeError as e:
-        return -1, {"error": {"message": f"invalid JSON response ({method} {url}): {e}"}}
+        return -1, {"error": {"message": f"invalid JSON response ({method} {url}): {e}"}}, empty_hdrs
     except OSError as e:
-        return -1, {"error": {"message": f"os error ({method} {url}): {e}"}}
+        return -1, {"error": {"message": f"os error ({method} {url}): {e}"}}, empty_hdrs
 
 
 def _redfish_error_message(data: Any, status_code: int) -> str:
@@ -111,6 +117,31 @@ def _redfish_error_message(data: Any, status_code: int) -> str:
             if msg:
                 return msg
     return err.get("message") or str(status_code)
+
+
+def _reset_body_indicates_failure(data: Any) -> Optional[str]:
+    """
+    Some BMCs return HTTP 200/202 with a Redfish error object or Critical ExtendedInfo.
+    Treat those as failure even when the status code is success.
+    """
+    if not isinstance(data, dict) or not data:
+        return None
+    if "error" in data:
+        return _redfish_error_message(data, 200)
+    ext = data.get("@Message.ExtendedInfo")
+    if not isinstance(ext, list):
+        return None
+    msgs: list[str] = []
+    for item in ext:
+        if not isinstance(item, dict):
+            continue
+        sev = (item.get("Severity") or "").strip().lower()
+        if sev in ("critical", "error"):
+            m = item.get("Message") or item.get("MessageId") or sev
+            msgs.append(str(m))
+    if msgs:
+        return "; ".join(msgs)
+    return None
 
 
 def get_idrac_ip_for_node(cluster: dict[str, Any], node_name: str) -> Optional[str]:
@@ -138,19 +169,28 @@ def get_system_id(
     """
     base = f"https://{idrac_ip}"
     url = f"{base}/redfish/v1/Systems"
-    code, data = _redfish_request("GET", url, user=user, password=password, verify_ssl=verify_ssl)
+    code, data, _ = _redfish_request("GET", url, user=user, password=password, verify_ssl=verify_ssl)
     if code != 200 or not data:
         return DEFAULT_SYSTEM_ID
     members = data.get("Members", [])
     if not members:
         return DEFAULT_SYSTEM_ID
-    first = members[0]
-    ref = first.get("@odata.id", "")
-    if ref.startswith("/"):
-        ref = ref.split("/")[-1]
-    else:
-        ref = ref.split("/")[-1] if "/" in ref else first.get("Id", DEFAULT_SYSTEM_ID)
-    return ref or DEFAULT_SYSTEM_ID
+    ids: list[str] = []
+    for m in members:
+        if not isinstance(m, dict):
+            continue
+        ref = m.get("@odata.id", "")
+        if ref.startswith("/"):
+            sid = ref.split("/")[-1]
+        else:
+            sid = ref.split("/")[-1] if "/" in ref else str(m.get("Id", ""))
+        if sid:
+            ids.append(sid)
+    if not ids:
+        return DEFAULT_SYSTEM_ID
+    if DEFAULT_SYSTEM_ID in ids:
+        return DEFAULT_SYSTEM_ID
+    return ids[0]
 
 
 def power_status(
@@ -168,7 +208,7 @@ def power_status(
     system_id = system_id or get_system_id(idrac_ip, user=user, password=password, verify_ssl=verify_ssl)
     base = f"https://{idrac_ip}"
     url = f"{base}/redfish/v1/Systems/{system_id}"
-    code, data = _redfish_request("GET", url, user=user, password=password, verify_ssl=verify_ssl)
+    code, data, _ = _redfish_request("GET", url, user=user, password=password, verify_ssl=verify_ssl)
     if code != 200 or not data:
         return None, None
     return data.get("PowerState"), data
@@ -182,6 +222,7 @@ def reset(
     user: Optional[str] = None,
     password: Optional[str] = None,
     verify_ssl: bool = False,
+    debug_sink: Optional[list[str]] = None,
 ) -> tuple[bool, Optional[str]]:
     """
     Execute a Redfish ComputerSystem.Reset action.
@@ -192,14 +233,35 @@ def reset(
     system_id = system_id or get_system_id(idrac_ip, user=user, password=password, verify_ssl=verify_ssl)
     base = f"https://{idrac_ip}"
     url = f"{base}/redfish/v1/Systems/{system_id}/Actions/ComputerSystem.Reset"
-    code, data = _redfish_request(
+    code, data, headers = _redfish_request(
         "POST", url, body={"ResetType": reset_type},
         user=user, password=password, verify_ssl=verify_ssl,
     )
-    if code in (200, 204):
-        return True, None
-    msg = _redfish_error_message(data, code)
-    return False, msg
+
+    def _dbg(line: str) -> None:
+        if debug_sink is not None:
+            debug_sink.append(line)
+
+    _dbg(f"POST {url} ResetType={reset_type} system_id={system_id} -> HTTP {code}")
+    if data is not None:
+        try:
+            snippet = json.dumps(data, separators=(",", ":"))
+            if len(snippet) > 480:
+                snippet = snippet[:480] + "…"
+            _dbg(f"response JSON: {snippet}")
+        except (TypeError, ValueError):
+            _dbg("response JSON: <unserializable>")
+    loc = headers.get("location")
+    if loc:
+        _dbg(f"Location: {loc}")
+
+    if code not in (200, 202, 204):
+        msg = _redfish_error_message(data, code)
+        return False, msg
+    body_err = _reset_body_indicates_failure(data)
+    if body_err:
+        return False, body_err
+    return True, None
 
 
 def power_on(
@@ -209,9 +271,13 @@ def power_on(
     user: Optional[str] = None,
     password: Optional[str] = None,
     verify_ssl: bool = False,
+    debug_sink: Optional[list[str]] = None,
 ) -> tuple[bool, Optional[str]]:
     """Power on the system. Returns (success, error_message or None)."""
-    return reset(idrac_ip, RESET_ON, system_id=system_id, user=user, password=password, verify_ssl=verify_ssl)
+    return reset(
+        idrac_ip, RESET_ON,
+        system_id=system_id, user=user, password=password, verify_ssl=verify_ssl, debug_sink=debug_sink,
+    )
 
 
 def power_off(
@@ -221,9 +287,13 @@ def power_off(
     user: Optional[str] = None,
     password: Optional[str] = None,
     verify_ssl: bool = False,
+    debug_sink: Optional[list[str]] = None,
 ) -> tuple[bool, Optional[str]]:
-    """Power off the system (soft). Returns (success, error_message or None)."""
-    return reset(idrac_ip, RESET_OFF, system_id=system_id, user=user, password=password, verify_ssl=verify_ssl)
+    """Power off via ForceOff (matches typical iDRAC behavior; Off is often ineffective)."""
+    return reset(
+        idrac_ip, RESET_FORCE_OFF,
+        system_id=system_id, user=user, password=password, verify_ssl=verify_ssl, debug_sink=debug_sink,
+    )
 
 
 def power_force_off(
@@ -233,9 +303,13 @@ def power_force_off(
     user: Optional[str] = None,
     password: Optional[str] = None,
     verify_ssl: bool = False,
+    debug_sink: Optional[list[str]] = None,
 ) -> tuple[bool, Optional[str]]:
     """Force power off without graceful shutdown. Returns (success, error_message or None)."""
-    return reset(idrac_ip, RESET_FORCE_OFF, system_id=system_id, user=user, password=password, verify_ssl=verify_ssl)
+    return reset(
+        idrac_ip, RESET_FORCE_OFF,
+        system_id=system_id, user=user, password=password, verify_ssl=verify_ssl, debug_sink=debug_sink,
+    )
 
 
 def power_graceful_shutdown(
@@ -245,11 +319,12 @@ def power_graceful_shutdown(
     user: Optional[str] = None,
     password: Optional[str] = None,
     verify_ssl: bool = False,
+    debug_sink: Optional[list[str]] = None,
 ) -> tuple[bool, Optional[str]]:
     """Request graceful OS shutdown. Returns (success, error_message or None)."""
     return reset(
         idrac_ip, RESET_GRACEFUL_SHUTDOWN,
-        system_id=system_id, user=user, password=password, verify_ssl=verify_ssl,
+        system_id=system_id, user=user, password=password, verify_ssl=verify_ssl, debug_sink=debug_sink,
     )
 
 
@@ -260,11 +335,12 @@ def power_reset(
     user: Optional[str] = None,
     password: Optional[str] = None,
     verify_ssl: bool = False,
+    debug_sink: Optional[list[str]] = None,
 ) -> tuple[bool, Optional[str]]:
     """Force restart (reset) the system. Returns (success, error_message or None)."""
     return reset(
         idrac_ip, RESET_FORCE_RESTART,
-        system_id=system_id, user=user, password=password, verify_ssl=verify_ssl,
+        system_id=system_id, user=user, password=password, verify_ssl=verify_ssl, debug_sink=debug_sink,
     )
 
 
@@ -275,11 +351,12 @@ def power_cycle(
     user: Optional[str] = None,
     password: Optional[str] = None,
     verify_ssl: bool = False,
+    debug_sink: Optional[list[str]] = None,
 ) -> tuple[bool, Optional[str]]:
     """Power cycle (off then on). Returns (success, error_message or None)."""
     return reset(
         idrac_ip, RESET_POWER_CYCLE,
-        system_id=system_id, user=user, password=password, verify_ssl=verify_ssl,
+        system_id=system_id, user=user, password=password, verify_ssl=verify_ssl, debug_sink=debug_sink,
     )
 
 
@@ -290,11 +367,12 @@ def power_graceful_restart(
     user: Optional[str] = None,
     password: Optional[str] = None,
     verify_ssl: bool = False,
+    debug_sink: Optional[list[str]] = None,
 ) -> tuple[bool, Optional[str]]:
     """Graceful restart. Returns (success, error_message or None)."""
     return reset(
         idrac_ip, RESET_GRACEFUL_RESTART,
-        system_id=system_id, user=user, password=password, verify_ssl=verify_ssl,
+        system_id=system_id, user=user, password=password, verify_ssl=verify_ssl, debug_sink=debug_sink,
     )
 
 
@@ -305,9 +383,13 @@ def power_nmi(
     user: Optional[str] = None,
     password: Optional[str] = None,
     verify_ssl: bool = False,
+    debug_sink: Optional[list[str]] = None,
 ) -> tuple[bool, Optional[str]]:
     """Send NMI (Non-Maskable Interrupt). Returns (success, error_message or None)."""
-    return reset(idrac_ip, RESET_NMI, system_id=system_id, user=user, password=password, verify_ssl=verify_ssl)
+    return reset(
+        idrac_ip, RESET_NMI,
+        system_id=system_id, user=user, password=password, verify_ssl=verify_ssl, debug_sink=debug_sink,
+    )
 
 
 def run_for_node(
@@ -332,27 +414,43 @@ def run_for_node(
         if not ip:
             return False, "no iDrac IP for node"
         action = action.lower().strip()
+        sink: Optional[list[str]] = [] if debug and action != "status" else None
+        if sink is not None and action in ("reset", "cycle", "graceful_restart"):
+            st0, _ = power_status(ip, user=user, password=password, verify_ssl=verify_ssl)
+            sink.append(f"PowerState before: {st0}")
+
         def _with_ctx(res: tuple[bool, Optional[str]]) -> tuple[bool, Optional[str]]:
             ok, msg = res
             if not debug or ok:
                 return res
             return False, f"{msg or 'unknown'} [node={node_name} ip={ip} action={action} timeout={timeout}s]"
+
+        def _finish(res: tuple[bool, Optional[str]]) -> tuple[bool, Optional[str]]:
+            if sink is not None and action in ("reset", "cycle", "graceful_restart") and res[0]:
+                time.sleep(2)
+                st1, _ = power_status(ip, user=user, password=password, verify_ssl=verify_ssl)
+                sink.append(f"PowerState after ~2s: {st1}")
+            if sink is not None:
+                for line in sink:
+                    print(f"# {node_name}: {line}", file=sys.stderr)
+            return _with_ctx(res)
+
         if action == "on":
-            return _with_ctx(power_on(ip, user=user, password=password, verify_ssl=verify_ssl))
+            return _finish(power_on(ip, user=user, password=password, verify_ssl=verify_ssl, debug_sink=sink))
         if action == "off":
-            return _with_ctx(power_off(ip, user=user, password=password, verify_ssl=verify_ssl))
+            return _finish(power_off(ip, user=user, password=password, verify_ssl=verify_ssl, debug_sink=sink))
         if action == "force_off":
-            return _with_ctx(power_force_off(ip, user=user, password=password, verify_ssl=verify_ssl))
+            return _finish(power_force_off(ip, user=user, password=password, verify_ssl=verify_ssl, debug_sink=sink))
         if action == "reset":
-            return _with_ctx(power_reset(ip, user=user, password=password, verify_ssl=verify_ssl))
+            return _finish(power_reset(ip, user=user, password=password, verify_ssl=verify_ssl, debug_sink=sink))
         if action == "cycle":
-            return _with_ctx(power_cycle(ip, user=user, password=password, verify_ssl=verify_ssl))
+            return _finish(power_cycle(ip, user=user, password=password, verify_ssl=verify_ssl, debug_sink=sink))
         if action == "graceful_shutdown":
-            return _with_ctx(power_graceful_shutdown(ip, user=user, password=password, verify_ssl=verify_ssl))
+            return _finish(power_graceful_shutdown(ip, user=user, password=password, verify_ssl=verify_ssl, debug_sink=sink))
         if action == "graceful_restart":
-            return _with_ctx(power_graceful_restart(ip, user=user, password=password, verify_ssl=verify_ssl))
+            return _finish(power_graceful_restart(ip, user=user, password=password, verify_ssl=verify_ssl, debug_sink=sink))
         if action == "nmi":
-            return _with_ctx(power_nmi(ip, user=user, password=password, verify_ssl=verify_ssl))
+            return _finish(power_nmi(ip, user=user, password=password, verify_ssl=verify_ssl, debug_sink=sink))
         if action == "status":
             state, _ = power_status(ip, user=user, password=password, verify_ssl=verify_ssl)
             if state is not None:
