@@ -57,6 +57,7 @@ NETWORKS = [
     # InfiniBand: Public and Private sections; Private #1→ib0, #2→ib1, #3→ib2, #4→ib3
     ("InfiniBand Public", [
         ("InfiniBand (Public)", "ibpub"),
+        ("InfiniBand ib1 (Public)", "ibpub2"),
     ]),
     ("InfiniBand Private", [
         ("InfiniBand ib0 (Private)", "ib0"),
@@ -86,6 +87,22 @@ NETWORKS = [
     # Side Door: first = sdr
     ("Side Door", [
         ("Side Door Network", "sdr"),
+    ]),
+    # Monitoring: first = mon
+    ("Monitoring", [
+        ("Monitoring Network", "mon"),
+    ]),
+    # Border Leaf: first = bdr
+    ("Border Leaf", [
+        ("Border Leaf Network", "bdr"),
+    ]),
+    # Infrastructure: first = infra
+    ("Infrastructure", [
+        ("Infrastructure Network", "infra"),
+    ]),
+    # iSCSI: first = iscsi
+    ("iSCSI", [
+        ("iSCSI Network", "iscsi"),
     ]),
 ]
 
