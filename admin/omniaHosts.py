@@ -47,7 +47,10 @@ NETWORKS = [
         ("iDrac Network (iDrac)", "idrac"),
         ("iDrac Network (Local)", "idrac2"),
     ]),
-    ("InfiniBand Public", [("InfiniBand (Public)", "ibpub")]),
+    ("InfiniBand Public", [
+        ("InfiniBand (Public)", "ibpub"),
+        ("InfiniBand ib1 (Public)", "ibpub2"),
+    ]),
     ("InfiniBand Private", [
         ("InfiniBand ib0 (Private)", "ib0"),
         ("InfiniBand ib0 #2(Private)", "ib1"),
@@ -70,9 +73,11 @@ NETWORKS = [
         ("PowerScale Storage Network #3", "psstg3"),
         ("PowerScale Storage Network #4", "psstg4"),
     ]),
-    ("Side Door", [("Side Door Network", "sdn")]),
+    ("Side Door", [("Side Door Network", "sdr")]),
     ("Monitoring", [("Monitoring Network", "mon")]),
     ("Border Leaf", [("Border Leaf Network", "bdr")]),
+    ("Infrastructure", [("Infrastructure Network", "infra")]),
+    ("iSCSI", [("iSCSI Network", "iscsi")]),
 ]
 
 
@@ -253,6 +258,8 @@ def write_hosts(
         "# Primary line order: nodeName.domain, xName.domain, nodeName, xName, Notes.",
         "# Other lines: hostname.domain, hostname (e.g. node-eth1, node-ib0).",
         "#",
+        "# --- Loopback ---",
+        "",
         "127.0.0.1\tlocalhost\tlocalhost4\tlocalhost.localdomain\tlocalhost4.localdomain",
         "::1\tlocalhost\tlocalhost6\tlocalhost.localdomain\tlocalhost6.localdomain",
         "",
